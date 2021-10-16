@@ -24,11 +24,6 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Source.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
     <ClInclude Include="Button.h">
       <Filter>Файлы заголовков\UI</Filter>
     </ClInclude>
@@ -59,5 +54,10 @@
     <ClInclude Include="Atm.h">
       <Filter>Файлы заголовков\Backend</Filter>
     </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="main.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
