@@ -13,7 +13,7 @@ public:
 	virtual ~Controller() {}
 
 	virtual void handleEvent(const Event& event) = 0;
-	//virtual void drawView() = 0;
+
 	virtual bool isActive() = 0;
 	virtual void setActive(bool isActive) = 0;
 
