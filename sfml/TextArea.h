@@ -42,6 +42,7 @@ public:
 	void draw(sf::RenderTarget& target, sf::RenderStates states) const override
 	{
 		target.draw(button);
+		target.draw(text);
 	}
 
 	void setVisible(bool b) {

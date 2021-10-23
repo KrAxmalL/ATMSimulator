@@ -23,17 +23,16 @@ public:
         case Event::KeyPressed:
             if (Keyboard::isKeyPressed(sf::Keyboard::Return))
             {
-                //enterCardMenu.box->setSelected(true);
+                enterCardMenu.boxCardNum.setSelected(true);
             }
             else if (Keyboard::isKeyPressed(sf::Keyboard::Escape))
             {
-                //boxCardNum->setSelected(false);
-                
+                enterCardMenu.boxCardNum.setSelected(false);
             }
             break;
             
         case Event::TextEntered:
-            //boxCardNum->typedOn(event);
+            enterCardMenu.boxCardNum.typedOn(event);
             break;
         case Event::MouseMoved:
             mouseMoved(event);

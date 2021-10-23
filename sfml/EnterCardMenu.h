@@ -26,12 +26,21 @@ private:
 		areaCard.setFont(Assets::Instance().arial);
 		areaCard.setPosition({ 350,200 });
 		areaCard.setVisible(false);
+
+		boxCardNum = Textbox(25, Color::Black, true, Assets::Instance().textureBox);
+		boxCardNum.setFont(Assets::Instance().arial);
+		boxCardNum.setPosition({ 450,300 });
+		boxCardNum.setVisible(false);
+		boxCardNum.clear();
+		boxCardNum.setSecret(false);
+		boxCardNum.setlimit(true, 5);
 	}
 
 public:
 
 	Button btnOkCard;
 	TextArea areaCard;
+	Textbox boxCardNum;
 
 	EnterCardMenu(RenderWindow& par) : window(par) { init(); }
 
@@ -41,6 +50,7 @@ public:
 	{
 		target.draw(btnOkCard);
 		target.draw(areaCard);
+		target.draw(boxCardNum);
 	}
 
 private:
@@ -49,6 +59,7 @@ private:
 	{
 		btnOkCard.setVisible(isVisible);
 		areaCard.setVisible(isVisible);
+		boxCardNum.setVisible(isVisible);
 	}
 };
 

@@ -20,8 +20,19 @@ public:
     {
         switch (event.type)
         {
+        case Event::KeyPressed:
+            if (Keyboard::isKeyPressed(sf::Keyboard::Return))
+            {
+                enterPinMenu.boxCardNum.setSelected(true);
+            }
+            else if (Keyboard::isKeyPressed(sf::Keyboard::Escape))
+            {
+                enterPinMenu.boxCardNum.setSelected(false);
+
+            }
+            break;
         case Event::TextEntered:
-            //boxCardNum->typedOn(event);
+            enterPinMenu.boxCardNum.typedOn(event);
             break;
         case Event::MouseMoved:
             mouseMoved(event);

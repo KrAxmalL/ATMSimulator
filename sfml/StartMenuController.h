@@ -16,7 +16,7 @@ public:
     StartMenuController(RenderWindow& par, StartMenu& startMenu, EnterCardMenu& enterCardMenu) : window(window), startMenu(startMenu), enterCardMenu(enterCardMenu) {}
 	~StartMenuController() {}
 
-	virtual void handleEvent(const Event& event) override
+	void handleEvent(const Event& event) override
 	{
         switch (event.type)
         {
@@ -24,14 +24,12 @@ public:
             mouseMoved(event);
             break;
         case Event::MouseButtonPressed:
-            std::cout << "Mouse pressed!: " << std::endl;
             mouseButtonPressed(event);
             break;
         }
 	}
 
     void mouseMoved(const Event& event) {
-
         if (startMenu.btnStart.isMouseOver(event)) {
             startMenu.btnStart.setBackColor(Assets::Instance().Grey);
         }
@@ -45,8 +43,6 @@ public:
         if (startMenu.btnStart.isMouseOver(event)) {
             startMenu.setActive(false);
             enterCardMenu.setActive(true);
-            enterCardMenu.setVisible(true);
-            std::cout << "EnterCardMenu is active: " << enterCardMenu.isActive() << std::endl;
         }
     }
 

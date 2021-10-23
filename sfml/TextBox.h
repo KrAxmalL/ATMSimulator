@@ -3,12 +3,17 @@
 #include <SFML/Graphics.hpp> 
 #include <sstream> 
 
-#define DELETE_KEY 8 
-#define ENTER_KEY 13 
-#define ESCAPE_KEY 27 
+#define DELETE_KEY sf::Keyboard::Delete
+#define ENTER_KEY sf::Keyboard::Enter
+#define ESCAPE_KEY sf::Keyboard::Escape
+#define BACKSPACE_KEY sf::Keyboard::BackSpace
+
+constexpr int ZERO = 48;
+constexpr int NINE = 57;
 
 using namespace sf;
 
+//input bugs
 class Textbox: public Drawable {
 public:
 	Textbox() { }
@@ -22,12 +27,9 @@ public:
 		form.setFillColor(sf::Color::White);
 		setlimit(true, 5);
 		isSelected = sel;
-		if (sel) {
-			textbox.setString("_");
-		}
-		else {
-			textbox.setString("");
-		}
+		
+		text = "_";
+		textbox.setString(text);
 	}
 	void setFont(const sf::Font& font) {
 		textbox.setFont(font);
@@ -45,7 +47,7 @@ public:
 
 	void setlimit(bool ToF, int lim) {
 		hasLimit = ToF;
-		limit = lim - 1;
+		limit = lim;
 		form.setSize({ float(lim * 20), 50 });
 	}
 
@@ -56,12 +58,7 @@ public:
 	void setSelected(bool sel) {
 		isSelected = sel;
 		if (!sel) {
-			std::string t = text.str();;
-			std::string newT = "";
-			for (int i = 0; i < t.length(); i++) {
-				newT += t[i];
-			}
-			textbox.setString(newT);
+			removeLastChar();
 		}
 	}
 
@@ -78,21 +75,28 @@ public:
 	void draw(sf::RenderTarget& target, sf::RenderStates states) const override
 	{
 		target.draw(form);
+		target.draw(textbox);
 	}
 
 	void typedOn(const sf::Event& input) {
 		if (isSelected) {
+			std::cout << input.text.unicode << std::endl;
+			std::cout << DELETE_KEY << std::endl;
+			std::cout << BACKSPACE_KEY << std::endl;
 			int charTyped = input.text.unicode;
-			if (charTyped < 128) {
+			if (Keyboard::isKeyPressed(Keyboard::Backspace) || Keyboard::isKeyPressed(Keyboard::Delete)) {
+				std::cout << "pressed delete key or backspace key!" << std::endl;
+				removeLastChar();
+			}
+			else if (charTyped >= ZERO && charTyped <= NINE)
+			{
 				if (hasLimit) {
-					if (text.str().length() <= limit) {
+					if (text.length() <= limit + 1) {
 						inputLogic(charTyped);
 					}
-					else if (text.str().length() > limit && charTyped == DELETE_KEY) {
-						deletelastChar();
-					}
 				}
-				else {
+				else
+				{
 					inputLogic(charTyped);
 				}
 			}
@@ -100,10 +104,7 @@ public:
 	}
 
 	void clear() {
-		while (text.str().length() > 0) {
-			deletelastChar();
-		}
-		textbox.setString(text.str() + "_");
+		text.clear();
 	}
 
 private:
@@ -111,35 +112,61 @@ private:
 	sf::Vector2f position;
 	sf::Text textbox;
 	sf::RectangleShape form;
-	std::ostringstream text;
+	std::string text;
+	//todo add additional string if string is secret
 	bool isSelected = false;
 	bool hasLimit = false;
 	bool isSecret = false;
 	int limit;
 
 	void inputLogic(int charTyped) {
-		if (charTyped != DELETE_KEY && charTyped != ENTER_KEY && charTyped != ESCAPE_KEY) {
+		if (charTyped != DELETE_KEY && charTyped != ENTER_KEY && charTyped != ESCAPE_KEY && charTyped != BACKSPACE_KEY) {
 			if (isSecret) {
 				charTyped = '*';
 			}
-			text << static_cast<char>(charTyped);
+			appendChar(static_cast<char>(charTyped));
 		}
-		else if (charTyped == DELETE_KEY) {
-			if (text.str().length() > 0) {
-				deletelastChar();
+		else if (charTyped == DELETE_KEY || charTyped == BACKSPACE_KEY) {
+			removeLastChar();
+		}
+	}
+
+	void appendChar(char ch)
+	{
+		if (!isFinishedLine())
+		{
+			if (text.length() > 0)
+			{
+				text.pop_back();
+			}
+			text.push_back(ch);
+			if (text.length() < limit && hasLimit)
+			{
+				text.push_back('_');
 			}
 		}
-		textbox.setString(text.str() + "_");
+		textbox.setString(text);
 	}
-	
-	void deletelastChar() {
-		std::string t = text.str();
-		std::string newT = "";
-		for (int i = 0; i < t.length() - 1; i++) {
-			newT += t[i]; 
+
+	void removeLastChar()
+	{
+		bool needAdditionalSpace = !isFinishedLine();
+
+		if (text.length() > 0)
+		{
+			text.pop_back();
 		}
-		text.str("");
-		text << newT;
-		textbox.setString(text.str());
+		if (text.length() > 0 && needAdditionalSpace)
+		{
+			text.pop_back();
+		}
+
+		text.push_back('_');
+		textbox.setString(text);
+	}
+
+	bool isFinishedLine()
+	{
+		return hasLimit && (text.length() == limit) && (text.back() != '_');
 	}
 };
