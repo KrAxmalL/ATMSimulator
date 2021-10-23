@@ -7,11 +7,13 @@
 #define ENTER_KEY 13 
 #define ESCAPE_KEY 27 
 
-class Textbox {
+using namespace sf;
+
+class Textbox: public Drawable {
 public:
 	Textbox() { }
 
-	Textbox(int size, sf::Color color, bool sel,sf::Texture &texture) {
+	Textbox(int size, const sf::Color& color, bool sel, const sf::Texture &texture) {
 		
 		form.setTexture(&texture);
 
@@ -27,25 +29,30 @@ public:
 			textbox.setString("");
 		}
 	}
-	void setFont(sf::Font& font) {
+	void setFont(const sf::Font& font) {
 		textbox.setFont(font);
 	}
-	void setPosition(sf::Vector2f pos) {
+
+	void setPosition(const sf::Vector2f& pos) {
 		this->position = pos;
 		textbox.setPosition({ float(pos.x + 10) ,pos.y + 10});
 		form.setPosition(pos);
 	}
+
 	void setlimit(bool ToF) {
 		hasLimit = ToF;
 	} 
-	void setSecret(bool ToF) {
-		isSecret = ToF;
-	}
+
 	void setlimit(bool ToF, int lim) {
 		hasLimit = ToF;
 		limit = lim - 1;
 		form.setSize({ float(lim * 20), 50 });
 	}
+
+	void setSecret(bool ToF) {
+		isSecret = ToF;
+	}
+
 	void setSelected(bool sel) {
 		isSelected = sel;
 		if (!sel) {
@@ -57,6 +64,7 @@ public:
 			textbox.setString(newT);
 		}
 	}
+
 	void setVisible(bool b) {
 		if (b) {
 			setPosition(position);
@@ -66,11 +74,13 @@ public:
 			form.setPosition({ 3000,3000 });
 		}
 	}
-	void drawTo(sf::RenderWindow& window) {
-		window.draw(form);
-		window.draw(textbox);
+
+	void draw(sf::RenderTarget& target, sf::RenderStates states) const override
+	{
+		target.draw(form);
 	}
-	void typedOn(sf::Event input) {
+
+	void typedOn(const sf::Event& input) {
 		if (isSelected) {
 			int charTyped = input.text.unicode;
 			if (charTyped < 128) {
@@ -88,6 +98,7 @@ public:
 			}
 		}
 	}
+
 	void clear() {
 		while (text.str().length() > 0) {
 			deletelastChar();
@@ -96,6 +107,7 @@ public:
 	}
 
 private:
+
 	sf::Vector2f position;
 	sf::Text textbox;
 	sf::RectangleShape form;

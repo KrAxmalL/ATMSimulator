@@ -2,10 +2,14 @@
 #include <iostream> 
 #include <SFML/Graphics.hpp>
 
-class TextArea {
+using namespace sf;
+
+class TextArea: public Drawable {
 public:
+
 	TextArea() {}
-	TextArea(std::string t, sf::Vector2f size, int charSize, sf::Color bgColor, sf::Color textColor, sf::Texture& texture) {
+
+	TextArea(const std::string& t, const sf::Vector2f& size, int charSize, const sf::Color& bgColor, const sf::Color& textColor, const sf::Texture& texture) {
 		text.setString(t);
 		text.setFillColor(textColor);
 		text.setCharacterSize(charSize);
@@ -13,16 +17,20 @@ public:
 		button.setFillColor(bgColor);
 		button.setTexture(&texture);
 	}
-	void setFont(sf::Font& font) {
+
+	void setFont(const sf::Font& font) {
 		text.setFont(font);
 	}
-	void setBackColor(sf::Color ñolor) {
+
+	void setBackColor(const sf::Color& ñolor) {
 		button.setFillColor(ñolor);
 	}
-	void setTextColor(sf::Color color) {
+
+	void setTextColor(const sf::Color& color) {
 		text.setFillColor(color);
 	}
-	void setPosition(sf::Vector2f pos) {
+
+	void setPosition(const sf::Vector2f& pos) {
 		this->position = pos;
 		button.setPosition(pos);
 
@@ -30,10 +38,12 @@ public:
 		float yPos = (pos.y + button.getGlobalBounds().height / 2) - (text.getGlobalBounds().height / 2);
 		text.setPosition({ xPos, yPos });
 	}
-	void drawTo(sf::RenderWindow& window) {
-		window.draw(button);
-		window.draw(text);
+
+	void draw(sf::RenderTarget& target, sf::RenderStates states) const override
+	{
+		target.draw(button);
 	}
+
 	void setVisible(bool b) {
 		if (b) {
 			setPosition(position);
@@ -46,7 +56,8 @@ public:
 			text.setPosition({ xPos, yPos });
 		}
 	}
-	void setText(std::string t) {
+
+	void setText(const std::string& t) {
 		text.setString(t);
 	}
 

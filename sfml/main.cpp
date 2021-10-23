@@ -2,11 +2,17 @@
 #include "Button.h"
 #include "TextBox.h"
 #include "TextArea.h"
+#include "AtmManager.h"
+#include "Assets.h"
 using namespace sf;
-
 
 int main()
 {
+    Assets::Instance().load();
+    AtmManager manager{};
+    manager.start();
+    /*Controller controller(new Service(new Repository(5)));
+
     RenderWindow window(VideoMode(1000, 700), "SFML works!");
     window.setKeyRepeatEnabled(true);
     Texture textureFon;
@@ -191,6 +197,7 @@ int main()
                     btnOkCard.setVisible(true);
                     boxCardNum.setVisible(true);
                     areaCard.setVisible(true);
+
                 }
                 else if (btnOkCard.isMouseOver(window)) {
                     areaCard.setText("Input PIN number");
@@ -307,6 +314,8 @@ int main()
                     btnf8.setVisible(false);
 
                     //action for button func7
+                    std::cout << "Controller called: " << controller.getData() << '\n';
+
                 }
                 else if (btnf8.isMouseOver(window)) {
                     btnf1.setVisible(false);
@@ -340,7 +349,7 @@ int main()
         btnf7.drawTo(window);
         btnf8.drawTo(window);
         window.display();
-    }
+    }*/
 
     return 0;
 }

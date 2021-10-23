@@ -19,40 +19,109 @@
     <Filter Include="Файлы заголовков\Backend">
       <UniqueIdentifier>{c8a02947-5346-4e50-8e33-136cc2945c65}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Файлы заголовков\UI\Menus">
+      <UniqueIdentifier>{cae29a7a-b2d6-4f37-9414-b13deb482f25}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Файлы заголовков\UI\Components">
+      <UniqueIdentifier>{b346f951-6cef-495a-a381-dcac2416c510}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Файлы заголовков\UI\Interfaces">
+      <UniqueIdentifier>{eda9152f-a158-4b21-b921-4e61a898bf51}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Файлы заголовков\Backend\Models">
+      <UniqueIdentifier>{7e067b7b-d53c-44ff-9544-dc7d8b6951f0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Файлы заголовков\Backend\Controllers">
+      <UniqueIdentifier>{335e69e2-b931-45cf-a5d3-317f012dc142}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Файлы заголовков\Backend\Repositories">
+      <UniqueIdentifier>{fe8f5b4d-b58a-49a9-9fee-bbe32c80e31f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Файлы заголовков\Backend\Interfaces">
+      <UniqueIdentifier>{ab99768a-fcd5-4051-91f6-e2dbed92b355}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Файлы заголовков\Backend\Services">
+      <UniqueIdentifier>{18ab0234-61ca-4d94-bd7a-33f0d54ea524}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Button.h">
+    <ClInclude Include="AtmManager.h">
       <Filter>Файлы заголовков\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="Assets.h">
+      <Filter>Файлы заголовков\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="EnterCardMenu.h">
+      <Filter>Файлы заголовков\UI\Menus</Filter>
+    </ClInclude>
+    <ClInclude Include="EnterPinMenu.h">
+      <Filter>Файлы заголовков\UI\Menus</Filter>
+    </ClInclude>
+    <ClInclude Include="MainMenu.h">
+      <Filter>Файлы заголовков\UI\Menus</Filter>
     </ClInclude>
     <ClInclude Include="StartMenu.h">
-      <Filter>Файлы заголовков\UI</Filter>
-    </ClInclude>
-    <ClInclude Include="TextArea.h">
-      <Filter>Файлы заголовков\UI</Filter>
+      <Filter>Файлы заголовков\UI\Menus</Filter>
     </ClInclude>
     <ClInclude Include="TextBox.h">
-      <Filter>Файлы заголовков\UI</Filter>
+      <Filter>Файлы заголовков\UI\Components</Filter>
     </ClInclude>
-    <ClInclude Include="Customer.h">
-      <Filter>Файлы заголовков\Backend</Filter>
+    <ClInclude Include="TextArea.h">
+      <Filter>Файлы заголовков\UI\Components</Filter>
     </ClInclude>
-    <ClInclude Include="BankCard.h">
-      <Filter>Файлы заголовков\Backend</Filter>
+    <ClInclude Include="Button.h">
+      <Filter>Файлы заголовков\UI\Components</Filter>
     </ClInclude>
-    <ClInclude Include="Bankr.h">
-      <Filter>Файлы заголовков\Backend</Filter>
+    <ClInclude Include="Activatable.h">
+      <Filter>Файлы заголовков\UI\Interfaces</Filter>
     </ClInclude>
-    <ClInclude Include="Processing.h">
-      <Filter>Файлы заголовков\Backend</Filter>
+    <ClInclude Include="Visible.h">
+      <Filter>Файлы заголовков\UI\Interfaces</Filter>
     </ClInclude>
-    <ClInclude Include="Transaction.h">
-      <Filter>Файлы заголовков\Backend</Filter>
+    <ClInclude Include="Menu.h">
+      <Filter>Файлы заголовков\UI\Interfaces</Filter>
     </ClInclude>
     <ClInclude Include="Atm.h">
-      <Filter>Файлы заголовков\Backend</Filter>
+      <Filter>Файлы заголовков\Backend\Models</Filter>
+    </ClInclude>
+    <ClInclude Include="BankCard.h">
+      <Filter>Файлы заголовков\Backend\Models</Filter>
+    </ClInclude>
+    <ClInclude Include="Bankr.h">
+      <Filter>Файлы заголовков\Backend\Models</Filter>
+    </ClInclude>
+    <ClInclude Include="Customer.h">
+      <Filter>Файлы заголовков\Backend\Models</Filter>
+    </ClInclude>
+    <ClInclude Include="Processing.h">
+      <Filter>Файлы заголовков\Backend\Models</Filter>
+    </ClInclude>
+    <ClInclude Include="Transaction.h">
+      <Filter>Файлы заголовков\Backend\Models</Filter>
+    </ClInclude>
+    <ClInclude Include="Controller.h">
+      <Filter>Файлы заголовков\Backend\Interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="EnterPinController.h">
+      <Filter>Файлы заголовков\Backend\Controllers</Filter>
+    </ClInclude>
+    <ClInclude Include="EnterCardController.h">
+      <Filter>Файлы заголовков\Backend\Controllers</Filter>
+    </ClInclude>
+    <ClInclude Include="StartMenuController.h">
+      <Filter>Файлы заголовков\Backend\Controllers</Filter>
+    </ClInclude>
+    <ClInclude Include="MainMenuController.h">
+      <Filter>Файлы заголовков\Backend\Controllers</Filter>
+    </ClInclude>
+    <ClInclude Include="Service.h">
+      <Filter>Файлы заголовков\Backend\Services</Filter>
+    </ClInclude>
+    <ClInclude Include="Repository.h">
+      <Filter>Файлы заголовков\Backend\Repositories</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

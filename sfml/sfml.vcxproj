@@ -23,7 +23,7 @@
     <Keyword>Win32Proj</Keyword>
     <ProjectGuid>{09567a24-8bd1-43e2-aad4-d4df83a5ec36}</ProjectGuid>
     <RootNamespace>sfml</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.18362.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.19041.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -42,7 +42,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v142</PlatformToolset>
+    <PlatformToolset>v141</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
@@ -145,16 +145,31 @@
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Activatable.h" />
+    <ClInclude Include="Assets.h" />
     <ClInclude Include="Atm.h" />
+    <ClInclude Include="AtmManager.h" />
     <ClInclude Include="BankCard.h" />
     <ClInclude Include="Bankr.h" />
     <ClInclude Include="Button.h" />
+    <ClInclude Include="Controller.h" />
     <ClInclude Include="Customer.h" />
+    <ClInclude Include="EnterCardController.h" />
+    <ClInclude Include="EnterCardMenu.h" />
+    <ClInclude Include="EnterPinController.h" />
+    <ClInclude Include="EnterPinMenu.h" />
+    <ClInclude Include="MainMenu.h" />
+    <ClInclude Include="MainMenuController.h" />
+    <ClInclude Include="Menu.h" />
     <ClInclude Include="Processing.h" />
+    <ClInclude Include="Repository.h" />
+    <ClInclude Include="Service.h" />
     <ClInclude Include="StartMenu.h" />
+    <ClInclude Include="StartMenuController.h" />
     <ClInclude Include="TextArea.h" />
     <ClInclude Include="TextBox.h" />
     <ClInclude Include="Transaction.h" />
+    <ClInclude Include="Visible.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
