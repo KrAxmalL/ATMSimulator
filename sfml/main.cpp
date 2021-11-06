@@ -4,14 +4,62 @@
 #include "TextArea.h"
 #include "AtmManager.h"
 #include "Assets.h"
+
+#include <iostream>
+#include <stdio.h>
+
+#include "../../../../../../Users/dasha/Downloads/sqlite_materials/sqlite-amalgamation-3360000/sqlite3.h"
 using namespace sf;
+using namespace std;
+
+static int createDB(const char* s);
+static int createCustomerTable(const char* s);
+static int createBankCardTable(const char* s);
+static int createBankTable(const char* s);
+static int createTransactionTable(const char* s);
+static int createBankTable(const char* s);
+static int createProcessingTable(const char* s);
+static int createATMTable(const char* s);
+
+static int createATM(const char* s, string n);
+static int createBank(const char* s, string n);
+static int createCustomer(const char* s, string fN, string lN, string dB);
+static int createBankCard(const char* s, int numC, string cN, int pin, int ban, string dB, string exD, int customerId, int bankId);
+
+
+static int selectDataFromCustomer(const char* s);
+
+
+static int callback(void* NotUsed, int argc, char** argv, char** azColName);
+
 
 int main()
 {
+    const char* dir = R"(c:\\UniversityBd\\ATM.db)";
+
+    //createDB(dir);
+    //createCustomerTable(dir);
+    //createATMTable(dir);
+    //createBankTable(dir);
+    //createBankCardTable(dir);
+    //createTransactionTable(dir);
+    //createProcessingTable(dir);
+
+
+    //createCustomer(dir, "Lili", "Olyva", "2020-11-11");
+    //createBank(dir, "Credit Agricole Bank");
+    //createATM(dir, "Credit Agricole ATM");
+    createBankCard(dir, 11111, "Shopping card", 1111, 0, "-", "2022-02-02", 1, 1);
+
+    //selectDataFromCustomer(dir);
+
     Assets::Instance().load();
     AtmManager manager{};
     manager.start();
-    /*Controller controller(new Service(new Repository(5)));
+
+    /*
+    {
+        Controller controller(new Service(new Repository(5)));
 
     RenderWindow window(VideoMode(1000, 700), "SFML works!");
     window.setKeyRepeatEnabled(true);
@@ -37,7 +85,7 @@ int main()
     }
     Sprite background(textureFon);
     Color Grey(200, 200, 200);
-    
+
     Font arial;
     arial.loadFromFile("arial.ttf");
 
@@ -65,7 +113,7 @@ int main()
     btnOkPin.setPosition({ 450, 500 });
     btnOkPin.setFont(arial);
     btnOkPin.setVisible(false);
-   
+
     Button btnf1("func1", { 240,50 }, 25, Color::White, Color::Black, textureBox);
     btnf1.setPosition({ 250, 300 });
     btnf1.setFont(arial);
@@ -206,7 +254,7 @@ int main()
                     boxCardNum.setlimit(true, 4);
                     btnOkPin.setVisible(true);
                     btnOkCard.setVisible(false);
-                    
+
                 }
                 else if (btnOkPin.isMouseOver(window)) {
                     boxCardNum.setVisible(false);
@@ -218,7 +266,7 @@ int main()
                     btnf2.setVisible(true);
                     btnf3.setVisible(true);
                     btnf4.setVisible(true);
-                    
+
                     btnf5.setVisible(true);
                     btnf6.setVisible(true);
                     btnf7.setVisible(true);
@@ -349,7 +397,379 @@ int main()
         btnf7.drawTo(window);
         btnf8.drawTo(window);
         window.display();
+    }
     }*/
+
+    return 0;
+}
+
+
+static int createDB(const char* s)
+{
+    sqlite3* DB;
+
+    int exit = 0;
+    exit = sqlite3_open(s, &DB);
+
+    sqlite3_close(DB);
+
+    return 0;
+}
+
+static int createCustomerTable(const char* s)
+{
+    sqlite3* DB;
+    char* messageError;
+
+    string sql = "CREATE TABLE IF NOT EXISTS CUSTOMER("
+        "CUSTOMERID INTEGER PRIMARY KEY AUTOINCREMENT, "
+        "FIRSTNAME TEXT NOT NULL, "
+        "LASTNAME TEXT NOT NULL, "
+        "BIRTHDATE TEXT(10) NOT NULL);";
+
+    try
+    {
+        int exit = 0;
+        exit = sqlite3_open(s, &DB);
+        /* An open database, SQL to be evaluated, Callback function, 1st argument to callback, Error msg written here */
+        exit = sqlite3_exec(DB, sql.c_str(), NULL, 0, &messageError);
+        if (exit != SQLITE_OK) {
+            cerr << "Error in createTable 'Customer' function.\n";
+            sqlite3_free(messageError);
+        }
+        else
+            cout << "Table created 'Customer' Successfully\n";
+        sqlite3_close(DB);
+    }
+    catch (const exception& e)
+    {
+        cerr << e.what();
+    }
+
+    return 0;
+}
+
+static int createBankCardTable(const char* s)
+{
+    sqlite3* DB;
+    char* messageError;
+
+    string sql = "CREATE TABLE IF NOT EXISTS BANKCARD("
+        "CARDID INTEGER PRIMARY KEY, "
+        "CARDNAME TEXT NOT NULL, "
+        "CARDPIN INTEGER NOT NULL, "
+        "BLOCKED INTEGER NOT NULL, "
+        "BLOCKSTARTDATE TEXT(10) NULL, "
+        "EXPIREDATE TEXT(10) NOT NULL, "
+        "FK_CUSTOMERID INTEGER NOT NULL, "
+        "FK_BANKID INTEGER NOT NULL, "
+        "FOREIGN KEY(FK_CUSTOMERID) REFERENCES CUSTOMER(CUSTOMERID), "
+        "FOREIGN KEY(FK_BANKID) REFERENCES BANK(BANKID));";
+
+    try
+    {
+        int exit = 0;
+        exit = sqlite3_open(s, &DB);
+        /* An open database, SQL to be evaluated, Callback function, 1st argument to callback, Error msg written here */
+        exit = sqlite3_exec(DB, sql.c_str(), NULL, 0, &messageError);
+        if (exit != SQLITE_OK) {
+            cerr << "Error in createTable 'BancCard' function.\n";
+            sqlite3_free(messageError);
+        }
+        else
+            cout << "Table created 'BancCard' Successfully\n";
+        sqlite3_close(DB);
+    }
+    catch (const exception& e)
+    {
+        cerr << e.what();
+    }
+
+    return 0;
+}
+static int createBankTable(const char* s)
+{
+    sqlite3* DB;
+    char* messageError;
+
+    string sql = "CREATE TABLE IF NOT EXISTS BANK("
+        "BANKID INTEGER PRIMARY KEY AUTOINCREMENT, "
+        "BANKNAME TEXT(50) NOT NULL);";
+
+    try
+    {
+        int exit = 0;
+        exit = sqlite3_open(s, &DB);
+        /* An open database, SQL to be evaluated, Callback function, 1st argument to callback, Error msg written here */
+        exit = sqlite3_exec(DB, sql.c_str(), NULL, 0, &messageError);
+        if (exit != SQLITE_OK) {
+            cerr << "Error in createTable 'Bank' function.\n";
+            sqlite3_free(messageError);
+        }
+        else
+            cout << "Table 'Bank' created Successfully\n";
+        sqlite3_close(DB);
+    }
+    catch (const exception& e)
+    {
+        cerr << e.what();
+    }
+
+    return 0;
+}
+static int createTransactionTable(const char* s)
+{
+    sqlite3* DB;
+    char* messageError;
+
+    string sql = "CREATE TABLE IF NOT EXISTS CARDTRANSACTION("
+        "TRANSACTIONID INTEGER PRIMARY KEY AUTOINCREMENT, "
+        "DATEOFTRANSACTION TEXT(10) NOT NULL, "
+        "SUMCURRENCY REAL NOT NULL, "
+        "FK_CARDIDTO INTEGER NOT NULL, "
+        "FK_CARDIDFROM INTEGER NOT NULL, "
+        "FOREIGN KEY(FK_CARDIDTO) REFERENCES BANKCARD(BANKCARDID), "
+        "FOREIGN KEY(FK_CARDIDFROM) REFERENCES BANKCARD(BANKCARDID));";
+
+    try
+    {
+        int exit = 0;
+        exit = sqlite3_open(s, &DB);
+        /* An open database, SQL to be evaluated, Callback function, 1st argument to callback, Error msg written here */
+        exit = sqlite3_exec(DB, sql.c_str(), NULL, 0, &messageError);
+        if (exit != SQLITE_OK) {
+            cerr << "Error in createTable 'Transaction' function.\n";
+            sqlite3_free(messageError);
+        }
+        else
+            cout << "Table 'Transaction' created Successfully\n";
+        sqlite3_close(DB);
+    }
+    catch (const exception& e)
+    {
+        cerr << e.what();
+    }
+
+    return 0;
+}
+static int createProcessingTable(const char* s)
+{
+    sqlite3* DB;
+    char* messageError;
+
+    string sql = "CREATE TABLE IF NOT EXISTS PROCESSING("
+        "FK_BANKID INTEGER NOT NULL, "
+        "FK_ATMID INTEGER NOT NULL, "
+        "DATEOF TEXT(10) NOT NULL, "
+        "FOREIGN KEY(FK_BANKID) REFERENCES BANK(BANKCARDID), "
+        "FOREIGN KEY(FK_ATMID) REFERENCES ATM(ATMID));";
+
+    try
+    {
+        int exit = 0;
+        exit = sqlite3_open(s, &DB);
+        /* An open database, SQL to be evaluated, Callback function, 1st argument to callback, Error msg written here */
+        exit = sqlite3_exec(DB, sql.c_str(), NULL, 0, &messageError);
+        if (exit != SQLITE_OK) {
+            cerr << "Error in createTable 'Processing' function.\n";
+            sqlite3_free(messageError);
+        }
+        else
+            cout << "Table 'Processing' created Successfully\n";
+        sqlite3_close(DB);
+    }
+    catch (const exception& e)
+    {
+        cerr << e.what();
+    }
+
+    return 0;
+}
+static int createATMTable(const char* s)
+{
+    sqlite3* DB;
+    char* messageError;
+
+    string sql = "CREATE TABLE IF NOT EXISTS ATM("
+        "ATMID INTEGER PRIMARY KEY AUTOINCREMENT, "
+        "ATMNAME TEXT(50) NOT NULL);";
+
+    try
+    {
+        int exit = 0;
+        exit = sqlite3_open(s, &DB);
+        /* An open database, SQL to be evaluated, Callback function, 1st argument to callback, Error msg written here */
+        exit = sqlite3_exec(DB, sql.c_str(), NULL, 0, &messageError);
+        if (exit != SQLITE_OK) {
+            cerr << "Error in createTable 'ATM' function.\n";
+            sqlite3_free(messageError);
+        }
+        else
+            cout << "Table 'ATM' created Successfully\n";
+        sqlite3_close(DB);
+    }
+    catch (const exception& e)
+    {
+        cerr << e.what();
+    }
+
+    return 0;
+}
+
+
+static int createCustomer(const char* s, string fN, string lN, string dB)
+{
+    sqlite3* DB;
+    char* messageError;
+
+    std::string var = std::string("INSERT INTO CUSTOMER (FIRSTNAME, LASTNAME, BIRTHDATE) VALUES('") + fN + "','" + lN + "','" + dB + "');";
+
+    string sql(var);
+
+    int exit = sqlite3_open(s, &DB);
+    /* An open database, SQL to be evaluated, Callback function, 1st argument to callback, Error msg written here */
+    exit = sqlite3_exec(DB, sql.c_str(), NULL, 0, &messageError);
+    if (exit != SQLITE_OK) {
+        cerr << "Error in insertData To Customer function." << endl;
+        sqlite3_free(messageError);
+    }
+    else
+        cout << "Records inserted To Customer Successfully!" << endl;
+
+    return 0;
+}
+
+static int createATM(const char* s, string n)
+{
+    sqlite3* DB;
+    char* messageError;
+
+    std::string var = std::string("INSERT INTO ATM (ATMNAME) VALUES('") + n + "');";
+
+    string sql(var);
+
+    int exit = sqlite3_open(s, &DB);
+    /* An open database, SQL to be evaluated, Callback function, 1st argument to callback, Error msg written here */
+    exit = sqlite3_exec(DB, sql.c_str(), NULL, 0, &messageError);
+    if (exit != SQLITE_OK) {
+        cerr << "Error in insertData To ATM function." << endl;
+        sqlite3_free(messageError);
+    }
+    else
+        cout << "Records inserted To ATM Successfully!" << endl;
+
+    return 0;
+}
+
+static int createBank(const char* s, string n)
+{
+    sqlite3* DB;
+    char* messageError;
+
+    std::string var = std::string("INSERT INTO BANK (BANKNAME) VALUES('") + n + "');";
+
+    string sql(var);
+
+    int exit = sqlite3_open(s, &DB);
+    /* An open database, SQL to be evaluated, Callback function, 1st argument to callback, Error msg written here */
+    exit = sqlite3_exec(DB, sql.c_str(), NULL, 0, &messageError);
+    if (exit != SQLITE_OK) {
+        cerr << "Error in insertData To Bank function." << endl;
+        sqlite3_free(messageError);
+    }
+    else
+        cout << "Records inserted To Bank Successfully!" << endl;
+
+    return 0;
+}
+
+static int createBankCard(const char* s, int numC, string cN, int pin, int ban, string dB, string exD, int customerId, int bankId)
+{
+    sqlite3* DB;
+    char* messageError;
+
+    std::string var = 
+        std::string(
+            "INSERT INTO BANKCARD (CARDID, CARDNAME, CARDPIN, BLOCKED, BLOCKSTARTDATE, EXPIREDATE, FK_CUSTOMERID, FK_BANKID) VALUES(") 
+                        + to_string(numC) + ",'" 
+                        + cN + "'," 
+                        + to_string(pin) + "," 
+                        + to_string(ban) + ",'" 
+                        + dB + "','" 
+                        + exD + "'," 
+                        + to_string(customerId) + ", " 
+                        + to_string(bankId) + ");";
+
+    string sql(var);
+
+    int exit = sqlite3_open(s, &DB);
+    /* An open database, SQL to be evaluated, Callback function, 1st argument to callback, Error msg written here */
+    exit = sqlite3_exec(DB, sql.c_str(), NULL, 0, &messageError);
+    if (exit != SQLITE_OK) {
+        cerr << "Error in insertData To BankCard function." << endl;
+        sqlite3_free(messageError);
+    }
+    else
+        cout << "Records inserted To BankCard Successfully!" << endl;
+
+    return 0;
+}
+
+//static int createCustomer(const char* s, string fN, string lN, string dB)
+//{
+//    sqlite3* DB;
+//    char* messageError;
+//
+//    std::string var = std::string("INSERT INTO CUSTOMER (FIRSTNAME, LASTNAME, BIRTHDATE) VALUES('") + fN + "','" + lN + "','" + dB + "');";
+//
+//    string sql(var);
+//
+//    int exit = sqlite3_open(s, &DB);
+//    /* An open database, SQL to be evaluated, Callback function, 1st argument to callback, Error msg written here */
+//    exit = sqlite3_exec(DB, sql.c_str(), NULL, 0, &messageError);
+//    if (exit != SQLITE_OK) {
+//        cerr << "Error in insertData To Customer function." << endl;
+//        sqlite3_free(messageError);
+//    }
+//    else
+//        cout << "Records inserted To Customer Successfully!" << endl;
+//
+//    return 0;
+//}
+
+
+static int selectDataFromCustomer(const char* s)
+{
+    sqlite3* DB;
+    char* messageError;
+
+    string sql = "SELECT * FROM CUSTOMER;";
+
+    int exit = sqlite3_open(s, &DB);
+    /* An open database, SQL to be evaluated, Callback function, 1st argument to callback, Error msg written here*/
+    exit = sqlite3_exec(DB, sql.c_str(), callback, NULL, &messageError);
+
+    if (exit != SQLITE_OK) {
+        cerr << "Error in selectDataFromCustomer function." << endl;
+        sqlite3_free(messageError);
+    }
+    else
+        cout << "Records selected FROM CUSTOMER Successfully!" << endl;
+
+    return 0;
+}
+
+// retrieve contents of database used by selectData()
+/* argc: holds the number of results, argv: holds each value in array, azColName: holds each column returned in array, */
+static int callback(void* NotUsed, int argc, char** argv, char** azColName)
+{
+    for (int i = 0; i < argc; i++)
+    {
+        // column name and value
+        cout << azColName[i] << ": " << argv[i] << endl;
+    }
+
+    cout << endl;
 
     return 0;
 }
