@@ -37,7 +37,7 @@ int main()
 {
     const char* dir = R"(c:\\UniversityBd\\ATM.db)";
 
-   /* createDB(dir);
+    createDB(dir);
     createCustomerTable(dir);
     createATMTable(dir);
     createBankTable(dir);
@@ -48,7 +48,7 @@ int main()
     createCustomer(dir, "Lili", "Olyva", "2020-11-11");
     createBank(dir, "Credit Agricole Bank");
     createATM(dir, "Credit Agricole ATM");
-    createBankCard(dir, 11111, "Shopping card", 1111, 0, "-", "2022-02-02", 0.0, 1, 1);*/
+    createBankCard(dir, 11111, "Shopping card", 1111, 0, "-", "2022-02-02", 0.0, 1, 1);
 
     //selectDataFromCustomer(dir);
 
@@ -61,8 +61,30 @@ int main()
         cout << "No such card" << endl;
     }
 
+    /*BankCard toAdd;
+    toAdd.setId(55);
+    toAdd.setName("Prekol card");
+    toAdd.setBalance(666.666);
+    toAdd.setBlocked(true);
+    std::time_t t = std::time(0);   // get time now
+    tm* now = new tm({0});
+    localtime_s(now, &t);
+    now->tm_year += 1900;
+    now->tm_mon += 3;
+    tm nowLater(*now);
+    nowLater.tm_mon += 1;
+    toAdd.setBlockStartDate(*now);
+    toAdd.setExpireDay(nowLater);
+    toAdd.setPin(222);
+    toAdd.setUId(1);
+    toAdd.setBId(1);
+    cardRepository.addCard(toAdd);
+    delete now;*/
+
     Assets::Instance().load();
 
+    BankCard fromGet = cardRepository.getCard(11111);
+    cout << fromGet.getName() << endl;
 
     AtmManager manager{};
     manager.start();

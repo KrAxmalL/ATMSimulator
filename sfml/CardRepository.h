@@ -1,6 +1,9 @@
 #pragma once
 #include <cstdlib>
 #include <time.h>
+#include <string>
+
+#include "sqlite3.h"
 
 #include "BankCard.h"
 
@@ -80,6 +83,7 @@ private:
 		return 0;
 	}
 public:
+
 	CardRepository() {}
 
 	~CardRepository() {}
@@ -87,19 +91,55 @@ public:
 	bool cardExists(int cardNum)
 	{
 		BankCard resCard(-1);
-		string sql = "SELECT * FROM BANKCARD WHERE CARDID =" + to_string(cardNum) + ";";
+		string sql = "SELECT * FROM BANKCARD WHERE CARDID =" + std::to_string(cardNum) + ";";
 		executeStatement(sql, existsCallback, &resCard);
 		return resCard.getId() > -1;
 	}
 
 	void addCard(const BankCard& card)
 	{
-		//sql code
+		//expireDate is not written to db
+		tm startBlockDate = card.getBlockStartDate();
+		tm zeroDate = { 0 };
+		string startBlock("-");
+		if (startBlockDate.tm_year != 0)
+		{
+			startBlock = "" + to_string(startBlockDate.tm_year) + "-" + to_string(startBlockDate.tm_mon) + "-" + to_string(startBlockDate.tm_mday);
+		}
+
+		tm expireDay = card.getExpireDay();
+		string expire("-");
+		if (expireDay.tm_year != 0)
+		{
+			 expire = "" + to_string(expireDay.tm_year) + "-" + to_string(expireDay.tm_mon) + "-" + to_string(expireDay.tm_mday);
+		}
+
+		std::string sql =
+			std::string(
+				"INSERT INTO BANKCARD (CARDID, CARDNAME, CARDPIN, BLOCKED, BLOCKSTARTDATE, EXPIREDATE, CARDBALANCE, FK_CUSTOMERID, FK_BANKID) VALUES(")
+			+ to_string(card.getId()) + ",'"
+			+ card.getName() + "',"
+			+ to_string(card.getPin()) + ","
+			+ to_string(card.isBlocked()) + ",'"
+			+ startBlock + "','"
+			+ expire + "',"
+			+ to_string(card.getBalance()) + ", "
+			+ to_string(card.getUId()) + ", "
+			+ to_string(card.getBId()) + ");";
+
+		executeStatement(sql, NULL, NULL);
 	}
 
 	BankCard getCard(int cardNum)
 	{
-		//sql code
+		BankCard resCard(-1);
+		string sql = "SELECT * FROM BANKCARD WHERE CARDID =" + std::to_string(cardNum) + ";";
+		executeStatement(sql, existsCallback, &resCard);
+		if (resCard.getId() == -1)
+		{
+			//error
+		}
+		return resCard;
 	}
 
 	void updateCard(const BankCard& card)
