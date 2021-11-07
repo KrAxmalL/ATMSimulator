@@ -142,7 +142,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\..\..\..\Users\dasha\Downloads\sqlite_materials\sqlite-amalgamation-3360000\sqlite3.c" />
+    <ClCompile Include="..\..\..\..\..\Downloads\sqlite-amalgamation-3360000\sqlite3.c" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -150,6 +150,8 @@
     <ClInclude Include="Assets.h" />
     <ClInclude Include="Atm.h" />
     <ClInclude Include="AtmManager.h" />
+    <ClInclude Include="BalanceMenu.h" />
+    <ClInclude Include="BalanceMenuController.h" />
     <ClInclude Include="BankCard.h" />
     <ClInclude Include="Bankr.h" />
     <ClInclude Include="Button.h" />
@@ -163,6 +165,8 @@
     <ClInclude Include="MainMenuController.h" />
     <ClInclude Include="Menu.h" />
     <ClInclude Include="Processing.h" />
+    <ClInclude Include="PutCashMenu.h" />
+    <ClInclude Include="PutCashMenuController.h" />
     <ClInclude Include="Repository.h" />
     <ClInclude Include="Service.h" />
     <ClInclude Include="StartMenu.h" />

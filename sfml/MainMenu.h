@@ -15,6 +15,8 @@ class MainMenu : public Menu {
 
 private:
 
+    TextArea areaWelcome;
+
     Button btnf1;
     Button btnf2;
     Button btnf3;
@@ -30,7 +32,12 @@ private:
 
     void init()
     {
-        btnf1 = Button("func1", { 240,50 }, 25, Color::White, Color::Black, Assets::Instance().textureBox);
+        areaWelcome = TextArea("Welcome, _Cust_Name_!", { 400,50 }, 20, Color::White, Color::Black, Assets::Instance().textureLabel);
+        areaWelcome.setFont(Assets::Instance().arial);
+        areaWelcome.setPosition({ 300,150 });
+        areaWelcome.setVisible(false);
+
+        btnf1 = Button("Balance", { 240,50 }, 25, Color::White, Color::Black, Assets::Instance().textureBox);
         btnf1.setPosition({ 250, 300 });
         btnf1.setFont(Assets::Instance().arial);
         btnf1.setVisible(false);
@@ -40,7 +47,7 @@ private:
         btnf2.setFont(Assets::Instance().arial);
         btnf2.setVisible(false);
 
-        btnf3 = Button("func3", { 240,50 }, 25, Color::White, Color::Black, Assets::Instance().textureBox);
+        btnf3 = Button("Put Cash", { 240,50 }, 25, Color::White, Color::Black, Assets::Instance().textureBox);
         btnf3.setPosition({ 250, 370 });
         btnf3.setFont(Assets::Instance().arial);
         btnf3.setVisible(false);
@@ -79,7 +86,8 @@ public:
 
     ~MainMenu()
     {
-        /*delete btnf1;
+        /*delete areaWelcome;
+        delete btnf1;
         delete btnf2;
         delete btnf3;
         delete btnf4;
@@ -95,6 +103,7 @@ public:
         {
             target.draw(button);
         }
+        target.draw(areaWelcome);
     }
 
     std::vector<Button>& getButtons()
@@ -110,5 +119,6 @@ private:
         {
             button.setVisible(isVisible);
         }
+        areaWelcome.setVisible(isVisible);
     }
 };

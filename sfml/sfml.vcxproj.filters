@@ -123,12 +123,24 @@
     <ClInclude Include="Repository.h">
       <Filter>Файлы заголовков\Backend\Repositories</Filter>
     </ClInclude>
+    <ClInclude Include="BalanceMenu.h">
+      <Filter>Файлы заголовков\UI\Menus</Filter>
+    </ClInclude>
+    <ClInclude Include="BalanceMenuController.h">
+      <Filter>Файлы заголовков\Backend\Controllers</Filter>
+    </ClInclude>
+    <ClInclude Include="PutCashMenu.h">
+      <Filter>Файлы заголовков\UI\Menus</Filter>
+    </ClInclude>
+    <ClInclude Include="PutCashMenuController.h">
+      <Filter>Файлы заголовков\Backend\Controllers</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\Users\dasha\Downloads\sqlite_materials\sqlite-amalgamation-3360000\sqlite3.c">
+    <ClCompile Include="..\..\..\..\..\Downloads\sqlite-amalgamation-3360000\sqlite3.c">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
   </ItemGroup>

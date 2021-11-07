@@ -8,7 +8,10 @@
 #include <iostream>
 #include <stdio.h>
 
-#include "../../../../../../Users/dasha/Downloads/sqlite_materials/sqlite-amalgamation-3360000/sqlite3.h"
+//#include "../../../../../../Users/dasha/Downloads/sqlite_materials/sqlite-amalgamation-3360000/sqlite3.h"
+
+#include "../../../../../../Users/ÂÀÍß/Downloads/sqlite-amalgamation-3360000/sqlite3.h"
+
 using namespace sf;
 using namespace std;
 
@@ -35,7 +38,7 @@ static int callback(void* NotUsed, int argc, char** argv, char** azColName);
 
 int main()
 {
-    const char* dir = R"(c:\\UniversityBd\\ATM.db)";
+    const char* dir = R"(C:\\UniversityBd\\ATM.db)";
 
     //createDB(dir);
     //createCustomerTable(dir);
@@ -44,14 +47,14 @@ int main()
     //createBankCardTable(dir);
     //createTransactionTable(dir);
     //createProcessingTable(dir);
-
-
+    //
+    //
     //createCustomer(dir, "Lili", "Olyva", "2020-11-11");
     //createBank(dir, "Credit Agricole Bank");
     //createATM(dir, "Credit Agricole ATM");
-    createBankCard(dir, 11111, "Shopping card", 1111, 0, "-", "2022-02-02", 1, 1);
+    //createBankCard(dir, 11111, "Shopping card", 1111, 0, "-", "2022-02-02", 1, 1);
 
-    //selectDataFromCustomer(dir);
+    selectDataFromCustomer(dir);
 
     Assets::Instance().load();
     AtmManager manager{};

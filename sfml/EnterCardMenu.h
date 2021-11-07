@@ -17,8 +17,8 @@ private:
 
 	void init() 
 	{
-		btnOkCard = Button("Start", { 200,50 }, 20, Color::White, Color::Black, Assets::Instance().textureBox);
-		btnOkCard.setPosition({ 400, 350 });
+		btnOkCard = Button ("OK", { 100,50 }, 25, Color::White, Color::Black, Assets::Instance().textureBox);
+		btnOkCard.setPosition({ 450, 500 });
 		btnOkCard.setFont(Assets::Instance().arial);
 		btnOkCard.setVisible(false);
 

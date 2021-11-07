@@ -20,6 +20,10 @@ public:
 		button.setTexture(&texture);
 	}
 
+	sf::String getText() {
+		return text.getString();
+	}
+
 	void setFont(const sf::Font& font) {
 		text.setFont(font);
 	}
@@ -92,6 +96,8 @@ public:
 		
 		return false;
 	}
+
+
 
 	void draw(sf::RenderTarget& target, sf::RenderStates states) const override 
 	{

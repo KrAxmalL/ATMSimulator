@@ -5,6 +5,8 @@
 #include "TextArea.h"
 #include "Controller.h"
 #include "MainMenu.h"
+#include "BalanceMenu.h"
+#include "PutCashMenu.h"
 #include "StartMenu.h"
 #include "EnterCardMenu.h"
 #include "EnterPinMenu.h"
@@ -12,6 +14,8 @@
 #include "EnterCardController.h"
 #include "EnterPinController.h"
 #include "MainMenuController.h"
+#include "BalanceMenuController.h"
+#include "PutCashMenuController.h"
 #include "vector"
 
 using namespace sf;
@@ -23,6 +27,8 @@ private:
     RenderWindow* window;
 
     MainMenu mainMenu;
+    BalanceMenu balanceMenu;
+    PutCashMenu putCashMenu;
     StartMenu startMenu;
     EnterCardMenu enterCardMenu;
     EnterPinMenu enterPinMenu;
@@ -32,6 +38,8 @@ private:
     EnterCardController* enterCardController;
     EnterPinController* enterPinController;
     MainMenuController* mainMenuController;
+    BalanceMenuController* balanceMenuController;
+    PutCashMenuController* putCashMenuController;
     std::vector<Controller*> controllers;
 
 	void init() {
@@ -50,14 +58,20 @@ private:
 	}
 
 public: 
-    AtmManager(): window(new RenderWindow(VideoMode(1000, 700), "SFML works!")), mainMenu(*window), startMenu(*window), enterCardMenu(*window), enterPinMenu(*window),
+    AtmManager(): window(new RenderWindow(VideoMode(1000, 700), "SFML works!")), mainMenu(*window), 
+        startMenu(*window), 
+        balanceMenu(*window),
+        putCashMenu(*window),
+        enterCardMenu(*window), 
+        enterPinMenu(*window),
         startMenuController(new StartMenuController(*window, startMenu, enterCardMenu)),
         enterCardController(new EnterCardController(*window, enterCardMenu, enterPinMenu)),
         enterPinController(new EnterPinController(*window, enterPinMenu, mainMenu)),
-        mainMenuController(new MainMenuController(*window, mainMenu)),
-        menus{&startMenu, &enterCardMenu, &enterPinMenu, &mainMenu},
-        controllers{startMenuController, enterCardController, enterPinController, mainMenuController}
-
+        mainMenuController(new MainMenuController(*window, mainMenu, balanceMenu, putCashMenu)),
+        balanceMenuController(new BalanceMenuController(*window, mainMenu, balanceMenu)),
+        putCashMenuController(new PutCashMenuController(*window, mainMenu, putCashMenu)),
+        menus{&startMenu, &enterCardMenu, &enterPinMenu, &mainMenu, &balanceMenu, &putCashMenu },
+        controllers{startMenuController, enterCardController, enterPinController, mainMenuController, balanceMenuController, putCashMenuController }
     {
         init();
     }
@@ -68,6 +82,8 @@ public:
         delete enterCardController;
         delete enterPinController;
         delete mainMenuController;
+        delete balanceMenuController;
+        delete putCashMenuController;
         delete window;
     }
 
