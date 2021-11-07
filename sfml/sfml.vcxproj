@@ -153,6 +153,8 @@
     <ClInclude Include="BankCard.h" />
     <ClInclude Include="Bankr.h" />
     <ClInclude Include="Button.h" />
+    <ClInclude Include="CardRepository.h" />
+    <ClInclude Include="CardService.h" />
     <ClInclude Include="Controller.h" />
     <ClInclude Include="Customer.h" />
     <ClInclude Include="EnterCardController.h" />
@@ -163,8 +165,6 @@
     <ClInclude Include="MainMenuController.h" />
     <ClInclude Include="Menu.h" />
     <ClInclude Include="Processing.h" />
-    <ClInclude Include="Repository.h" />
-    <ClInclude Include="Service.h" />
     <ClInclude Include="sqlite3.h" />
     <ClInclude Include="sqlite3ext.h" />
     <ClInclude Include="StartMenu.h" />
@@ -172,6 +172,8 @@
     <ClInclude Include="TextArea.h" />
     <ClInclude Include="TextBox.h" />
     <ClInclude Include="Transaction.h" />
+    <ClInclude Include="TransactionRepository.h" />
+    <ClInclude Include="TransactionService.h" />
     <ClInclude Include="Visible.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

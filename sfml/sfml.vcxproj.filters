@@ -120,17 +120,23 @@
     <ClInclude Include="MainMenuController.h">
       <Filter>Файлы заголовков\Backend\Controllers</Filter>
     </ClInclude>
-    <ClInclude Include="Service.h">
-      <Filter>Файлы заголовков\Backend\Services</Filter>
-    </ClInclude>
-    <ClInclude Include="Repository.h">
-      <Filter>Файлы заголовков\Backend\Repositories</Filter>
-    </ClInclude>
     <ClInclude Include="sqlite3.h">
       <Filter>Файлы заголовков\Backend\sqlite</Filter>
     </ClInclude>
     <ClInclude Include="sqlite3ext.h">
       <Filter>Файлы заголовков\Backend\sqlite</Filter>
+    </ClInclude>
+    <ClInclude Include="CardService.h">
+      <Filter>Файлы заголовков\Backend\Services</Filter>
+    </ClInclude>
+    <ClInclude Include="TransactionService.h">
+      <Filter>Файлы заголовков\Backend\Services</Filter>
+    </ClInclude>
+    <ClInclude Include="CardRepository.h">
+      <Filter>Файлы заголовков\Backend\Repositories</Filter>
+    </ClInclude>
+    <ClInclude Include="TransactionRepository.h">
+      <Filter>Файлы заголовков\Backend\Repositories</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

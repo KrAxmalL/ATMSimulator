@@ -35,13 +35,13 @@ private:
     std::vector<Controller*> controllers;
 
 	void init() {
-       for (auto menu : menus)
+       for (auto& menu : menus)
        {
             menu->setVisible(true);
             menu->setActive(false);
        }
 
-       for (auto controller : controllers)
+       for (auto& controller : controllers)
        {
            controller -> setActive(false);
        }

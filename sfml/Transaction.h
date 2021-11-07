@@ -7,7 +7,7 @@ class Transaction {
 private:
 	int transactionId;
 	tm date;
-	unsigned sum;
+	double sum;
 	int cardFromId;
 	int cardToId;
 
@@ -18,8 +18,8 @@ public:
 	const tm& getTransactionDate() const { return date; };
 	void setTransactionDate(const tm& newDate) { date = newDate; };
 
-	unsigned getSum() const { return sum; }
-	void setSum(const unsigned newSum) { sum = newSum; };
+	double getSum() const { return sum; }
+	void setSum(const double newSum) { sum = newSum; };
 
 	int getCardFromId() const { return cardFromId; };
 	void setCardFromId(const int newCardFromId) { cardFromId = newCardFromId; };

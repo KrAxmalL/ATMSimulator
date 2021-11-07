@@ -27,9 +27,7 @@ static int createBank(const char* s, string n);
 static int createCustomer(const char* s, string fN, string lN, string dB);
 static int createBankCard(const char* s, int numC, string cN, int pin, int ban, string dB, string exD, int customerId, int bankId);
 
-
 static int selectDataFromCustomer(const char* s);
-
 
 static int callback(void* NotUsed, int argc, char** argv, char** azColName);
 
