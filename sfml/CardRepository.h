@@ -142,15 +142,19 @@ public:
 		return resCard;
 	}
 
-	void updateCard(const BankCard& card)
+	void updateCard(int cardNum, double addBalance)
 	{
-		//sql code
+		BankCard resCard(-1);
+		string sql = "UPDATE BANKCARD SET CARDBALANCE = " + to_string(addBalance) + " WHERE CARDID = " + to_string(cardNum) + "; ";
+		executeStatement(sql, existsCallback, &resCard);
 	}
 
-	void deleteCard(const BankCard& card)
-	{
-		//sql code
-	}
+	//void deleteCard(int cardNum)
+	//{
+	//	BankCard resCard(-1);
+	//	string sql = "DELETE FROM BANKCARD WHERE CARDID = " + to_string(cardNum) + ";";
+	//	executeStatement(sql, existsCallback, &resCard);
+	//}
 };
 
 const char* CardRepository::dir = R"(c:\\UniversityBd\\ATM.db)";

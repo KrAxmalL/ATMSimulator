@@ -37,7 +37,7 @@ int main()
 {
     const char* dir = R"(c:\\UniversityBd\\ATM.db)";
 
-    createDB(dir);
+    /*createDB(dir);
     createCustomerTable(dir);
     createATMTable(dir);
     createBankTable(dir);
@@ -48,7 +48,7 @@ int main()
     createCustomer(dir, "Lili", "Olyva", "2020-11-11");
     createBank(dir, "Credit Agricole Bank");
     createATM(dir, "Credit Agricole ATM");
-    createBankCard(dir, 11111, "Shopping card", 1111, 0, "-", "2022-02-02", 0.0, 1, 1);
+    createBankCard(dir, 11111, "Shopping card", 1111, 0, "-", "2022-02-02", 0.0, 1, 1);*/
 
     //selectDataFromCustomer(dir);
 
@@ -81,6 +81,8 @@ int main()
     cardRepository.addCard(toAdd);
     delete now;*/
 
+   //cardRepository.updateCard(11111, 13);
+    cardRepository.deleteCard(1111);
     Assets::Instance().load();
 
     BankCard fromGet = cardRepository.getCard(11111);

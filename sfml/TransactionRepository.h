@@ -73,7 +73,6 @@ public:
 
 	std::vector<Transaction> getTransactionsOf(int cardNum)
 	{
-		
 		//sql code for selecting all transactions of this card
 	}
 
