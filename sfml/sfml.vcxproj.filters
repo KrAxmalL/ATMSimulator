@@ -43,6 +43,9 @@
     <Filter Include="Файлы заголовков\Backend\Services">
       <UniqueIdentifier>{18ab0234-61ca-4d94-bd7a-33f0d54ea524}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Файлы заголовков\Backend\sqlite">
+      <UniqueIdentifier>{9c958bb3-b3eb-4490-b443-518eae4a47af}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -123,13 +126,19 @@
     <ClInclude Include="Repository.h">
       <Filter>Файлы заголовков\Backend\Repositories</Filter>
     </ClInclude>
+    <ClInclude Include="sqlite3.h">
+      <Filter>Файлы заголовков\Backend\sqlite</Filter>
+    </ClInclude>
+    <ClInclude Include="sqlite3ext.h">
+      <Filter>Файлы заголовков\Backend\sqlite</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\Users\dasha\Downloads\sqlite_materials\sqlite-amalgamation-3360000\sqlite3.c">
-      <Filter>Исходные файлы</Filter>
+    <ClCompile Include="sqlite3.c">
+      <Filter>Файлы заголовков\Backend\sqlite</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

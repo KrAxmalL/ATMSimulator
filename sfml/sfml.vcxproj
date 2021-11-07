@@ -142,8 +142,8 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\..\..\..\Users\dasha\Downloads\sqlite_materials\sqlite-amalgamation-3360000\sqlite3.c" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="sqlite3.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Activatable.h" />
@@ -165,6 +165,8 @@
     <ClInclude Include="Processing.h" />
     <ClInclude Include="Repository.h" />
     <ClInclude Include="Service.h" />
+    <ClInclude Include="sqlite3.h" />
+    <ClInclude Include="sqlite3ext.h" />
     <ClInclude Include="StartMenu.h" />
     <ClInclude Include="StartMenuController.h" />
     <ClInclude Include="TextArea.h" />

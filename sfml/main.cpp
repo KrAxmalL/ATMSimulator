@@ -8,7 +8,8 @@
 #include <iostream>
 #include <stdio.h>
 
-#include "../../../../../../Users/dasha/Downloads/sqlite_materials/sqlite-amalgamation-3360000/sqlite3.h"
+#include "sqlite3.h"
+
 using namespace sf;
 using namespace std;
 
@@ -37,18 +38,17 @@ int main()
 {
     const char* dir = R"(c:\\UniversityBd\\ATM.db)";
 
-    //createDB(dir);
-    //createCustomerTable(dir);
-    //createATMTable(dir);
-    //createBankTable(dir);
-    //createBankCardTable(dir);
-    //createTransactionTable(dir);
-    //createProcessingTable(dir);
+    createDB(dir);
+    createCustomerTable(dir);
+    createATMTable(dir);
+    createBankTable(dir);
+    createBankCardTable(dir);
+    createTransactionTable(dir);
+    createProcessingTable(dir);
 
-
-    //createCustomer(dir, "Lili", "Olyva", "2020-11-11");
-    //createBank(dir, "Credit Agricole Bank");
-    //createATM(dir, "Credit Agricole ATM");
+    createCustomer(dir, "Lili", "Olyva", "2020-11-11");
+    createBank(dir, "Credit Agricole Bank");
+    createATM(dir, "Credit Agricole ATM");
     createBankCard(dir, 11111, "Shopping card", 1111, 0, "-", "2022-02-02", 1, 1);
 
     //selectDataFromCustomer(dir);
