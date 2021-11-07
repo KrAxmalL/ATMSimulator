@@ -149,12 +149,12 @@ public:
 		executeStatement(sql, existsCallback, &resCard);
 	}
 
-	//void deleteCard(int cardNum)
-	//{
-	//	BankCard resCard(-1);
-	//	string sql = "DELETE FROM BANKCARD WHERE CARDID = " + to_string(cardNum) + ";";
-	//	executeStatement(sql, existsCallback, &resCard);
-	//}
+	void deleteCard(int cardNum)
+	{
+		BankCard resCard(-1);
+		string sql = "DELETE FROM BANKCARD WHERE CARDID = " + to_string(cardNum) + ";";
+		executeStatement(sql, existsCallback, &resCard);
+	}
 };
 
 const char* CardRepository::dir = R"(c:\\UniversityBd\\ATM.db)";
