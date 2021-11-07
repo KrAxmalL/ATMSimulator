@@ -36,6 +36,7 @@ static int selectDataFromCustomer(const char* s);
 static int callback(void* NotUsed, int argc, char** argv, char** azColName);
 // temp
 static tm tmFromString(const char* dateStr);
+static void tester();
 
 int main()
 {
@@ -60,37 +61,7 @@ int main()
 
     //selectDataFromCustomer(dir);
 
-    CardRepository cardRepository;
-    TransactionRepository transactionRepo;
-
-    const char* tm1 = "2020-02-10 22:44:02";
-    const char* tm2 = "2020-08-02 20:20:02";
-
-    transactionRepo.addTransaction(Transaction{ 0, tmFromString("2020-02-10 22:44:02"), 1000.0, 0, 1 });
-    transactionRepo.addTransaction(Transaction{ 0, tmFromString("2020-08-02 20:20:02"), 1000.0, 0, 1 });
-    
-
-    if (transactionRepo.transactionExists(37)) {
-        cout << "Exists" << endl;
-        Transaction t = transactionRepo.getTransaction(37);
-    
-        cout << t << endl;
-    }
-    else {
-        cout << "No such transaction" << endl;
-    }
-
-    vector<Transaction> trs = transactionRepo.getTransactionsOf(1);
-    for (Transaction t : trs) {
-        // cout << t << endl;
-    }
-
-    if (cardRepository.cardExists(11111)) {
-        cout << "Exists" << endl;
-    }
-    else {
-        cout << "No such card" << endl;
-    }
+   
 
     /*BankCard toAdd;
     toAdd.setId(55);
@@ -114,11 +85,8 @@ int main()
 
    //cardRepository.updateCard(11111, 13);
 
-    cardRepository.deleteCard(1111);
     Assets::Instance().load();
 
-    BankCard fromGet = cardRepository.getCard(11111);
-    cout << fromGet.getName() << endl;
 
     AtmManager manager{};
     manager.start();
@@ -885,4 +853,41 @@ static tm tmFromString(const char* dateStrConst)
     tmdate.tm_sec = atoi(&dateStr[17]);
 
     return tmdate;
+}
+
+static void tester() 
+{
+   
+    CardRepository cardRepository;
+    TransactionRepository transactionRepo;
+
+    transactionRepo.addTransaction(Transaction{ 0, tmFromString("2020-02-10 22:44:02"), 1000.0, 0, 1 });
+    transactionRepo.addTransaction(Transaction{ 0, tmFromString("2020-08-02 20:20:02"), 1000.0, 0, 1 });
+
+
+    if (transactionRepo.transactionExists(37)) {
+        cout << "Exists" << endl;
+        Transaction t = transactionRepo.getTransaction(37);
+
+        cout << t << endl;
+    }
+    else {
+        cout << "No such transaction" << endl;
+    }
+
+    vector<Transaction> trs = transactionRepo.getTransactionsOf(1);
+    for (Transaction t : trs) {
+         cout << t << endl;
+    }
+
+    if (cardRepository.cardExists(11111)) {
+        cout << "Exists" << endl;
+    }
+    else {
+        cout << "No such card" << endl;
+    }
+    cardRepository.deleteCard(1111);
+    
+    BankCard fromGet = cardRepository.getCard(11111);
+    cout << fromGet.getName() << endl;
 }
