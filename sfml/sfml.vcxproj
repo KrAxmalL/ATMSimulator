@@ -161,6 +161,8 @@
     <ClInclude Include="EnterCardMenu.h" />
     <ClInclude Include="EnterPinController.h" />
     <ClInclude Include="EnterPinMenu.h" />
+    <ClInclude Include="GetCashMenu.h" />
+    <ClInclude Include="GetCashMenuController.h" />
     <ClInclude Include="MainMenu.h" />
     <ClInclude Include="MainMenuController.h" />
     <ClInclude Include="Menu.h" />
@@ -174,6 +176,8 @@
     <ClInclude Include="TextArea.h" />
     <ClInclude Include="TextBox.h" />
     <ClInclude Include="Transaction.h" />
+    <ClInclude Include="TransferController.h" />
+    <ClInclude Include="TransferMenu.h" />
     <ClInclude Include="Visible.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

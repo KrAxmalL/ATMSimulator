@@ -42,7 +42,7 @@ private:
         btnf1.setFont(Assets::Instance().arial);
         btnf1.setVisible(false);
 
-        btnf2 = Button("func2", { 240,50 }, 25, Color::White, Color::Black, Assets::Instance().textureBox);
+        btnf2 = Button("Transfer", { 240,50 }, 25, Color::White, Color::Black, Assets::Instance().textureBox);
         btnf2.setPosition({ 510, 300 });
         btnf2.setFont(Assets::Instance().arial);
         btnf2.setVisible(false);
@@ -52,7 +52,7 @@ private:
         btnf3.setFont(Assets::Instance().arial);
         btnf3.setVisible(false);
 
-        btnf4 = Button("func4", { 240,50 }, 25, Color::White, Color::Black, Assets::Instance().textureBox);
+        btnf4 = Button("Get Cash", { 240,50 }, 25, Color::White, Color::Black, Assets::Instance().textureBox);
         btnf4.setPosition({ 510, 370 });
         btnf4.setFont(Assets::Instance().arial);
         btnf4.setVisible(false);

@@ -10,7 +10,7 @@
 
 //#include "../../../../../../Users/dasha/Downloads/sqlite_materials/sqlite-amalgamation-3360000/sqlite3.h"
 
-#include "../../../../../../Users/����/Downloads/sqlite-amalgamation-3360000/sqlite3.h"
+#include "../../../../../../Users/ВАНЯ/Downloads/sqlite-amalgamation-3360000/sqlite3.h"
 
 using namespace sf;
 using namespace std;
@@ -52,7 +52,7 @@ int main()
     //createCustomer(dir, "Lili", "Olyva", "2020-11-11");
     //createBank(dir, "Credit Agricole Bank");
     //createATM(dir, "Credit Agricole ATM");
-    createBankCard(dir, 11111, "Shopping card", 1111, 0, "-", "2022-02-02", 1, 1);
+    createBankCard(dir, 11111, "Shopping card", 1111, 0, "-", "2022-02-02",100, 1, 1);
 
     selectDataFromCustomer(dir);
 

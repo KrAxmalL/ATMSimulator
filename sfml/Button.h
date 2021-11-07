@@ -40,7 +40,7 @@ public:
 		this->position = pos;
 		button.setPosition(pos);
 
-		float xPos = (pos.x + button.getGlobalBounds().width / 3) - (text.getGlobalBounds().width / 2);
+		float xPos = (pos.x + button.getGlobalBounds().width / 2.1) - (text.getGlobalBounds().width / 2);
 		float yPos = (pos.y + button.getGlobalBounds().height / 3) - (text.getGlobalBounds().height / 2);
 		text.setPosition({ xPos, yPos });
 	}

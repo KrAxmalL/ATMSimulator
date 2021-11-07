@@ -3,6 +3,8 @@
 #include "MainMenu.h"
 #include "BalanceMenu.h"
 #include "PutCashMenu.h"
+#include "GetCashMenu.h"
+#include "TransferMenu.h"
 #include <vector>
 
 class MainMenuController : public Controller
@@ -13,13 +15,17 @@ private:
     MainMenu& mainMenu;
     BalanceMenu& balanceMenu;
     PutCashMenu& putCashMenu;
+    GetCashMenu& getCashMenu;
+    TransferMenu& transferMenu;
 
 public:
 
-    MainMenuController(RenderWindow& par, MainMenu& mainMenu, BalanceMenu& balanceMenu, PutCashMenu& putCashMenu)
+    MainMenuController(RenderWindow& par, MainMenu& mainMenu, BalanceMenu& balanceMenu, PutCashMenu& putCashMenu, GetCashMenu& getCashMenu, TransferMenu& transferMenu)
         : mainMenu(mainMenu) 
         , balanceMenu(balanceMenu)
-        , putCashMenu(putCashMenu) {}
+        , putCashMenu(putCashMenu)
+        , getCashMenu(getCashMenu)
+        , transferMenu(transferMenu) {}
     ~MainMenuController() {}
 
     virtual void handleEvent(const Event& event) override
@@ -57,9 +63,17 @@ public:
             mainMenu.setActive(false);
             balanceMenu.setActive(true);
         }
+        if (mainMenu.getButtons()[1].isMouseOver(event)) {
+            mainMenu.setActive(false);
+            transferMenu.setActive(true);
+        }
         if (mainMenu.getButtons()[2].isMouseOver(event)) {
             mainMenu.setActive(false);
             putCashMenu.setActive(true);
+        }
+        if (mainMenu.getButtons()[3].isMouseOver(event)) {
+            mainMenu.setActive(false);
+            getCashMenu.setActive(true);
         }
     }
 
