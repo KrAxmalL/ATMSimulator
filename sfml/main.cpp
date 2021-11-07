@@ -61,6 +61,9 @@ int main()
         cout << "No such card" << endl;
     }
 
+    //cardRepository.updateCard(11111, 13);
+    cardRepository.deleteCard(1111);
+
     Assets::Instance().load();
 
 
