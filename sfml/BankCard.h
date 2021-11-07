@@ -8,13 +8,26 @@ private:
 	int id;
 	string name;
 	int pin;
+	bool blocked = false;
+	tm blockStartDate;
+	tm expireDate;
+	double balance;
 	int userId;
 	int bankId;
-	double balance;
-	bool blocked = false;
-	tm* blockStartDate = nullptr;
-	tm expireDate;
 public:
+
+	BankCard() {}
+	BankCard(string _name) : name(_name) {}
+	BankCard(int _id): id(_id) {}
+
+	BankCard(int _id, string _name, int _pin, bool _blocked, tm& _blockStartDate, 
+		tm& _expireDate, double _balance, int _userId, int _bankId) :
+		id(_id), name(_name), pin(_pin), blocked(_blocked), blockStartDate(_blockStartDate),
+		expireDate(_expireDate), balance(_balance), userId(_userId), bankId(_bankId)
+	{
+
+	}
+
 	const int& getId() const { return id; }
 	void setId(int newId) { id = newId; }
 
@@ -35,11 +48,12 @@ public:
 
 	const bool& isBlocked() const { return blocked; }
 	void changeBlocking() { blocked = !blocked; }
+	void setBlocked(bool _blocked) { blocked = _blocked; }
 
-	const tm& getBlockStartDate() const { return *blockStartDate; }
-	void setBlockStartDate(const tm& date) { *blockStartDate = date; }
+	const tm& getBlockStartDate() const { return blockStartDate; }
+	void setBlockStartDate(const tm& date) { blockStartDate = date; }
 
 	const tm& getExpireDay() const { return expireDate; }
-	void getExpireDay(const tm& newExDAy) { expireDate = newExDAy; }
+	void setExpireDay(const tm& newExDAy) { expireDate = newExDAy; }
 
 };

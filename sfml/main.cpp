@@ -9,6 +9,7 @@
 #include <stdio.h>
 
 #include "sqlite3.h"
+#include "TransactionRepository.h"
 
 using namespace sf;
 using namespace std;
@@ -25,7 +26,7 @@ static int createATMTable(const char* s);
 static int createATM(const char* s, string n);
 static int createBank(const char* s, string n);
 static int createCustomer(const char* s, string fN, string lN, string dB);
-static int createBankCard(const char* s, int numC, string cN, int pin, int ban, string dB, string exD, int customerId, int bankId);
+static int createBankCard(const char* s, int numC, string cN, int pin, int ban, string dB, string exD, double bal, int customerId, int bankId);
 
 static int selectDataFromCustomer(const char* s);
 
@@ -36,7 +37,7 @@ int main()
 {
     const char* dir = R"(c:\\UniversityBd\\ATM.db)";
 
-    createDB(dir);
+   /* createDB(dir);
     createCustomerTable(dir);
     createATMTable(dir);
     createBankTable(dir);
@@ -47,11 +48,22 @@ int main()
     createCustomer(dir, "Lili", "Olyva", "2020-11-11");
     createBank(dir, "Credit Agricole Bank");
     createATM(dir, "Credit Agricole ATM");
-    createBankCard(dir, 11111, "Shopping card", 1111, 0, "-", "2022-02-02", 1, 1);
+    createBankCard(dir, 11111, "Shopping card", 1111, 0, "-", "2022-02-02", 0.0, 1, 1);*/
 
     //selectDataFromCustomer(dir);
 
+    CardRepository cardRepository;
+
+    if (cardRepository.cardExists(11111)) {
+        cout << "Exists" << endl;
+    }
+    else {
+        cout << "No such card" << endl;
+    }
+
     Assets::Instance().load();
+
+
     AtmManager manager{};
     manager.start();
 
@@ -459,6 +471,7 @@ static int createBankCardTable(const char* s)
         "BLOCKED INTEGER NOT NULL, "
         "BLOCKSTARTDATE TEXT(10) NULL, "
         "EXPIREDATE TEXT(10) NOT NULL, "
+        "CARDBALANCE REAL NOT NULL, "
         "FK_CUSTOMERID INTEGER NOT NULL, "
         "FK_BANKID INTEGER NOT NULL, "
         "FOREIGN KEY(FK_CUSTOMERID) REFERENCES CUSTOMER(CUSTOMERID), "
@@ -681,22 +694,23 @@ static int createBank(const char* s, string n)
     return 0;
 }
 
-static int createBankCard(const char* s, int numC, string cN, int pin, int ban, string dB, string exD, int customerId, int bankId)
+static int createBankCard(const char* s, int numC, string cN, int pin, int ban, string dB, string exD, double bal, int customerId, int bankId)
 {
     sqlite3* DB;
     char* messageError;
 
-    std::string var = 
+    std::string var =
         std::string(
-            "INSERT INTO BANKCARD (CARDID, CARDNAME, CARDPIN, BLOCKED, BLOCKSTARTDATE, EXPIREDATE, FK_CUSTOMERID, FK_BANKID) VALUES(") 
-                        + to_string(numC) + ",'" 
-                        + cN + "'," 
-                        + to_string(pin) + "," 
-                        + to_string(ban) + ",'" 
-                        + dB + "','" 
-                        + exD + "'," 
-                        + to_string(customerId) + ", " 
-                        + to_string(bankId) + ");";
+            "INSERT INTO BANKCARD (CARDID, CARDNAME, CARDPIN, BLOCKED, BLOCKSTARTDATE, EXPIREDATE, CARDBALANCE, FK_CUSTOMERID, FK_BANKID) VALUES(")
+        + to_string(numC) + ",'"
+        + cN + "',"
+        + to_string(pin) + ","
+        + to_string(ban) + ",'"
+        + dB + "','"
+        + exD + "',"
+        + to_string(bal) + ", "
+        + to_string(customerId) + ", "
+        + to_string(bankId) + ");";
 
     string sql(var);
 

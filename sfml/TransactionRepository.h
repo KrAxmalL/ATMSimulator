@@ -1,5 +1,8 @@
 #pragma once
 #include <vector>
+#include <string>
+
+#include "sqlite3.h"
 
 #include "Transaction.h"
 #include "BankCard.h"
@@ -12,14 +15,50 @@ private:
 
 	CardRepository cardRepository;
 
+	static const char* dir;
+
+	static void executeStatement(const string& sql, int(*callback)(void*, int, char**, char**))
+	{
+		sqlite3* DB;
+		char* messageError;
+
+		try
+		{
+			int exit = 0;
+			exit = sqlite3_open(dir, &DB);
+			/* An open database, SQL to be evaluated, Callback function, 1st argument to callback, Error msg written here */
+			exit = sqlite3_exec(DB, sql.c_str(), callback, 0, &messageError);
+			if (exit != SQLITE_OK) {
+				cerr << "Error in createTable 'Customer' function.\n";
+				sqlite3_free(messageError);
+			}
+			else
+				cout << "Table created 'Customer' Successfully\n";
+			sqlite3_close(DB);
+		}
+		catch (const exception& e)
+		{
+			cerr << e.what();
+		}
+	}
+
+	static int existsCallback(void* NotUsed, int argc, char** argv, char** azColName)
+	{
+		
+		return 0;
+	}
+
 public:
-	explicit TransactionRepository(): cardRepository() {}
+	explicit TransactionRepository(): cardRepository() 
+	{
+		
+	}
 
 	~TransactionRepository() {}
 
 	bool transactionExists(int transactionId)
 	{
-
+		
 	}
 
 	void addTransaction(const Transaction& transaction)
@@ -49,3 +88,5 @@ public:
 	}
 };
 
+
+const char* TransactionRepository::dir = R"(c:\\UniversityBd\\ATM.db)";
