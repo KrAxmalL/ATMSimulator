@@ -1,3 +1,5 @@
+#define _CRT_SECURE_NO_WARNINGS
+
 #include <SFML/Graphics.hpp>
 #include "Button.h"
 #include "TextBox.h"
@@ -27,11 +29,14 @@ static int createATM(const char* s, string n);
 static int createBank(const char* s, string n);
 static int createCustomer(const char* s, string fN, string lN, string dB);
 static int createBankCard(const char* s, int numC, string cN, int pin, int ban, string dB, string exD, double bal, int customerId, int bankId);
+static int createBankTransaction(const char* s, string transactionDate, double sum, int cardFrom, int cardTo);
 
 static int selectDataFromCustomer(const char* s);
 
 static int callback(void* NotUsed, int argc, char** argv, char** azColName);
-
+// temp
+static tm tmFromString(const char* dateStr);
+static void tester();
 
 int main()
 {
@@ -50,16 +55,13 @@ int main()
     createATM(dir, "Credit Agricole ATM");
     createBankCard(dir, 11111, "Shopping card", 1111, 0, "-", "2022-02-02", 0.0, 1, 1);*/
 
+    /*createBankCard(dir, 10000, "Second shopping card ", 1111, 0, "-", "2022-02-02", 100.0, 1, 1);
+    createBankTransaction(dir, "2021-02-02", 2020.0, 0, 1);
+    createBankTransaction(dir, "2021-02-05", 2030.0, 0, 1);*/
+
     //selectDataFromCustomer(dir);
 
-    CardRepository cardRepository;
-
-    if (cardRepository.cardExists(11111)) {
-        cout << "Exists" << endl;
-    }
-    else {
-        cout << "No such card" << endl;
-    }
+   
 
     /*BankCard toAdd;
     toAdd.setId(55);
@@ -83,11 +85,8 @@ int main()
 
    //cardRepository.updateCard(11111, 13);
 
-    cardRepository.deleteCard(1111);
     Assets::Instance().load();
 
-    BankCard fromGet = cardRepository.getCard(11111);
-    cout << fromGet.getName() << endl;
 
     AtmManager manager{};
     manager.start();
@@ -409,6 +408,32 @@ static int createBankCard(const char* s, int numC, string cN, int pin, int ban, 
     return 0;
 }
 
+static int createBankTransaction(const char* s, string transactionDate, double sum, int cardFrom, int cardTo)
+{
+    sqlite3* DB;
+    char* messageError;
+
+    std::string var = std::string("INSERT INTO CARDTRANSACTION (DATEOFTRANSACTION, SUMCURRENCY, FK_CARDIDTO, FK_CARDIDFROM) VALUES('") + 
+        transactionDate + "'," + 
+        to_string(sum) + "," + 
+        to_string(cardTo) + "," + 
+        to_string(cardFrom) + ");";
+
+    string sql(var);
+
+    int exit = sqlite3_open(s, &DB);
+    /* An open database, SQL to be evaluated, Callback function, 1st argument to callback, Error msg written here */
+    exit = sqlite3_exec(DB, sql.c_str(), NULL, 0, &messageError);
+    if (exit != SQLITE_OK) {
+        cerr << "Error in insertData To Customer function." << endl;
+        sqlite3_free(messageError);
+    }
+    else
+        cout << "Records inserted To Customer Successfully!" << endl;
+
+    return 0;
+}
+
 //static int createCustomer(const char* s, string fN, string lN, string dB)
 //{
 //    sqlite3* DB;
@@ -466,4 +491,60 @@ static int callback(void* NotUsed, int argc, char** argv, char** azColName)
     cout << endl;
 
     return 0;
+}
+
+static tm tmFromString(const char* dateStrConst) 
+{
+
+    char* dateStr = new char[20];
+    strcpy(dateStr, dateStrConst);
+
+    dateStr[4] = dateStr[7] = dateStr[10] = dateStr[13] = dateStr[16] = '\0';
+    
+    struct tm tmdate = { 0 };
+    tmdate.tm_year = atoi(&dateStr[0]) - 1900;
+    tmdate.tm_mon = atoi(&dateStr[5]) - 1;
+    tmdate.tm_mday = atoi(&dateStr[8]);
+    tmdate.tm_hour = atoi(&dateStr[11]) - 1;
+    tmdate.tm_min = atoi(&dateStr[14]);
+    tmdate.tm_sec = atoi(&dateStr[17]);
+
+    return tmdate;
+}
+
+static void tester() 
+{
+   
+    CardRepository cardRepository;
+    TransactionRepository transactionRepo;
+
+    transactionRepo.addTransaction(Transaction{ 0, tmFromString("2020-02-10 22:44:02"), 1000.0, 0, 1 });
+    transactionRepo.addTransaction(Transaction{ 0, tmFromString("2020-08-02 20:20:02"), 1000.0, 0, 1 });
+
+
+    if (transactionRepo.transactionExists(37)) {
+        cout << "Exists" << endl;
+        Transaction t = transactionRepo.getTransaction(37);
+
+        cout << t << endl;
+    }
+    else {
+        cout << "No such transaction" << endl;
+    }
+
+    vector<Transaction> trs = transactionRepo.getTransactionsOf(1);
+    for (Transaction t : trs) {
+         cout << t << endl;
+    }
+
+    if (cardRepository.cardExists(11111)) {
+        cout << "Exists" << endl;
+    }
+    else {
+        cout << "No such card" << endl;
+    }
+    cardRepository.deleteCard(1111);
+    
+    BankCard fromGet = cardRepository.getCard(11111);
+    cout << fromGet.getName() << endl;
 }
