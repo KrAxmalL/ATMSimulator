@@ -28,7 +28,6 @@ public:
             else if (Keyboard::isKeyPressed(sf::Keyboard::Escape))
             {
                 enterPinMenu.boxCardNum.setSelected(false);
-
             }
             break;
         case Event::TextEntered:

@@ -20,6 +20,10 @@ public:
 		button.setTexture(&texture);
 	}
 
+	sf::String getText() {
+		return text.getString();
+	}
+
 	void setFont(const sf::Font& font) {
 		text.setFont(font);
 	}
@@ -36,7 +40,7 @@ public:
 		this->position = pos;
 		button.setPosition(pos);
 
-		float xPos = (pos.x + button.getGlobalBounds().width / 3) - (text.getGlobalBounds().width / 2);
+		float xPos = (pos.x + button.getGlobalBounds().width / 2.1) - (text.getGlobalBounds().width / 2);
 		float yPos = (pos.y + button.getGlobalBounds().height / 3) - (text.getGlobalBounds().height / 2);
 		text.setPosition({ xPos, yPos });
 	}
@@ -92,6 +96,8 @@ public:
 		
 		return false;
 	}
+
+
 
 	void draw(sf::RenderTarget& target, sf::RenderStates states) const override 
 	{

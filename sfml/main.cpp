@@ -1,4 +1,4 @@
-#define _CRT_SECURE_NO_WARNINGS
+﻿#define _CRT_SECURE_NO_WARNINGS
 
 #include <SFML/Graphics.hpp>
 #include "Button.h"
@@ -9,7 +9,6 @@
 
 #include <iostream>
 #include <stdio.h>
-
 #include "sqlite3.h"
 #include "TransactionRepository.h"
 
@@ -30,7 +29,6 @@ static int createBank(const char* s, string n);
 static int createCustomer(const char* s, string fN, string lN, string dB);
 static int createBankCard(const char* s, int numC, string cN, int pin, int ban, string dB, string exD, double bal, int customerId, int bankId);
 static int createBankTransaction(const char* s, string transactionDate, double sum, int cardFrom, int cardTo);
-
 static int selectDataFromCustomer(const char* s);
 
 static int callback(void* NotUsed, int argc, char** argv, char** azColName);
@@ -40,7 +38,7 @@ static void tester();
 
 int main()
 {
-    const char* dir = R"(c:\\UniversityBd\\ATM.db)";
+    const char* dir = R"(C:\\UniversityBd\\ATM.db)";
 
     /*createDB(dir);
     createCustomerTable(dir);
@@ -59,7 +57,7 @@ int main()
     createBankTransaction(dir, "2021-02-02", 2020.0, 0, 1);
     createBankTransaction(dir, "2021-02-05", 2030.0, 0, 1);*/
 
-    //selectDataFromCustomer(dir);
+    selectDataFromCustomer(dir);
 
    
 

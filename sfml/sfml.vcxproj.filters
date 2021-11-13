@@ -138,6 +138,30 @@
     <ClInclude Include="TransactionRepository.h">
       <Filter>Файлы заголовков\Backend\Repositories</Filter>
     </ClInclude>
+    <ClInclude Include="BalanceMenu.h">
+      <Filter>Файлы заголовков\UI\Menus</Filter>
+    </ClInclude>
+    <ClInclude Include="BalanceMenuController.h">
+      <Filter>Файлы заголовков\Backend\Controllers</Filter>
+    </ClInclude>
+    <ClInclude Include="PutCashMenu.h">
+      <Filter>Файлы заголовков\UI\Menus</Filter>
+    </ClInclude>
+    <ClInclude Include="PutCashMenuController.h">
+      <Filter>Файлы заголовков\Backend\Controllers</Filter>
+    </ClInclude>
+    <ClInclude Include="GetCashMenu.h">
+      <Filter>Файлы заголовков\UI\Menus</Filter>
+    </ClInclude>
+    <ClInclude Include="GetCashMenuController.h">
+      <Filter>Файлы заголовков\Backend\Controllers</Filter>
+    </ClInclude>
+    <ClInclude Include="TransferMenu.h">
+      <Filter>Файлы заголовков\UI\Menus</Filter>
+    </ClInclude>
+    <ClInclude Include="TransferController.h">
+      <Filter>Файлы заголовков\Backend\Controllers</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">

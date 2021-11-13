@@ -150,6 +150,8 @@
     <ClInclude Include="Assets.h" />
     <ClInclude Include="Atm.h" />
     <ClInclude Include="AtmManager.h" />
+    <ClInclude Include="BalanceMenu.h" />
+    <ClInclude Include="BalanceMenuController.h" />
     <ClInclude Include="BankCard.h" />
     <ClInclude Include="Bankr.h" />
     <ClInclude Include="Button.h" />
@@ -161,12 +163,17 @@
     <ClInclude Include="EnterCardMenu.h" />
     <ClInclude Include="EnterPinController.h" />
     <ClInclude Include="EnterPinMenu.h" />
+    <ClInclude Include="GetCashMenu.h" />
+    <ClInclude Include="GetCashMenuController.h" />
     <ClInclude Include="MainMenu.h" />
     <ClInclude Include="MainMenuController.h" />
     <ClInclude Include="Menu.h" />
     <ClInclude Include="Processing.h" />
+    <ClInclude Include="PutCashMenu.h" />
+    <ClInclude Include="PutCashMenuController.h" />
     <ClInclude Include="sqlite3.h" />
     <ClInclude Include="sqlite3ext.h" />
+
     <ClInclude Include="StartMenu.h" />
     <ClInclude Include="StartMenuController.h" />
     <ClInclude Include="TextArea.h" />
@@ -174,6 +181,8 @@
     <ClInclude Include="Transaction.h" />
     <ClInclude Include="TransactionRepository.h" />
     <ClInclude Include="TransactionService.h" />
+    <ClInclude Include="TransferController.h" />
+    <ClInclude Include="TransferMenu.h" />
     <ClInclude Include="Visible.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

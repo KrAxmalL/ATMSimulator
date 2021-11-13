@@ -18,8 +18,8 @@ private:
 
 	void init()
 	{
-		btnOkPin = Button("Start", { 200,50 }, 20, Color::White, Color::Black, Assets::Instance().textureBox);
-		btnOkPin.setPosition({ 400, 350 });
+		btnOkPin = Button("OK", { 80,50 }, 25, Color::White, Color::Black, Assets::Instance().textureBox);
+		btnOkPin.setPosition({ 450, 500 });
 		btnOkPin.setFont(Assets::Instance().arial);
 		btnOkPin.setVisible(false);
 

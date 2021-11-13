@@ -57,9 +57,20 @@ public:
 
 	void setSelected(bool sel) {
 		isSelected = sel;
-		if (!sel) {
-			removeLastChar();
+		if (!sel && !text.empty() && !isFinishedLine()) {
+			text.pop_back();
+			textbox.setString(text);
+			//removeLastChar();
 		}
+	}
+
+	bool isSelecte() {
+		return isSelected;
+	}
+
+	void setStartedValue(std::string s) {
+		text = s;
+		textbox.setString(text);
 	}
 
 	void setVisible(bool b) {
@@ -80,12 +91,12 @@ public:
 
 	void typedOn(const sf::Event& input) {
 		if (isSelected) {
-			std::cout << input.text.unicode << std::endl;
-			std::cout << DELETE_KEY << std::endl;
-			std::cout << BACKSPACE_KEY << std::endl;
+			//std::cout << input.text.unicode << std::endl;
+			//std::cout << DELETE_KEY << std::endl;
+			//std::cout << BACKSPACE_KEY << std::endl;
 			int charTyped = input.text.unicode;
 			if (Keyboard::isKeyPressed(Keyboard::Backspace) || Keyboard::isKeyPressed(Keyboard::Delete)) {
-				std::cout << "pressed delete key or backspace key!" << std::endl;
+				//std::cout << "pressed delete key or backspace key!" << std::endl;
 				removeLastChar();
 			}
 			else if (charTyped >= ZERO && charTyped <= NINE)
@@ -103,8 +114,26 @@ public:
 		}
 	}
 
+	bool isMouseOver(const Event& event)
+	{
+		std::pair<float, float> mouseCoords = getMouseCoordinates(event);
+
+		float btnPosX = form.getPosition().x;
+		float btnPosY = form.getPosition().y;
+
+		float btnsPosWidth = form.getPosition().x + form.getLocalBounds().width;
+		float btnyPosHeight = form.getPosition().y + form.getLocalBounds().height;
+
+		if (mouseCoords.first < btnsPosWidth && mouseCoords.first > btnPosX && mouseCoords.second < btnyPosHeight && mouseCoords.second > btnPosY) {
+			return true;
+		}
+
+		return false;
+	}
+
 	void clear() {
 		text.clear();
+		textbox.setString(text);
 	}
 
 private:
@@ -121,9 +150,6 @@ private:
 
 	void inputLogic(int charTyped) {
 		if (charTyped != DELETE_KEY && charTyped != ENTER_KEY && charTyped != ESCAPE_KEY && charTyped != BACKSPACE_KEY) {
-			if (isSecret) {
-				charTyped = '*';
-			}
 			appendChar(static_cast<char>(charTyped));
 		}
 		else if (charTyped == DELETE_KEY || charTyped == BACKSPACE_KEY) {
@@ -145,7 +171,19 @@ private:
 				text.push_back('_');
 			}
 		}
-		textbox.setString(text);
+		std::string text2(text);
+		if (isSecret) {
+			text2 = "";
+			for (size_t i = 0; i < text.length() - 1; i++)
+			{
+				text2 += "*";
+			}
+			if (isFinishedLine()) {
+				text2 += "*";
+			}
+		}
+		std::cout << text <<std::endl;
+		textbox.setString(text2);
 	}
 
 	void removeLastChar()
@@ -162,7 +200,36 @@ private:
 		}
 
 		text.push_back('_');
-		textbox.setString(text);
+		std::string text2(text);
+		if (isSecret) {
+			text2 = "";
+			for (size_t i = 0; i < text.length() - 1; i++)
+			{
+				text2 += "*";
+			}
+			if (isFinishedLine()) {
+				text2 += "*";
+			}
+		}
+		std::cout << text << std::endl;
+		textbox.setString(text2);
+	}
+
+	std::pair<float, float> getMouseCoordinates(const Event& event)
+	{
+		float mouseX = event.mouseMove.x;
+		float mouseY = event.mouseMove.y;
+
+		if (event.type == Event::MouseButtonPressed)
+		{
+			if (event.mouseButton.button == Mouse::Left)
+			{
+				mouseX = event.mouseButton.x;
+				mouseY = event.mouseButton.y;
+			}
+		}
+
+		return { mouseX, mouseY };
 	}
 
 	bool isFinishedLine()
