@@ -62,6 +62,10 @@ public:
 		text.setString(t);
 	}
 
+	std::string getText() {
+		return text.getString().toAnsiString();
+	}
+
 private:
 	sf::Vector2f position;
 	sf::RectangleShape button;

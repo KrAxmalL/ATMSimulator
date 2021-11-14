@@ -12,11 +12,11 @@ class TransactionService
 private:
 
 	TransactionRepository transactionRepository;
-	CardService cardService;
+	CardService& cardService;
 
 public:
 
-	explicit TransactionService(): transactionRepository(), cardService() {}
+	explicit TransactionService(CardService& cardService): transactionRepository(), cardService(cardService) {}
 
 	~TransactionService() {}
 

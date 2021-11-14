@@ -11,9 +11,11 @@ private:
     MainMenu& mainMenu;
     TransferMenu& transferMenu;
 
+    TransactionService& transactionService;
+
 public:
 
-    TransferController(RenderWindow& par, MainMenu& mainMenu, TransferMenu& transferMenu) : mainMenu(mainMenu), transferMenu(transferMenu) {}
+    TransferController(RenderWindow& par, MainMenu& mainMenu, TransferMenu& transferMenu, TransactionService& transactionService) : mainMenu(mainMenu), transferMenu(transferMenu), transactionService(transactionService) {}
     ~TransferController() {}
 
     virtual void handleEvent(const Event& event) override

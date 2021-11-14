@@ -11,9 +11,11 @@ private:
     MainMenu& mainMenu;
     GetCashMenu& getCashMenu;
 
+    CardService& cardService;
+
 public:
 
-    GetCashMenuController(RenderWindow& par, MainMenu& mainMenu, GetCashMenu& getCashMenu) : mainMenu(mainMenu), getCashMenu(getCashMenu) {}
+    GetCashMenuController(RenderWindow& par, MainMenu& mainMenu, GetCashMenu& getCashMenu, CardService& cardService) : mainMenu(mainMenu), getCashMenu(getCashMenu), cardService(cardService) {}
     ~GetCashMenuController() {}
 
     virtual void handleEvent(const Event& event) override

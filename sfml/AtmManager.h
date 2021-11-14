@@ -13,6 +13,9 @@
 #include "EnterPinMenu.h"
 #include "TransferMenu.h"
 
+#include "CardService.h"
+#include "TransactionService.h"
+
 #include "StartMenuController.h"
 #include "EnterCardController.h"
 #include "EnterPinController.h"
@@ -42,6 +45,9 @@ private:
     TransferMenu transferMenu;
     std::vector<Menu*> menus;
 
+    CardService cardService;
+    TransactionService transactionService;
+
     StartMenuController* startMenuController;
     EnterCardController* enterCardController;
     EnterPinController* enterPinController;
@@ -51,8 +57,6 @@ private:
     GetCashMenuController* getCashMenuController;
     TransferController* transferController;
     std::vector<Controller*> controllers;
-
-    CardService cardService;
 
 	void init() {
        for (auto& menu : menus)
@@ -79,14 +83,15 @@ public:
         enterPinMenu(*window),
         transferMenu(*window),
         cardService{},
+        transactionService(cardService),
         startMenuController(new StartMenuController(*window, startMenu, enterCardMenu)),
         enterCardController(new EnterCardController(*window, enterCardMenu, enterPinMenu, cardService)),
         enterPinController(new EnterPinController(*window, enterPinMenu, mainMenu, cardService)),
         mainMenuController(new MainMenuController(*window, mainMenu, balanceMenu, putCashMenu, getCashMenu, transferMenu)),
-        balanceMenuController(new BalanceMenuController(*window, mainMenu, balanceMenu)),
-        putCashMenuController(new PutCashMenuController(*window, mainMenu, putCashMenu)),
-        getCashMenuController(new GetCashMenuController(*window, mainMenu, getCashMenu)),
-        transferController(new TransferController(*window, mainMenu, transferMenu)),
+        balanceMenuController(new BalanceMenuController(*window, mainMenu, balanceMenu, cardService)),
+        putCashMenuController(new PutCashMenuController(*window, mainMenu, putCashMenu, cardService)),
+        getCashMenuController(new GetCashMenuController(*window, mainMenu, getCashMenu, cardService)),
+        transferController(new TransferController(*window, mainMenu, transferMenu, transactionService)),
         menus{&startMenu, &enterCardMenu, &enterPinMenu, &mainMenu, &balanceMenu, &putCashMenu, &getCashMenu, &transferMenu },
         controllers{startMenuController, enterCardController, enterPinController, mainMenuController, balanceMenuController, putCashMenuController, getCashMenuController, transferController }
     {
@@ -113,11 +118,12 @@ public:
             //findActiveController - if event has changed view - need to find new active controller
             //draw current active menu
         // ---Program Cycle---
+        Controller* activeController = nullptr;
         while (window->isOpen())
         {
             Event event;
 
-            Controller* activeController = findActiveController();
+            activeController = findActiveController();
             while (window->pollEvent(event))
             {
                 if (event.type == Event::Closed)

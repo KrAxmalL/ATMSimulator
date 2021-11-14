@@ -71,6 +71,18 @@ public:
 		}
 	}
 
+	const BankCard& getActiveCard()
+	{
+		if (activeCard != nullptr)
+		{
+			return *activeCard;
+		}
+		else
+		{
+			//exception
+		}
+	}
+
 	void processInsertedCard(int cardNum, int pin)
 	{
 		if (cardRepository.cardExists(cardNum)) {

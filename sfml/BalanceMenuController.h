@@ -11,9 +11,11 @@ private:
         MainMenu& mainMenu;
         BalanceMenu& balanceMenu;
 
+        CardService& cardService;
+
 public:
 
-    BalanceMenuController(RenderWindow& par, MainMenu& mainMenu, BalanceMenu& balanceMenu) : mainMenu(mainMenu), balanceMenu(balanceMenu) {}
+    BalanceMenuController(RenderWindow& par, MainMenu& mainMenu, BalanceMenu& balanceMenu, CardService& cardService) : mainMenu(mainMenu), balanceMenu(balanceMenu), cardService(cardService) {}
     ~BalanceMenuController() {}
 
     virtual void handleEvent(const Event& event) override
@@ -59,6 +61,13 @@ public:
 
     Menu& menu() override
     {
+        if (isActive())
+        {
+            std::stringstream stream;
+            stream << std::fixed << std::setprecision(2) << cardService.getActiveCard().getBalance();
+            balanceMenu.areaBalance.setText("BALANCE:\n\n" + stream.str());
+            //std::cout << "Text in balanceMenu: " << balanceMenu.areaBalance.getText() << endl;
+        }
         return balanceMenu;
     }
 };

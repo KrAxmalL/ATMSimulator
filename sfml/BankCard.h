@@ -60,8 +60,11 @@ public:
 
 ostream& operator<<(ostream& os, const BankCard& card)
 {
+	std::stringstream stream;
+	stream << std::fixed << std::setprecision(2) << card.getBalance();
+
 	os << "BankCard " << card.getId() << ":\n" << "pin: " << card.getPin() << "\n"
-	   << "balance: " << card.getBalance() << "\n" << "isBlocked: " << card.isBlocked() << "\n"
+	   << "balance: " << stream.str() << "\n" << "isBlocked: " << card.isBlocked() << "\n"
 	   << "start block date: " << card.getBlockStartDate().tm_year << "\n"
 	   << "end block date: " << card.getExpireDay().tm_year << "\n"
 	   << "bankId: " << card.getBId() << "\n" << "ownerId: " << card.getUId();
