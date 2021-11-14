@@ -67,6 +67,7 @@ public:
 
     void mouseButtonPressed(const Event& event) {
         if (transferMenu.btnSend.isMouseOver(event)) {
+            performTransaction();
             transferMenu.boxCardNum.clear();
             transferMenu.boxAmount1.clear();
             transferMenu.boxAmount2.clear();
@@ -81,6 +82,25 @@ public:
         }
         if (transferMenu.boxAmount2.isMouseOver(event)) {
             transferMenu.boxAmount2.setSelected(true);
+        }
+    }
+
+    bool performTransaction()
+    {
+        std::string cardToStr = transferMenu.boxCardNum.getText();
+        std::cout << "card to: " << cardToStr << std::endl;
+        if (cardToStr.empty())
+        {
+            return false;
+        }
+        else
+        {
+            int cardTo = std::atoi(cardToStr.c_str());
+            double amountInt = std::atoi(transferMenu.boxAmount1.getText().c_str());
+            double amountDec = std::atoi(transferMenu.boxAmount2.getText().c_str());
+            amountDec /= 100;
+            double finAmount = amountInt + amountDec;
+            transactionService.transactionFromActiveCard(cardTo, finAmount);
         }
     }
 

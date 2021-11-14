@@ -53,8 +53,17 @@ public:
         }
     }
 
+    bool loadCash()
+    {
+        double cash = putCashMenu.insertSum;
+        std::cout << "cash: " << cash << std::endl;
+        cardService.changeActiveCardBalance(cash);
+        return true;
+    }
+
     void mouseButtonPressed(const Event& event) {
         if (putCashMenu.btnOkCash.isMouseOver(event)) {
+            loadCash();
             putCashMenu.clearSum();
             putCashMenu.setActive(false);
             mainMenu.setActive(true);

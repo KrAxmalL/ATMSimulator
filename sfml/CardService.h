@@ -65,9 +65,16 @@ public:
 	{
 		if (!isCardBlocked(card))
 		{
-			card.changeBlocking();
-			//activeCard->setBlockStartDate(); - set current date
-			cardRepository.updateCard(card.getId(), card.getBalance());
+			card.setBlocked(true);
+
+			std::time_t t = std::time(0);   // get time now
+			std::tm* now = std::localtime(&t);
+			std::tm expire = *now;
+			expire.tm_mday += 20;
+
+			card.setBlockStartDate(*now);
+			card.setExpireDay(expire);
+			//cardRepository.updateCard(card); replace with delete and add
 		}
 	}
 
@@ -128,6 +135,23 @@ public:
 		}
 	}
 
+	void changeActiveCardBalance(double sum)
+	{
+		//changeBalance(*activeCard, sum);
+		double newBalance = activeCard->getBalance() + sum;
+		if (newBalance < 0)
+		{
+			//error message
+		}
+		else
+		{
+			activeCard->setBalance(newBalance);
+			cout << activeCard << endl;
+			cardRepository.deleteCard(activeCard->getId());
+			cardRepository.addCard(*activeCard);
+		}
+	}
+
 	void changeBalance(BankCard& card, double sum)
 	{
 		double newBalance = card.getBalance() + sum;
@@ -137,8 +161,15 @@ public:
 		}
 		else
 		{
+			if (card.getId() == activeCard->getId())
+			{
+				activeCard->setBalance(newBalance);
+			}
 			card.setBalance(newBalance);
-			cardRepository.updateCard(card.getId(), card.getBalance());
+			cout << card << endl;
+			cardRepository.deleteCard(card.getId());
+			cardRepository.addCard(card);
+			//cardRepository.updateCard(card);
 		}
 	}
 };

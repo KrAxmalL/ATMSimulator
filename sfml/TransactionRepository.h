@@ -31,11 +31,11 @@ private:
 			/* An open database, SQL to be evaluated, Callback function, 1st argument to callback, Error msg written here */
 			exit = sqlite3_exec(DB, sql.c_str(), callback, entity, &messageError);
 			if (exit != SQLITE_OK) {
-				cerr << "Error in createTable 'Customer' function.\n";
+				cerr << "Error in executeStatemet 'Transaction' function.\n";
 				sqlite3_free(messageError);
 			}
 			else
-				cout << "Table created 'Customer' Successfully\n";
+				cout << "executeStatement 'Transaction' Successfully\n";
 			sqlite3_close(DB);
 		}
 		catch (const exception& e)

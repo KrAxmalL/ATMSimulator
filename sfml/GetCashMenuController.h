@@ -62,6 +62,7 @@ public:
 
     void mouseButtonPressed(const Event& event) {
         if (getCashMenu.btnOkCash.isMouseOver(event)) {
+            getCash();
             getCashMenu.clearSum();
             getCashMenu.setActive(false);
             mainMenu.setActive(true);
@@ -78,6 +79,14 @@ public:
             }
         }
 
+    }
+
+    bool getCash()
+    {
+        double cash = -getCashMenu.getSum;
+        std::cout << "cash: " << cash << std::endl;
+        cardService.changeActiveCardBalance(cash);
+        return true;
     }
 
     bool isActive() override

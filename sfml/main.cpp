@@ -59,26 +59,20 @@ int main()
 
     //selectDataFromCustomer(dir);
    
+    /*CardRepository cardRepository{};
 
-    /*BankCard toAdd;
-    toAdd.setId(55);
-    toAdd.setName("Prekol card");
+    BankCard toAdd;
+    toAdd.setId(77777);
+    toAdd.setName("Prekol card 777");
     toAdd.setBalance(666.666);
-    toAdd.setBlocked(true);
-    std::time_t t = std::time(0);   // get time now
-    tm* now = new tm({0});
-    localtime_s(now, &t);
-    now->tm_year += 1900;
-    now->tm_mon += 3;
-    tm nowLater(*now);
-    nowLater.tm_mon += 1;
-    toAdd.setBlockStartDate(*now);
-    toAdd.setExpireDay(nowLater);
-    toAdd.setPin(222);
+    toAdd.setBlocked(false);
+    toAdd.setBlockStartDate({0});
+    toAdd.setExpireDay({0});
+    toAdd.setPin(1111);
     toAdd.setUId(1);
     toAdd.setBId(1);
-    cardRepository.addCard(toAdd);
-    delete now;*/
+    cardRepository.addCard(toAdd);*/
+
 
    //cardRepository.updateCard(11111, 13);
 

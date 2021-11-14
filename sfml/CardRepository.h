@@ -100,7 +100,6 @@ public:
 
 	void addCard(const BankCard& card)
 	{
-		//expireDate is not written to db
 		tm startBlockDate = card.getBlockStartDate();
 		string startBlock("-");
 		if (startBlockDate.tm_year != 0)
@@ -144,10 +143,36 @@ public:
 		return resCard;
 	}
 
-	void updateCard(int cardNum, double addBalance)
+	void updateCard(const BankCard& card)
 	{
+		//CARDID, CARDNAME, CARDPIN, BLOCKED, BLOCKSTARTDATE, EXPIREDATE, CARDBALANCE, FK_CUSTOMERID, FK_BANKID
 		BankCard resCard(-1);
-		string sql = "UPDATE BANKCARD SET CARDBALANCE = " + to_string(addBalance) + " WHERE CARDID = " + to_string(cardNum) + "; ";
+
+		tm startBlockDate = card.getBlockStartDate();
+		string startBlock("-");
+		if (startBlockDate.tm_year != 0)
+		{
+			startBlock = "" + to_string(startBlockDate.tm_year) + "-" + to_string(startBlockDate.tm_mon) + "-" + to_string(startBlockDate.tm_mday);
+		}
+
+		tm expireDay = card.getExpireDay();
+		string expire("-");
+		if (expireDay.tm_year != 0)
+		{
+			expire = "" + to_string(expireDay.tm_year) + "-" + to_string(expireDay.tm_mon) + "-" + to_string(expireDay.tm_mday);
+		}
+
+		string sql = "UPDATE BANKCARD SET CARDNAME = '" + card.getName()
+				   + "' CARDPIN = " + to_string(card.getPin())
+				   + " BLOCKED = " + to_string(card.isBlocked())
+				   + " BLOCKSTARTDATE = '" + startBlock
+				   + "' EXPIREDATE = '" + expire
+				   + "' CARDBALANCE = " + to_string(card.getBalance())
+				   + " FK_CUSTOMERID = " + to_string(card.getUId())
+				   + " FK_BANKID = " + to_string(card.getBId())
+			       + " WHERE CARDID = " + to_string(card.getId()) + "; ";
+
+		cout << "update sql for card: " << sql << endl;
 		executeStatement(sql, getCallback, &resCard);
 	}
 

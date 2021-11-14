@@ -44,6 +44,11 @@ public:
 		}
 	}
 
+	void transactionFromActiveCard(int toId, double sum)
+	{
+		performTransaction(cardService.getActiveCard().getId(), toId, sum);
+	}
+
 	void performTransaction(const int fromId, const int toId, double sum)
 	{
 		if (cardService.cardExists(fromId) && cardService.cardExists(toId))
@@ -60,12 +65,16 @@ public:
 				{
 					cardService.changeBalance(from, -sum);
 					cardService.changeBalance(to, sum);
-
+					std::cout << "changed balance on 2 cards" << std::endl;
+					std::cout << from << std::endl;
+					std::cout << to << std::endl;
 					Transaction res{};
 					res.setCardFromId(fromId);
 					res.setCardToId(toId);
 					res.setSum(sum);
-					//res.setTransactionDate(); - set current date
+					std::time_t t = std::time(0);   // get time now
+					std::tm* now = std::localtime(&t);
+					res.setTransactionDate(*now);
 					transactionRepository.addTransaction(res);
 				}
 			}
