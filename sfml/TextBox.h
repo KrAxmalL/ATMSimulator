@@ -136,6 +136,11 @@ public:
 		textbox.setString(text);
 	}
 
+	std::string getText()
+	{
+		return textbox.getString().toAnsiString();
+	}
+
 private:
 
 	sf::Vector2f position;

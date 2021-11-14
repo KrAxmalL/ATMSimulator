@@ -52,6 +52,8 @@ private:
     TransferController* transferController;
     std::vector<Controller*> controllers;
 
+    CardService cardService;
+
 	void init() {
        for (auto& menu : menus)
        {
@@ -76,8 +78,9 @@ public:
         enterCardMenu(*window), 
         enterPinMenu(*window),
         transferMenu(*window),
+        cardService{},
         startMenuController(new StartMenuController(*window, startMenu, enterCardMenu)),
-        enterCardController(new EnterCardController(*window, enterCardMenu, enterPinMenu)),
+        enterCardController(new EnterCardController(*window, enterCardMenu, enterPinMenu, cardService)),
         enterPinController(new EnterPinController(*window, enterPinMenu, mainMenu)),
         mainMenuController(new MainMenuController(*window, mainMenu, balanceMenu, putCashMenu, getCashMenu, transferMenu)),
         balanceMenuController(new BalanceMenuController(*window, mainMenu, balanceMenu)),

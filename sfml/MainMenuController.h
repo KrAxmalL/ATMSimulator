@@ -5,6 +5,7 @@
 #include "PutCashMenu.h"
 #include "GetCashMenu.h"
 #include "TransferMenu.h"
+#include "BankCard.h"
 #include <vector>
 
 class MainMenuController : public Controller

@@ -2,6 +2,7 @@
 #include "Controller.h"
 #include "EnterCardMenu.h"
 #include "EnterPinMenu.h"
+#include "CardService.h"
 
 class EnterCardController : public Controller
 {
@@ -11,9 +12,11 @@ private:
     EnterCardMenu& enterCardMenu;
     EnterPinMenu& enterPinMenu;
 
+    CardService& cardService;
+
 public:
 
-    EnterCardController(RenderWindow& par, EnterCardMenu& enterCardMenu, EnterPinMenu& enterPinMenu) : enterCardMenu(enterCardMenu), enterPinMenu(enterPinMenu) {}
+    EnterCardController(RenderWindow& par, EnterCardMenu& enterCardMenu, EnterPinMenu& enterPinMenu, CardService& cardService) : enterCardMenu(enterCardMenu), enterPinMenu(enterPinMenu), cardService(cardService) {}
     ~EnterCardController() {}
 
     virtual void handleEvent(const Event& event) override
@@ -56,9 +59,33 @@ public:
 
     void mouseButtonPressed(const Event& event) {
         if (enterCardMenu.btnOkCard.isMouseOver(event)) {
-            enterCardMenu.setActive(false);
-            enterPinMenu.setActive(true);
+            if (readCard())
+            {
+                enterCardMenu.setActive(false);
+                enterPinMenu.setActive(true);
+            }
+            else
+            {
+
+            }
         }
+    }
+
+    bool readCard()
+    {
+        std::string cardNumStr = enterCardMenu.boxCardNum.getText();
+        int cardNum = std::stoi(cardNumStr);
+        if (cardService.cardExists(cardNum))
+        {
+            cardService.makeActiveCard(cardNum);
+            return true;
+        }
+        else
+        {
+            //message box that wrong card number
+            return false;
+        }
+
     }
 
     bool isActive() override

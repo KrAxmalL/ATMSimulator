@@ -36,7 +36,12 @@ public:
 
 	bool cardExists(int cardNum)
 	{
-		return cardRepository.cardExists();
+		return cardRepository.cardExists(cardNum);
+	}
+
+	void makeActiveCard(int cardNum)
+	{
+		activeCard = new BankCard(cardRepository.getCard(cardNum));
 	}
 
 	void blockCard(BankCard& card)
@@ -45,7 +50,7 @@ public:
 		{
 			card.changeBlocking();
 			//activeCard->setBlockStartDate(); - set current date
-			cardRepository.updateCard(card);
+			cardRepository.updateCard(card.getId(), card.getBalance());
 		}
 	}
 
@@ -104,7 +109,7 @@ public:
 		else
 		{
 			card.setBalance(newBalance);
-			cardRepository.updateCard(card);
+			cardRepository.updateCard(card.getId(), card.getBalance());
 		}
 	}
 };
