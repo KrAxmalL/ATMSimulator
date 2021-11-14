@@ -57,3 +57,13 @@ public:
 	void setExpireDay(const tm& newExDAy) { expireDate = newExDAy; }
 
 };
+
+ostream& operator<<(ostream& os, const BankCard& card)
+{
+	os << "BankCard " << card.getId() << ":\n" << "pin: " << card.getPin() << "\n"
+	   << "balance: " << card.getBalance() << "\n" << "isBlocked: " << card.isBlocked() << "\n"
+	   << "start block date: " << card.getBlockStartDate().tm_year << "\n"
+	   << "end block date: " << card.getExpireDay().tm_year << "\n"
+	   << "bankId: " << card.getBId() << "\n" << "ownerId: " << card.getUId();
+	return os;
+}

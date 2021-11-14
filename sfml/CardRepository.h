@@ -46,6 +46,36 @@ private:
 		return 0;
 	}
 
+	//to finish
+	static int getCallback(void* resEntity, int argc, char** argv, char** azColName)
+	{
+		BankCard* resCard = static_cast<BankCard*>(resEntity);
+
+		resCard->setId(std::atoi(argv[0]));
+		//rname
+		resCard->setPin(std::atoi(argv[2]));
+		//isBlocked
+		//blockStartDate
+		//blockExpireDate
+		//balance
+		//ownerId
+		//bankId
+
+		/* transaction setting date example(from transactionRepository)
+		argv[1][4] = argv[1][7] = argv[1][10] = argv[1][13] = argv[1][16] = '\0';
+		struct tm tmdate = { 0 };
+		tmdate.tm_year = atoi(&argv[1][0]) - 1900;
+		tmdate.tm_mon = atoi(&argv[1][5]) - 1;
+		tmdate.tm_mday = atoi(&argv[1][8]);
+		tmdate.tm_hour = atoi(&argv[1][11]) - 1;
+		tmdate.tm_min = atoi(&argv[1][14]);
+		tmdate.tm_sec = atoi(&argv[1][17]);
+
+		resTransaction->setTransactionDate(tmdate);*/
+
+		return 0;
+	}
+
 public:
 
 	CardRepository() {}
@@ -98,11 +128,12 @@ public:
 	{
 		BankCard resCard(-1);
 		string sql = "SELECT * FROM BANKCARD WHERE CARDID =" + std::to_string(cardNum) + ";";
-		executeStatement(sql, existsCallback, &resCard);
+		executeStatement(sql, getCallback, &resCard);
 		if (resCard.getId() == -1)
 		{
 			//error
 		}
+		std::cout << "In getCard: " << resCard << std::endl;
 		return resCard;
 	}
 

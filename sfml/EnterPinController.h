@@ -11,9 +11,11 @@ private:
     EnterPinMenu& enterPinMenu;
     MainMenu& mainMenu;
 
+    CardService& cardService;
+
 public:
 
-    EnterPinController(RenderWindow& par, EnterPinMenu& enterPinMenu, MainMenu& mainMenu) : enterPinMenu(enterPinMenu), mainMenu(mainMenu) {}
+    EnterPinController(RenderWindow& par, EnterPinMenu& enterPinMenu, MainMenu& mainMenu, CardService& cardService) : enterPinMenu(enterPinMenu), mainMenu(mainMenu), cardService(cardService) {}
     ~EnterPinController() {}
 
     virtual void handleEvent(const Event& event) override
@@ -55,9 +57,31 @@ public:
 
     void mouseButtonPressed(const Event& event) {
         if (enterPinMenu.btnOkPin.isMouseOver(event)) {
-            enterPinMenu.setActive(false);
-            mainMenu.setActive(true);
+            if (readPin())
+            {
+                enterPinMenu.setActive(false);
+                mainMenu.setActive(true);
+            }
+            else
+            {
+                //message box with error
+            }
         }
+    }
+
+    bool readPin()
+    {
+        std::string pinStr = enterPinMenu.boxCardNum.getText();
+        if (pinStr.length() <= 0)
+        {
+            return false;
+        }
+
+        int pin = std::stoi(pinStr);
+        std::cout << "Entered pin: " << pin << std::endl;
+        std::cout << "Is correct pin: " << cardService.correctPinForActiveCard(pin) << std::endl;
+
+        return cardService.correctPinForActiveCard(pin);
     }
 
     bool isActive() override

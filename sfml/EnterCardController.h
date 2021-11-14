@@ -73,12 +73,27 @@ public:
 
     bool readCard()
     {
+       
         std::string cardNumStr = enterCardMenu.boxCardNum.getText();
+        if (cardNumStr.length() <= 0)
+        {
+            return false;
+        }
+
         int cardNum = std::stoi(cardNumStr);
         if (cardService.cardExists(cardNum))
         {
             cardService.makeActiveCard(cardNum);
-            return true;
+            if (!cardService.isActiveCardBlocked())
+            {
+                return true;
+            }
+            else
+            {
+                //message box that card is blocked
+                //maybe also show block expire date
+                return false;
+            }
         }
         else
         {

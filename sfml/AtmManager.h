@@ -81,7 +81,7 @@ public:
         cardService{},
         startMenuController(new StartMenuController(*window, startMenu, enterCardMenu)),
         enterCardController(new EnterCardController(*window, enterCardMenu, enterPinMenu, cardService)),
-        enterPinController(new EnterPinController(*window, enterPinMenu, mainMenu)),
+        enterPinController(new EnterPinController(*window, enterPinMenu, mainMenu, cardService)),
         mainMenuController(new MainMenuController(*window, mainMenu, balanceMenu, putCashMenu, getCashMenu, transferMenu)),
         balanceMenuController(new BalanceMenuController(*window, mainMenu, balanceMenu)),
         putCashMenuController(new PutCashMenuController(*window, mainMenu, putCashMenu)),

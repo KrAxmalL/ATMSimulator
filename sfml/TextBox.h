@@ -138,7 +138,7 @@ public:
 
 	std::string getText()
 	{
-		return textbox.getString().toAnsiString();
+		return realText;
 	}
 
 private:
@@ -147,6 +147,7 @@ private:
 	sf::Text textbox;
 	sf::RectangleShape form;
 	std::string text;
+	std::string realText;
 	//todo add additional string if string is secret
 	bool isSelected = false;
 	bool hasLimit = false;
@@ -171,6 +172,7 @@ private:
 				text.pop_back();
 			}
 			text.push_back(ch);
+			realText.push_back(ch);
 			if (text.length() < limit && hasLimit)
 			{
 				text.push_back('_');
@@ -187,7 +189,8 @@ private:
 				text2 += "*";
 			}
 		}
-		std::cout << text <<std::endl;
+		std::cout << "Screen text" << text << std::endl;
+		std::cout << "Real text: " << realText << std::endl;
 		textbox.setString(text2);
 	}
 
@@ -198,6 +201,10 @@ private:
 		if (text.length() > 0)
 		{
 			text.pop_back();
+			if (realText.length() > 0)
+			{
+				realText.pop_back();
+			}
 		}
 		if (text.length() > 0 && needAdditionalSpace)
 		{
@@ -216,7 +223,8 @@ private:
 				text2 += "*";
 			}
 		}
-		std::cout << text << std::endl;
+		std::cout << "Screen text" << text << std::endl;
+		std::cout << "Real text: " << realText << std::endl;
 		textbox.setString(text2);
 	}
 

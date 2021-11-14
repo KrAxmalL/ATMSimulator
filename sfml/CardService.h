@@ -44,6 +44,23 @@ public:
 		activeCard = new BankCard(cardRepository.getCard(cardNum));
 	}
 
+	bool isActiveCardBlocked()
+	{
+		return activeCard->isBlocked();
+	}
+
+	bool correctPinForActiveCard(int pin)
+	{
+		std::cout << "Active card pin: " << activeCard->getPin() << std::endl;
+		std::cout << "Pin to check: " << pin << std::endl;
+		bool isCorrectPin = activeCard->getPin() == pin;
+		if (!isCorrectPin)
+		{
+			++wrongPinCounter;
+		}
+		return isCorrectPin;
+	}
+
 	void blockCard(BankCard& card)
 	{
 		if (!isCardBlocked(card))
