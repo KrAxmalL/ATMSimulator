@@ -25,11 +25,11 @@ private:
 			/* An open database, SQL to be evaluated, Callback function, 1st argument to callback, Error msg written here */
 			exit = sqlite3_exec(DB, sql.c_str(), callback, entity, &messageError);
 			if (exit != SQLITE_OK) {
-				cerr << "Error in createTable 'Customer' function.\n";
+				cerr << "Error in executeStatement 'BankCard' function.\n";
 				sqlite3_free(messageError);
 			}
 			else
-				cout << "Table created 'Customer' Successfully\n";
+				cout << "executeStatement in 'BankCard' finished Successfully\n";
 			sqlite3_close(DB);
 		}
 		catch (const exception& e)
@@ -52,26 +52,34 @@ private:
 		BankCard* resCard = static_cast<BankCard*>(resEntity);
 
 		resCard->setId(std::atoi(argv[0]));
-		//rname
+		resCard->setName(argv[1]);
 		resCard->setPin(std::atoi(argv[2]));
-		//isBlocked
-		//blockStartDate
-		//blockExpireDate
-		//balance
-		//ownerId
-		//bankId
+		resCard->setBlocked(std::atoi(argv[3]));
+		struct tm startBlockDate = { 0 };
+		struct tm expireBlockDate = { 0 };
+		if (resCard->isBlocked())
+		{
+			argv[4][4] = argv[4][7] = argv[4][10] = argv[4][13] = argv[4][16] = '\0';
+			startBlockDate.tm_year = atoi(&argv[4][0]) - 1900;
+			startBlockDate.tm_mon = atoi(&argv[4][5]) - 1;
+			startBlockDate.tm_mday = atoi(&argv[4][8]);
+			startBlockDate.tm_hour = atoi(&argv[4][11]) - 1;
+			startBlockDate.tm_min = atoi(&argv[4][14]);
+			startBlockDate.tm_sec = atoi(&argv[4][17]);
 
-		/* transaction setting date example(from transactionRepository)
-		argv[1][4] = argv[1][7] = argv[1][10] = argv[1][13] = argv[1][16] = '\0';
-		struct tm tmdate = { 0 };
-		tmdate.tm_year = atoi(&argv[1][0]) - 1900;
-		tmdate.tm_mon = atoi(&argv[1][5]) - 1;
-		tmdate.tm_mday = atoi(&argv[1][8]);
-		tmdate.tm_hour = atoi(&argv[1][11]) - 1;
-		tmdate.tm_min = atoi(&argv[1][14]);
-		tmdate.tm_sec = atoi(&argv[1][17]);
-
-		resTransaction->setTransactionDate(tmdate);*/
+			argv[5][4] = argv[5][7] = argv[5][10] = argv[5][13] = argv[5][16] = '\0';
+			expireBlockDate.tm_year = atoi(&argv[5][0]) - 1900;
+			expireBlockDate.tm_mon = atoi(&argv[5][5]) - 1;
+			expireBlockDate.tm_mday = atoi(&argv[5][8]);
+			expireBlockDate.tm_hour = atoi(&argv[5][11]) - 1;
+			expireBlockDate.tm_min = atoi(&argv[5][14]);
+			expireBlockDate.tm_sec = atoi(&argv[5][17]);
+		}
+		resCard->setBlockStartDate(startBlockDate);
+		resCard->setExpireDay(expireBlockDate);
+		resCard->setBalance(std::atoi(argv[6]));
+		resCard->setUId(std::atoi(argv[7]));
+		resCard->setBId(std::atoi(argv[8]));
 
 		return 0;
 	}
@@ -94,7 +102,6 @@ public:
 	{
 		//expireDate is not written to db
 		tm startBlockDate = card.getBlockStartDate();
-		tm zeroDate = { 0 };
 		string startBlock("-");
 		if (startBlockDate.tm_year != 0)
 		{
@@ -141,7 +148,7 @@ public:
 	{
 		BankCard resCard(-1);
 		string sql = "UPDATE BANKCARD SET CARDBALANCE = " + to_string(addBalance) + " WHERE CARDID = " + to_string(cardNum) + "; ";
-		executeStatement(sql, existsCallback, &resCard);
+		executeStatement(sql, getCallback, &resCard);
 	}
 
 	void deleteCard(int cardNum)

@@ -51,14 +51,13 @@ int main()
     createCustomer(dir, "Lili", "Olyva", "2020-11-11");
     createBank(dir, "Credit Agricole Bank");
     createATM(dir, "Credit Agricole ATM");
-    createBankCard(dir, 11111, "Shopping card", 1111, 0, "-", "2022-02-02", 0.0, 1, 1);
+    createBankCard(dir, 11111, "Shopping card", 1111, 1, "2022-02-10", "2022-02-20", 0.0, 1, 1);
 
-    createBankCard(dir, 10000, "Second shopping card ", 1111, 0, "-", "2022-02-02", 100.0, 1, 1);
+    createBankCard(dir, 10000, "Second shopping card ", 1111, 0, "-", "-", 100.0, 1, 1);
     createBankTransaction(dir, "2021-02-02", 2020.0, 0, 1);
     createBankTransaction(dir, "2021-02-05", 2030.0, 0, 1);*/
 
     //selectDataFromCustomer(dir);
-
    
 
     /*BankCard toAdd;
@@ -84,7 +83,6 @@ int main()
    //cardRepository.updateCard(11111, 13);
 
     Assets::Instance().load();
-
 
     AtmManager manager{};
     manager.start();

@@ -165,9 +165,7 @@ public:
 
 		sqlite3_finalize(stmt);
 
-
 		return transactions;
-		//sql code for selecting all transactions of this card
 	}
 
 	void updateTransaction(const Transaction& transaction)
