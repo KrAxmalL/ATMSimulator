@@ -162,6 +162,15 @@
     <ClInclude Include="TransferController.h">
       <Filter>Файлы заголовков\Backend\Controllers</Filter>
     </ClInclude>
+    <ClInclude Include="TransactionsListView.h">
+      <Filter>Файлы заголовков\UI\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="TransactionsMenu.h">
+      <Filter>Файлы заголовков\UI\Menus</Filter>
+    </ClInclude>
+    <ClInclude Include="TransactionsMenuController.h">
+      <Filter>Файлы заголовков\Backend\Controllers</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">

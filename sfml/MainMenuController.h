@@ -18,15 +18,17 @@ private:
     PutCashMenu& putCashMenu;
     GetCashMenu& getCashMenu;
     TransferMenu& transferMenu;
+    TransactionsMenu& transactionsMenu;
 
 public:
 
-    MainMenuController(RenderWindow& par, MainMenu& mainMenu, BalanceMenu& balanceMenu, PutCashMenu& putCashMenu, GetCashMenu& getCashMenu, TransferMenu& transferMenu)
+    MainMenuController(RenderWindow& par, MainMenu& mainMenu, BalanceMenu& balanceMenu, PutCashMenu& putCashMenu, GetCashMenu& getCashMenu, TransferMenu& transferMenu, TransactionsMenu& transactionsMenu)
         : mainMenu(mainMenu) 
         , balanceMenu(balanceMenu)
         , putCashMenu(putCashMenu)
         , getCashMenu(getCashMenu)
-        , transferMenu(transferMenu) {}
+        , transferMenu(transferMenu),
+        transactionsMenu(transactionsMenu) {}
     ~MainMenuController() {}
 
     virtual void handleEvent(const Event& event) override
@@ -75,6 +77,10 @@ public:
         if (mainMenu.getButtons()[3].isMouseOver(event)) {
             mainMenu.setActive(false);
             getCashMenu.setActive(true);
+        }
+        if (mainMenu.getButtons()[4].isMouseOver(event)) {
+            mainMenu.setActive(false);
+            transactionsMenu.setActive(true);
         }
     }
 

@@ -12,6 +12,7 @@
 #include "EnterCardMenu.h"
 #include "EnterPinMenu.h"
 #include "TransferMenu.h"
+#include "TransactionsMenu.h"
 
 #include "CardService.h"
 #include "TransactionService.h"
@@ -24,6 +25,7 @@
 #include "PutCashMenuController.h"
 #include "GetCashMenuController.h"
 #include "TransferController.h"
+#include "TransactionsMenuController.h"
 #include "vector"
 
 using namespace sf;
@@ -43,6 +45,7 @@ private:
     PutCashMenu putCashMenu;
     GetCashMenu getCashMenu;
     TransferMenu transferMenu;
+    TransactionsMenu transactionsMenu;
     std::vector<Menu*> menus;
 
     CardService cardService;
@@ -56,6 +59,7 @@ private:
     PutCashMenuController* putCashMenuController;
     GetCashMenuController* getCashMenuController;
     TransferController* transferController;
+    TransactionsMenuController* transactionsMenuController;
     std::vector<Controller*> controllers;
 
 	void init() {
@@ -82,19 +86,21 @@ public:
         enterCardMenu(*window), 
         enterPinMenu(*window),
         transferMenu(*window),
+        transactionsMenu(*window),
         cardService{},
         transactionService(cardService),
         startMenuController(new StartMenuController(*window, startMenu, enterCardMenu)),
         enterCardController(new EnterCardController(*window, enterCardMenu, enterPinMenu, cardService)),
         enterPinController(new EnterPinController(*window, enterPinMenu, mainMenu, cardService)),
-        mainMenuController(new MainMenuController(*window, mainMenu, balanceMenu, putCashMenu, getCashMenu, transferMenu)),
+        mainMenuController(new MainMenuController(*window, mainMenu, balanceMenu, putCashMenu, getCashMenu, transferMenu, transactionsMenu)),
         balanceMenuController(new BalanceMenuController(*window, mainMenu, balanceMenu, cardService)),
         putCashMenuController(new PutCashMenuController(*window, mainMenu, putCashMenu, cardService)),
         getCashMenuController(new GetCashMenuController(*window, mainMenu, getCashMenu, cardService)),
         transferController(new TransferController(*window, mainMenu, transferMenu, transactionService, cardService)),
-        menus{&startMenu, &enterCardMenu, &enterPinMenu, &mainMenu, &balanceMenu, &putCashMenu, &getCashMenu, &transferMenu },
+        transactionsMenuController(new TransactionsMenuController(*window, mainMenu, transactionsMenu, transactionService, cardService)),
+        menus{&startMenu, &enterCardMenu, &enterPinMenu, &mainMenu, &balanceMenu, &putCashMenu, &getCashMenu, &transferMenu, &transactionsMenu },
         controllers{startMenuController, enterCardController, enterPinController, mainMenuController, 
-        balanceMenuController, putCashMenuController, getCashMenuController, transferController }
+        balanceMenuController, putCashMenuController, getCashMenuController, transferController, transactionsMenuController }
     {
         init();
     }

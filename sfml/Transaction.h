@@ -37,6 +37,14 @@ public:
 
 	int getCardToId() const { return cardToId; };
 	void setCardToId(const int newCardToId) { cardToId = newCardToId; };
+
+	static string dateToStr(const Transaction& t) {
+		char* buffer = new char[20];
+		strftime(buffer, 20, "%F %T\0", &t.getTransactionDate());
+		string res{ buffer };
+		delete buffer;
+		return res;
+	}
 };
 
 ostream& operator<<(ostream& os, const Transaction& t) 

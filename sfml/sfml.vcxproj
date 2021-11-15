@@ -173,7 +173,6 @@
     <ClInclude Include="PutCashMenuController.h" />
     <ClInclude Include="sqlite3.h" />
     <ClInclude Include="sqlite3ext.h" />
-
     <ClInclude Include="StartMenu.h" />
     <ClInclude Include="StartMenuController.h" />
     <ClInclude Include="TextArea.h" />
@@ -181,6 +180,9 @@
     <ClInclude Include="Transaction.h" />
     <ClInclude Include="TransactionRepository.h" />
     <ClInclude Include="TransactionService.h" />
+    <ClInclude Include="TransactionsListView.h" />
+    <ClInclude Include="TransactionsMenu.h" />
+    <ClInclude Include="TransactionsMenuController.h" />
     <ClInclude Include="TransferController.h" />
     <ClInclude Include="TransferMenu.h" />
     <ClInclude Include="Visible.h" />

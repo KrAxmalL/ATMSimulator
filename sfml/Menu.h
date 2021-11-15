@@ -36,6 +36,8 @@ public:
 		errDisappearTime = 0;
 	}
 
+	Text errBox;
+
 	bool isActive() override
 	{
 		return _isActive;
@@ -79,7 +81,6 @@ public:
 			});
 		}
 	}
-	Text errBox;
 
 protected:
 

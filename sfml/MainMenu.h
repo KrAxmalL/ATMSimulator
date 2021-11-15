@@ -57,7 +57,7 @@ private:
         btnf4.setFont(Assets::Instance().arial);
         btnf4.setVisible(false);
 
-        btnf5 = Button("func5", { 240,50 }, 25, Color::White, Color::Black, Assets::Instance().textureBox);
+        btnf5 = Button("Show transactions", { 240,50 }, 25, Color::White, Color::Black, Assets::Instance().textureBox);
         btnf5.setPosition({ 250, 440 });
         btnf5.setFont(Assets::Instance().arial);
         btnf5.setVisible(false);
