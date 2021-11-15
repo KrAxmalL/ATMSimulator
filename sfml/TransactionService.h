@@ -51,6 +51,8 @@ public:
 
 	void performTransaction(const int fromId, const int toId, double sum)
 	{
+		if (sum < 0e10)
+			throw -6;
 		// todo: make custom exceptions
 		if (!cardService.cardExists(fromId) || !cardService.cardExists(toId))
 			throw - 1;

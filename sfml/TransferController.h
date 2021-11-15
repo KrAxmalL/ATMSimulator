@@ -76,6 +76,13 @@ public:
         {
             transferMenu.btnSend.setBackColor(Color::White);
         }
+        if (transferMenu.btnCancel.isMouseOver(event)) {
+            transferMenu.btnCancel.setBackColor(Assets::Instance().Grey);
+        }
+        else
+        {
+            transferMenu.btnCancel.setBackColor(Color::White);
+        }
     }
 
     void mouseButtonPressed(const Event& event) {
@@ -83,7 +90,7 @@ public:
             sendButtonHandler();
         }
         else if (transferMenu.btnCancel.isMouseOver(event)) {
-            returnToMenu();
+            gotoMenu();
         }
         else if (transferMenu.boxCardNum.isMouseOver(event)) {
             transferMenu.boxCardNum.setSelected(true);
@@ -106,10 +113,10 @@ public:
         // todo: refactor
         try {
             if (performTransaction()) {
-                returnToMenu();
+                gotoMenu();
             }
             else
-                transferMenu.displayErrMessage("Invalid data");
+                transferMenu.displayErrMessage("Invalid destination card");
         }
         catch (int e) {
             switch (e) {
@@ -127,6 +134,9 @@ public:
                 break;
             case -5:
                 transferMenu.displayErrMessage("Not enough money");
+                break;
+            case -6:
+                transferMenu.displayErrMessage("Cannot perform zero transaction");
                 break;
             }
         }
@@ -158,7 +168,7 @@ public:
         return true;
     }
 
-    void returnToMenu() {
+    void gotoMenu() {
         transferMenu.boxCardNum.clear();
         transferMenu.boxAmount1.clear();
         transferMenu.boxAmount2.clear();

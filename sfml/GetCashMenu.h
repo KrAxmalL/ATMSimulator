@@ -54,9 +54,14 @@ private:
 		btnRemoveCash.setVisible(false);
 
 		btnOkCash = Button("Remove", { 120,50 }, 25, Color::White, Color::Black, Assets::Instance().textureBox);
-		btnOkCash.setPosition({ 450, 570 });
+		btnOkCash.setPosition({ 380, 570 });
 		btnOkCash.setFont(Assets::Instance().arial);
 		btnOkCash.setVisible(false);
+
+		btnCancel = Button("Cancel", { 120,50 }, 25, Color::White, Color::Black, Assets::Instance().textureBox);
+		btnCancel.setPosition({ 520, 570 });
+		btnCancel.setFont(Assets::Instance().arial);
+		btnCancel.setVisible(false);
 
 		areaCash = TextArea("Amount to remove:\n\n0.00 hrn", { 300,150 }, 20, Color::White, Color::Black, Assets::Instance().textureLabel);
 		areaCash.setFont(Assets::Instance().arial);
@@ -81,6 +86,7 @@ public:
 
 	Button btnRemoveCash;
 	Button btnOkCash;
+	Button btnCancel;
 	TextArea areaCash;
 
 	double getSum = 0.0;
@@ -93,6 +99,7 @@ public:
 	{
 		target.draw(btnRemoveCash);
 		target.draw(btnOkCash);
+		target.draw(btnCancel);
 		target.draw(areaCash);
 		for (auto const& button : buttons)
 		{
@@ -127,7 +134,9 @@ private:
 	{
 		btnRemoveCash.setVisible(isVisible);
 		btnOkCash.setVisible(isVisible);
+		btnCancel.setVisible(isVisible);
 		areaCash.setVisible(isVisible);
+		
 		for (auto& button : buttons)
 		{
 			button.setVisible(isVisible);

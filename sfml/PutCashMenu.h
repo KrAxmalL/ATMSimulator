@@ -49,14 +49,21 @@ private:
 		btn20.setVisible(false);
 
 		btnOkCash = Button("Insert", { 100,50 }, 25, Color::White, Color::Black, Assets::Instance().textureBox);
-		btnOkCash.setPosition({ 450, 500 });
+		btnOkCash.setPosition({ 380, 500 });
 		btnOkCash.setFont(Assets::Instance().arial);
 		btnOkCash.setVisible(false);
+
+		btnCancel = Button("Cancel", { 100,50 }, 25, Color::White, Color::Black, Assets::Instance().textureBox);
+		btnCancel.setPosition({ 520, 500 });
+		btnCancel.setFont(Assets::Instance().arial);
+		btnCancel.setVisible(false);
 
 		areaCash = TextArea("Your insert:\n\n0.00 hrn", { 300,150 }, 20, Color::White, Color::Black, Assets::Instance().textureLabel);
 		areaCash.setFont(Assets::Instance().arial);
 		areaCash.setPosition({ 350,120 });
 		areaCash.setVisible(false);
+
+		errBox.setPosition({ 350,270 });
 
 		buttons = { btn1000, btn500, btn200, btn100, btn50, btn20 };
 	}
@@ -73,6 +80,7 @@ public:
 	std::vector<Button> buttons;
 
 	Button btnOkCash;
+	Button btnCancel;
 	TextArea areaCash;
 
 	double insertSum = 0.0;
@@ -84,12 +92,14 @@ public:
 	void draw(sf::RenderTarget& target, sf::RenderStates states) const override
 	{
 		target.draw(btnOkCash);
+		target.draw(btnCancel);
 		target.draw(areaCash);
+		target.draw(errBox);
+
 		for (auto const& button : buttons)
 		{
 			target.draw(button);
 		}
-		target.draw(errBox);
 	}
 
 	void addMoney(sf::String money) {
@@ -117,6 +127,7 @@ private:
 	void setVisibleAllMembers(bool isVisible) override
 	{
 		btnOkCash.setVisible(isVisible);
+		btnCancel.setVisible(isVisible);
 		areaCash.setVisible(isVisible);
 		for (auto& button : buttons)
 		{

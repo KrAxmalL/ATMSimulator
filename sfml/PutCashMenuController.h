@@ -40,6 +40,13 @@ public:
         {
             putCashMenu.btnOkCash.setBackColor(Color::White);
         }
+        if (putCashMenu.btnCancel.isMouseOver(event)) {
+            putCashMenu.btnCancel.setBackColor(Assets::Instance().Grey);
+        }
+        else
+        {
+            putCashMenu.btnCancel.setBackColor(Color::White);
+        }
         std::vector<Button>& buttons = putCashMenu.getButtons();
         for (auto& button : buttons)
         {
@@ -64,9 +71,14 @@ public:
     void mouseButtonPressed(const Event& event) {
         if (putCashMenu.btnOkCash.isMouseOver(event)) {
             loadCash();
-            putCashMenu.clearSum();
-            putCashMenu.setActive(false);
-            mainMenu.setActive(true);
+            gotoMenu();
+        }
+        else if (putCashMenu.btnCancel.isMouseOver(event)) {
+            if (putCashMenu.insertSum > 0e10) {
+                putCashMenu.displayErrMessage("Unable to cancel when money is already inserted");
+                return;
+            }
+            gotoMenu();
         }
         std::vector<Button>& buttons = putCashMenu.getButtons();
         for (auto& button : buttons)
@@ -77,6 +89,12 @@ public:
             }
         }
         
+    }
+
+    void gotoMenu() {
+        putCashMenu.clearSum();
+        putCashMenu.setActive(false);
+        mainMenu.setActive(true);
     }
 
     bool isActive() override

@@ -56,6 +56,7 @@ public:
 	}
 
 	void setSelected(bool sel) {
+		// todo: why !text.empty()
 		if (isSelected && !sel && !text.empty() && !isFinishedLine()) {
 			text.pop_back();
 			textbox.setString(text);
@@ -136,7 +137,10 @@ public:
 	}
 
 	void clear() {
-		text.clear();
+		if (isSelected)
+			text = "_";
+		else
+			text.clear();
 		realText.clear();
 		textbox.setString(text);
 	}

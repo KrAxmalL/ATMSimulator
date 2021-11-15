@@ -40,6 +40,13 @@ public:
         {
             getCashMenu.btnOkCash.setBackColor(Color::White);
         }
+        if (getCashMenu.btnCancel.isMouseOver(event)) {
+            getCashMenu.btnCancel.setBackColor(Assets::Instance().Grey);
+        }
+        else
+        {
+            getCashMenu.btnCancel.setBackColor(Color::White);
+        }
         if (getCashMenu.btnRemoveCash.isMouseOver(event)) {
             getCashMenu.btnRemoveCash.setBackColor(Assets::Instance().Grey);
         }
@@ -63,14 +70,16 @@ public:
     void mouseButtonPressed(const Event& event) {
         if (getCashMenu.btnOkCash.isMouseOver(event)) {
             if (getCash()) {
-                getCashMenu.clearSum();
-                getCashMenu.setActive(false);
-                mainMenu.setActive(true);
+                gotoMenu();
             }
         }
-        if (getCashMenu.btnRemoveCash.isMouseOver(event)) {
+        else if (getCashMenu.btnCancel.isMouseOver(event)) {
+            gotoMenu();
+        }
+        else if (getCashMenu.btnRemoveCash.isMouseOver(event)) {
             getCashMenu.clearSum();
         }
+
         std::vector<Button>& buttons = getCashMenu.getButtons();
         for (auto& button : buttons)
         {
@@ -95,6 +104,12 @@ public:
         }
         
         return true;
+    }
+
+    void gotoMenu() {
+        getCashMenu.clearSum();
+        getCashMenu.setActive(false);
+        mainMenu.setActive(true);
     }
 
     bool isActive() override

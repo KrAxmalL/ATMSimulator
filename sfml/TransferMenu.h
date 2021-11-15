@@ -19,12 +19,12 @@ private:
 	void init()
 	{
 		btnSend = Button("Send", { 100,50 }, 25, Color::White, Color::Black, Assets::Instance().textureBox);
-		btnSend.setPosition({ 450, 500 });
+		btnSend.setPosition({ 380, 500 });
 		btnSend.setFont(Assets::Instance().arial);
 		btnSend.setVisible(false);
 
 		btnCancel = Button("Cancel", { 100,50 }, 25, Color::White, Color::Black, Assets::Instance().textureBox);
-		btnCancel.setPosition({ 450, 550 });
+		btnCancel.setPosition({ 520, 500 });
 		btnCancel.setFont(Assets::Instance().arial);
 		btnCancel.setVisible(false);
 
@@ -64,10 +64,10 @@ private:
 
 		boxAmount2 = Textbox(25, Color::Black, true, Assets::Instance().textureBox);
 		boxAmount2.setFont(Assets::Instance().arial);
-		boxAmount2.setPosition({ 680,400 });
+		boxAmount2.setPosition({ 675,400 });
 		boxAmount2.setVisible(false);
 		boxAmount2.clear();
-		boxAmount2.setStartedValue("000");
+		boxAmount2.setStartedValue("00");
 		boxAmount2.setSelected(false);
 		boxAmount2.setSecret(false);
 		boxAmount2.setlimit(true, 2);

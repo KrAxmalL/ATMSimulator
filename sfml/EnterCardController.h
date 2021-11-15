@@ -81,6 +81,8 @@ public:
         {
             enterCardMenu.boxCardNum.setSelected(false);
         }
+        // second check is cause TextEntered triggers right after this one (to handle 'enter' there)
+        // todo: test if err message appeares when cardNumInput loses(somehow) focus
         else if (Keyboard::isKeyPressed(sf::Keyboard::Enter) && !enterCardMenu.boxCardNum.isSelecte()) {
             okButtonHandler();
         }
