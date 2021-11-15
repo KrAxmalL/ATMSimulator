@@ -91,9 +91,10 @@ public:
         balanceMenuController(new BalanceMenuController(*window, mainMenu, balanceMenu, cardService)),
         putCashMenuController(new PutCashMenuController(*window, mainMenu, putCashMenu, cardService)),
         getCashMenuController(new GetCashMenuController(*window, mainMenu, getCashMenu, cardService)),
-        transferController(new TransferController(*window, mainMenu, transferMenu, transactionService)),
+        transferController(new TransferController(*window, mainMenu, transferMenu, transactionService, cardService)),
         menus{&startMenu, &enterCardMenu, &enterPinMenu, &mainMenu, &balanceMenu, &putCashMenu, &getCashMenu, &transferMenu },
-        controllers{startMenuController, enterCardController, enterPinController, mainMenuController, balanceMenuController, putCashMenuController, getCashMenuController, transferController }
+        controllers{startMenuController, enterCardController, enterPinController, mainMenuController, 
+        balanceMenuController, putCashMenuController, getCashMenuController, transferController }
     {
         init();
     }
@@ -121,6 +122,8 @@ public:
         Controller* activeController = nullptr;
         while (window->isOpen())
         {
+            // todo: approve
+            std::this_thread::sleep_for(std::chrono::milliseconds{ 20 });
             Event event;
 
             activeController = findActiveController();
@@ -132,6 +135,10 @@ public:
                 }
                 else
                 {
+                    if (event.type == Event::TextEntered) 
+                        cout << "enter text" << endl;
+                    if (event.type == Event::KeyPressed)
+                        cout << "key pressed" << endl;
                     activeController->handleEvent(event);
                     activeController = findActiveController();
                 }
@@ -147,7 +154,8 @@ public:
     {
         for (auto& controller: controllers)
         {
-            if (controller->isActive()) return controller;
+            if (controller->isActive()) 
+                return controller;
         }
 
         return startMenuController;

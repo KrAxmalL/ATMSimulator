@@ -62,10 +62,11 @@ public:
 
     void mouseButtonPressed(const Event& event) {
         if (getCashMenu.btnOkCash.isMouseOver(event)) {
-            getCash();
-            getCashMenu.clearSum();
-            getCashMenu.setActive(false);
-            mainMenu.setActive(true);
+            if (getCash()) {
+                getCashMenu.clearSum();
+                getCashMenu.setActive(false);
+                mainMenu.setActive(true);
+            }
         }
         if (getCashMenu.btnRemoveCash.isMouseOver(event)) {
             getCashMenu.clearSum();
@@ -85,7 +86,14 @@ public:
     {
         double cash = -getCashMenu.getSum;
         std::cout << "cash: " << cash << std::endl;
-        cardService.changeActiveCardBalance(cash);
+        try {
+            cardService.changeActiveCardBalance(cash);
+        }
+        catch (...) {
+            getCashMenu.displayErrMessage("Not enough cash");
+            return false;
+        }
+        
         return true;
     }
 

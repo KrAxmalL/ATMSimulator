@@ -56,12 +56,16 @@ public:
 	}
 
 	void setSelected(bool sel) {
-		isSelected = sel;
-		if (!sel && !text.empty() && !isFinishedLine()) {
+		if (isSelected && !sel && !text.empty() && !isFinishedLine()) {
 			text.pop_back();
 			textbox.setString(text);
 			//removeLastChar();
 		}
+		else if (!isSelected && sel && !isFinishedLine()) {
+			text.push_back('_');
+			textbox.setString(text);
+		}
+		isSelected = sel;
 	}
 
 	bool isSelecte() {
@@ -133,6 +137,7 @@ public:
 
 	void clear() {
 		text.clear();
+		realText.clear();
 		textbox.setString(text);
 	}
 

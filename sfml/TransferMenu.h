@@ -23,6 +23,11 @@ private:
 		btnSend.setFont(Assets::Instance().arial);
 		btnSend.setVisible(false);
 
+		btnCancel = Button("Cancel", { 100,50 }, 25, Color::White, Color::Black, Assets::Instance().textureBox);
+		btnCancel.setPosition({ 450, 550 });
+		btnCancel.setFont(Assets::Instance().arial);
+		btnCancel.setVisible(false);
+
 		areaSend = TextArea("Transfer to card", { 300,100 }, 20, Color::White, Color::Black, Assets::Instance().textureLabel);
 		areaSend.setFont(Assets::Instance().arial);
 		areaSend.setPosition({ 350,150 });
@@ -38,7 +43,7 @@ private:
 		boxCardNum.setPosition({ 550,300 });
 		boxCardNum.setVisible(false);
 		boxCardNum.clear();
-		boxCardNum.setSelected(false);
+		boxCardNum.setSelected(true);
 		boxCardNum.setSecret(false);
 		boxCardNum.setlimit(true, 5);
 
@@ -71,6 +76,7 @@ private:
 public:
 
 	Button btnSend;
+	Button btnCancel;
 	TextArea areaSend;
 	TextArea areaAmount;
 	TextArea areaCardNum;
@@ -85,12 +91,14 @@ public:
 	void draw(sf::RenderTarget& target, sf::RenderStates states) const override
 	{
 		target.draw(btnSend);
+		target.draw(btnCancel);
 		target.draw(areaSend);
 		target.draw(areaCardNum);
 		target.draw(areaAmount);
 		target.draw(boxAmount1);
 		target.draw(boxAmount2);
 		target.draw(boxCardNum);
+		target.draw(errBox);
 	}
 
 private:
@@ -98,6 +106,7 @@ private:
 	void setVisibleAllMembers(bool isVisible) override
 	{
 		btnSend.setVisible(isVisible);
+		btnCancel.setVisible(isVisible);
 		boxAmount1.setVisible(isVisible);
 		boxAmount2.setVisible(isVisible);
 		areaSend.setVisible(isVisible);

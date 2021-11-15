@@ -24,17 +24,13 @@ public:
         switch (event.type)
         {
         case Event::KeyPressed:
-            if (Keyboard::isKeyPressed(sf::Keyboard::Return))
-            {
-                enterCardMenu.boxCardNum.setSelected(true);
-            }
-            else if (Keyboard::isKeyPressed(sf::Keyboard::Escape))
-            {
-                enterCardMenu.boxCardNum.setSelected(false);
-            }
+            keyPressed(event);
             break;
             
         case Event::TextEntered:
+            if (Keyboard::isKeyPressed(Keyboard::Enter)) {
+                okButtonHandler();
+            }
             enterCardMenu.boxCardNum.typedOn(event);
             break;
         case Event::MouseMoved:
@@ -59,15 +55,34 @@ public:
 
     void mouseButtonPressed(const Event& event) {
         if (enterCardMenu.btnOkCard.isMouseOver(event)) {
-            if (readCard())
-            {
-                enterCardMenu.setActive(false);
-                enterPinMenu.setActive(true);
-            }
-            else
-            {
+            okButtonHandler();
+        }
+    }
 
-            }
+    void okButtonHandler() {
+        if (readCard())
+        {
+            enterCardMenu.setActive(false);
+            enterPinMenu.setActive(true);
+        }
+        else
+        {
+            enterCardMenu.displayErrMessage("Card number is invalid.");
+        }
+    }
+
+    void keyPressed(const Event& event) {
+
+        if (Keyboard::isKeyPressed(sf::Keyboard::Return))
+        {
+            enterCardMenu.boxCardNum.setSelected(true);
+        }
+        else if (Keyboard::isKeyPressed(sf::Keyboard::Escape))
+        {
+            enterCardMenu.boxCardNum.setSelected(false);
+        }
+        else if (Keyboard::isKeyPressed(sf::Keyboard::Enter) && !enterCardMenu.boxCardNum.isSelecte()) {
+            okButtonHandler();
         }
     }
 

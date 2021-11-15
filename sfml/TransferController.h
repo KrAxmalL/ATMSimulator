@@ -12,10 +12,20 @@ private:
     TransferMenu& transferMenu;
 
     TransactionService& transactionService;
+    CardService& cardService;
+
+    // todo: temp
+    template<class T>
+    void unselect(T& drawable) {
+        if (drawable.isSelecte()) {
+            drawable.setSelected(false);
+        }
+    }
 
 public:
 
-    TransferController(RenderWindow& par, MainMenu& mainMenu, TransferMenu& transferMenu, TransactionService& transactionService) : mainMenu(mainMenu), transferMenu(transferMenu), transactionService(transactionService) {}
+    TransferController(RenderWindow& par, MainMenu& mainMenu, TransferMenu& transferMenu, TransactionService& transactionService, CardService& cardService) : 
+        mainMenu(mainMenu), transferMenu(transferMenu), transactionService(transactionService), cardService(cardService) {}
     ~TransferController() {}
 
     virtual void handleEvent(const Event& event) override
@@ -41,6 +51,9 @@ public:
             //}
             break;
         case Event::TextEntered:
+            if (Keyboard::isKeyPressed(sf::Keyboard::Enter)) {
+                sendButtonHandler();
+            }
             transferMenu.boxCardNum.typedOn(event);
             transferMenu.boxAmount1.typedOn(event);
             transferMenu.boxAmount2.typedOn(event);
@@ -67,22 +80,57 @@ public:
 
     void mouseButtonPressed(const Event& event) {
         if (transferMenu.btnSend.isMouseOver(event)) {
-            performTransaction();
-            transferMenu.boxCardNum.clear();
-            transferMenu.boxAmount1.clear();
-            transferMenu.boxAmount2.clear();
-            transferMenu.setActive(false);
-            mainMenu.setActive(true);
+            sendButtonHandler();
         }
-        if (transferMenu.boxCardNum.isMouseOver(event)) {
+        else if (transferMenu.btnCancel.isMouseOver(event)) {
+            returnToMenu();
+        }
+        else if (transferMenu.boxCardNum.isMouseOver(event)) {
             transferMenu.boxCardNum.setSelected(true);
+            unselect(transferMenu.boxAmount2);
+            unselect(transferMenu.boxAmount1);
         }
-        if (transferMenu.boxAmount1.isMouseOver(event)) {
+        else if (transferMenu.boxAmount1.isMouseOver(event)) {
             transferMenu.boxAmount1.setSelected(true);
+            unselect(transferMenu.boxCardNum);
+            unselect(transferMenu.boxAmount2);
         }
-        if (transferMenu.boxAmount2.isMouseOver(event)) {
+        else if (transferMenu.boxAmount2.isMouseOver(event)) {
             transferMenu.boxAmount2.setSelected(true);
+            unselect(transferMenu.boxCardNum);
+            unselect(transferMenu.boxAmount1);
         }
+    }
+
+    void sendButtonHandler() {
+        // todo: refactor
+        try {
+            if (performTransaction()) {
+                returnToMenu();
+            }
+            else
+                transferMenu.displayErrMessage("Invalid data");
+        }
+        catch (int e) {
+            switch (e) {
+            case -1:
+                transferMenu.displayErrMessage("Invalid cards numbers");
+                break;
+            case -2:
+                transferMenu.displayErrMessage("Cannot make transaction on your own card");
+                break;
+            case -3:
+                transferMenu.displayErrMessage("Your card is blocked");
+                break;
+            case -4:
+                transferMenu.displayErrMessage("Destination card is blocked");
+                break;
+            case -5:
+                transferMenu.displayErrMessage("Not enough money");
+                break;
+            }
+        }
+        
     }
 
     bool performTransaction()
@@ -93,15 +141,29 @@ public:
         {
             return false;
         }
-        else
-        {
-            int cardTo = std::atoi(cardToStr.c_str());
-            double amountInt = std::atoi(transferMenu.boxAmount1.getText().c_str());
-            double amountDec = std::atoi(transferMenu.boxAmount2.getText().c_str());
-            amountDec /= 100;
-            double finAmount = amountInt + amountDec;
-            transactionService.transactionFromActiveCard(cardTo, finAmount);
-        }
+
+        int cardTo = std::atoi(cardToStr.c_str());
+        if (!cardService.cardExists(cardTo))
+            return false;
+
+        double amountInt = std::atoi(transferMenu.boxAmount1.getText().c_str());
+        double amountDec = std::atoi(transferMenu.boxAmount2.getText().c_str());
+        amountDec /= 100;
+        double finAmount = amountInt + amountDec;
+
+        // todo: something like spinner 
+        // "please wait, transaction is in progress"
+        transactionService.transactionFromActiveCard(cardTo, finAmount);
+
+        return true;
+    }
+
+    void returnToMenu() {
+        transferMenu.boxCardNum.clear();
+        transferMenu.boxAmount1.clear();
+        transferMenu.boxAmount2.clear();
+        transferMenu.setActive(false);
+        mainMenu.setActive(true);
     }
 
     bool isActive() override

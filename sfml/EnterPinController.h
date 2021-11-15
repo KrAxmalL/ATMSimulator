@@ -30,9 +30,15 @@ public:
             else if (Keyboard::isKeyPressed(sf::Keyboard::Escape))
             {
                 enterPinMenu.boxCardNum.setSelected(false);
+            } 
+            else if (Keyboard::isKeyPressed(sf::Keyboard::Enter) && !enterPinMenu.boxCardNum.isSelecte()) {
+                okButtonHandler();
             }
             break;
         case Event::TextEntered:
+            if (Keyboard::isKeyPressed(sf::Keyboard::Enter)) {
+                okButtonHandler();
+            }
             enterPinMenu.boxCardNum.typedOn(event);
             break;
         case Event::MouseMoved:
@@ -57,15 +63,20 @@ public:
 
     void mouseButtonPressed(const Event& event) {
         if (enterPinMenu.btnOkPin.isMouseOver(event)) {
-            if (readPin())
-            {
-                enterPinMenu.setActive(false);
-                mainMenu.setActive(true);
-            }
-            else
-            {
-                //message box with error
-            }
+            okButtonHandler();
+        }
+    }
+
+    void okButtonHandler() {
+        if (readPin())
+        {
+            enterPinMenu.setActive(false);
+            mainMenu.setActive(true);
+        }
+        else
+        {
+            enterPinMenu.displayErrMessage("Pin is incorrect");
+            //message box with error
         }
     }
 

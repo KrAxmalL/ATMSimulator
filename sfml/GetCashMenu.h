@@ -63,6 +63,8 @@ private:
 		areaCash.setPosition({ 350,120 });
 		areaCash.setVisible(false);
 
+		errBox.setPosition({ 370, 270 });
+
 		buttons = { btn1000, btn500, btn200, btn100, btn50, btn20 };
 	}
 
@@ -96,6 +98,7 @@ public:
 		{
 			target.draw(button);
 		}
+		target.draw(errBox);
 	}
 
 	void addMoney(sf::String money) {

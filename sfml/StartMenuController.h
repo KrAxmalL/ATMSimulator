@@ -26,6 +26,10 @@ public:
         case Event::MouseButtonPressed:
             mouseButtonPressed(event);
             break;
+        case Event::TextEntered:
+            keyPressed(event);
+            break;
+            // Event::KeyPressed may ruin enter button
         }
 	}
 
@@ -41,6 +45,14 @@ public:
 
     void mouseButtonPressed(const Event& event) {
         if (startMenu.btnStart.isMouseOver(event)) {
+            startMenu.setActive(false);
+            enterCardMenu.setActive(true);
+        }
+    }
+
+    void keyPressed(const Event& event) {
+        if (Keyboard::isKeyPressed(sf::Keyboard::Enter))
+        {
             startMenu.setActive(false);
             enterCardMenu.setActive(true);
         }

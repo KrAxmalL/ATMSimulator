@@ -89,6 +89,7 @@ public:
 		{
 			target.draw(button);
 		}
+		target.draw(errBox);
 	}
 
 	void addMoney(sf::String money) {

@@ -141,7 +141,7 @@ public:
 		double newBalance = activeCard->getBalance() + sum;
 		if (newBalance < 0)
 		{
-			//error message
+			throw - 1;
 		}
 		else
 		{
@@ -169,7 +169,7 @@ public:
 			cout << card << endl;
 			cardRepository.deleteCard(card.getId());
 			cardRepository.addCard(card);
-			//cardRepository.updateCard(card);
+			// cardRepository.updateCard(card);
 		}
 	}
 };

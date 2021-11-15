@@ -1,5 +1,6 @@
 #pragma once
 #include <SFML/Graphics.hpp>
+#include <SFML/Graphics/Text.hpp>
 #include "Button.h"
 #include "TextBox.h"
 #include "TextArea.h"
@@ -34,6 +35,7 @@ private:
 		boxCardNum.clear();
 		boxCardNum.setSecret(false);
 		boxCardNum.setlimit(true, 5);
+
 	}
 
 public:
@@ -41,16 +43,17 @@ public:
 	Button btnOkCard;
 	TextArea areaCard;
 	Textbox boxCardNum;
-
 	EnterCardMenu(RenderWindow& par) : window(par) { init(); }
 
 	~EnterCardMenu() {}
 
 	void draw(sf::RenderTarget& target, sf::RenderStates states) const override
 	{
+		// consider adding
 		target.draw(btnOkCard);
 		target.draw(areaCard);
 		target.draw(boxCardNum);
+		target.draw(errBox);
 	}
 
 private:

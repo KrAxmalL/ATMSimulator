@@ -52,6 +52,7 @@ public:
 		target.draw(btnOkPin);
 		target.draw(areaCard);
 		target.draw(boxCardNum);
+		target.draw(errBox);
 	}
 
 private:
