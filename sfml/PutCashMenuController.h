@@ -28,6 +28,10 @@ public:
         case Event::MouseButtonPressed:
             mouseButtonPressed(event);
             break;
+        case Event::KeyPressed:
+            if (Keyboard::isKeyPressed(sf::Keyboard::Enter) && loadCash()) {
+                gotoMenu();
+            }
         }
     }
 
@@ -64,13 +68,18 @@ public:
     {
         double cash = putCashMenu.insertSum;
         std::cout << "cash: " << cash << std::endl;
+
+        if (cash < 1e-10) {
+            putCashMenu.displayErrMessage("Cannot put zero money");
+            return false;
+        }
+
         cardService.changeActiveCardBalance(cash);
         return true;
     }
 
     void mouseButtonPressed(const Event& event) {
-        if (putCashMenu.btnOkCash.isMouseOver(event)) {
-            loadCash();
+        if (putCashMenu.btnOkCash.isMouseOver(event) && loadCash()) {
             gotoMenu();
         }
         else if (putCashMenu.btnCancel.isMouseOver(event)) {

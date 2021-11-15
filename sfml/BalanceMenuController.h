@@ -28,6 +28,11 @@ public:
         case Event::MouseButtonPressed:
             mouseButtonPressed(event);
             break;
+
+        case Event::KeyPressed:
+            if (Keyboard::isKeyPressed(sf::Keyboard::Enter)) {
+                gotoMenu();
+            }
         }
     }
 
@@ -44,9 +49,13 @@ public:
 
     void mouseButtonPressed(const Event& event) {
         if (balanceMenu.btnOkBalance.isMouseOver(event)) {
-            balanceMenu.setActive(false);
-            mainMenu.setActive(true);
+            gotoMenu();
         }
+    }
+
+    void gotoMenu() {
+        balanceMenu.setActive(false);
+        mainMenu.setActive(true);
     }
 
     bool isActive() override

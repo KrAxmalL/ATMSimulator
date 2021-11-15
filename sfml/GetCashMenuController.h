@@ -28,6 +28,10 @@ public:
         case Event::MouseButtonPressed:
             mouseButtonPressed(event);
             break;
+        case Event::KeyPressed:
+            if (Keyboard::isKeyPressed(sf::Keyboard::Enter) && getCash()) {
+                gotoMenu();
+            }
         }
     }
 
@@ -68,10 +72,8 @@ public:
     }
 
     void mouseButtonPressed(const Event& event) {
-        if (getCashMenu.btnOkCash.isMouseOver(event)) {
-            if (getCash()) {
-                gotoMenu();
-            }
+        if (getCashMenu.btnOkCash.isMouseOver(event) && getCash()) {
+            gotoMenu();
         }
         else if (getCashMenu.btnCancel.isMouseOver(event)) {
             gotoMenu();
@@ -93,6 +95,11 @@ public:
 
     bool getCash()
     {
+        if (getCashMenu.getSum <= 1e-10) {
+            getCashMenu.displayErrMessage("Cannot get zero money");
+            return false;
+        }
+
         double cash = -getCashMenu.getSum;
         std::cout << "cash: " << cash << std::endl;
         try {
