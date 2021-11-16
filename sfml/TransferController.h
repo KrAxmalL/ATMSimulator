@@ -1,4 +1,7 @@
 #pragma once
+#include<stdio.h>
+#include<stdlib.h>
+
 #include "Controller.h"
 #include "MainMenu.h"
 #include "TransferMenu.h"
@@ -138,6 +141,9 @@ public:
             case -6:
                 transferMenu.displayErrMessage("Cannot perform zero transaction");
                 break;
+            case -7:
+                transferMenu.displayErrMessage("Enter sum, please");
+                break;
             }
         }
         
@@ -156,8 +162,15 @@ public:
         if (!cardService.cardExists(cardTo))
             return false;
 
-        double amountInt = std::atoi(transferMenu.boxAmount1.getText().c_str());
-        double amountDec = std::atoi(transferMenu.boxAmount2.getText().c_str());
+        string boxAmount1Text1 = transferMenu.boxAmount1.getText().c_str();
+        string boxAmount1Text2 = transferMenu.boxAmount2.getText().c_str();
+
+        // todo: refactor throw
+        if (boxAmount1Text1 == "" && boxAmount1Text2 == "")
+            throw - 7;
+
+        double amountInt = std::atoi(boxAmount1Text1.c_str());
+        double amountDec = std::atoi(boxAmount1Text2.c_str());
         amountDec /= 100;
         double finAmount = amountInt + amountDec;
 

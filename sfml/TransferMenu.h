@@ -57,7 +57,7 @@ private:
 		boxAmount1.setPosition({ 550,400 });
 		boxAmount1.setVisible(false);
 		boxAmount1.clear();
-		boxAmount1.setStartedValue("00");
+		boxAmount1.setStartedValue("");
 		boxAmount1.setSelected(false);
 		boxAmount1.setSecret(false);
 		boxAmount1.setlimit(true, 6);
@@ -67,7 +67,7 @@ private:
 		boxAmount2.setPosition({ 675,400 });
 		boxAmount2.setVisible(false);
 		boxAmount2.clear();
-		boxAmount2.setStartedValue("00");
+		boxAmount2.setStartedValue("");
 		boxAmount2.setSelected(false);
 		boxAmount2.setSecret(false);
 		boxAmount2.setlimit(true, 2);
