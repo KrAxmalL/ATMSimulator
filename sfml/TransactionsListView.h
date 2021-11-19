@@ -37,11 +37,11 @@ private:
 public:
 	TransactionsListView() {}
 
-	TransactionsListView(const vector<Transaction>& transactionsList) :
-		TransactionsListView(transactionsList.begin(), transactionsList.end())
+	TransactionsListView(const vector<Transaction>& transactionsList, const int activeCardId) :
+		TransactionsListView(transactionsList.begin(), transactionsList.end(), activeCardId)
 	{}
 
-	TransactionsListView(transactionIter first, transactionIter last)
+	TransactionsListView(transactionIter first, transactionIter last, const int activeCardId)
 		: _isVisible(false)
 	{
 		const float scale = 0.6f;
@@ -65,7 +65,20 @@ public:
 			}
 
 			std::stringstream sumstream;
-			sumstream << std::fixed << std::showpos << std::setprecision(2) << transactionIter->getSum();
+			//if transaction from current card - show negative money amount
+			//else - positive
+			double sumToShow = transactionIter->getSum();
+			if (transactionIter->getCardFromId() == activeCardId)
+			{
+				sumToShow = -sumToShow;
+			}
+
+			std::cout << "sum to show: " << sumToShow << std::endl;
+			std::cout << "transactionFrom: " << transactionIter->getCardFromId() << std::endl;
+			std::cout << "transactionTo: " << transactionIter->getCardToId() << std::endl;
+			std::cout << "activeCardId: " << activeCardId << std::endl;
+
+			sumstream << std::fixed << std::showpos << std::setprecision(2) << sumToShow;
 
 			std::stringstream stream;
 			stream << std::left << std::setw(14) << transactionIter->getCardToId()

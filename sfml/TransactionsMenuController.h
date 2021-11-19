@@ -120,7 +120,7 @@ public:
             }
             
             transactionIter end = currentPage == totalPageNumber - 1 ? transactions->end() : transactions->begin() + currentPage * 6 + 6;
-            transactionsMenu.transactionsListView = TransactionsListView(transactions->begin() + currentPage*6, end);
+            transactionsMenu.transactionsListView = TransactionsListView(transactions->begin() + currentPage*6, end, cardService.getActiveCard().getId());
             
             updatePageNumber();
             requiresUpdate = false;

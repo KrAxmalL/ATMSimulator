@@ -146,8 +146,9 @@ public:
 			Transaction t;
 			t.setId(sqlite3_column_int(stmt, 0));
 			t.setSum(sqlite3_column_double(stmt, 2));
-			t.setCardFromId(sqlite3_column_int(stmt, 3));
-			t.setCardToId(sqlite3_column_int(stmt, 4));
+			//t.setCardFromId(sqlite3_column_int(stmt, 3));
+			t.setCardToId(sqlite3_column_int(stmt, 3));
+			t.setCardFromId(sqlite3_column_int(stmt, 4));
 			
 			char* dateStr = (char*)sqlite3_column_text(stmt, 1);
 			dateStr[4] = dateStr[7] = dateStr[10] = dateStr[13] = dateStr[16] = '\0';
