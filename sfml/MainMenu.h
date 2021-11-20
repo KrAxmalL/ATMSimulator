@@ -15,8 +15,6 @@ class MainMenu : public Menu {
 
 private:
 
-    TextArea areaWelcome;
-
     Button btnf1;
     Button btnf2;
     Button btnf3;
@@ -79,6 +77,8 @@ private:
     }
 
 public:
+
+    TextArea areaWelcome;
 
     explicit MainMenu() { init(); }
 

@@ -3,6 +3,7 @@
 #include "EnterCardMenu.h"
 #include "EnterPinMenu.h"
 #include "CardService.h"
+#include "CustomerService.h"
 
 class EnterCardController : public Controller
 {
@@ -13,10 +14,11 @@ private:
     EnterPinMenu& enterPinMenu;
 
     CardService& cardService;
+    CustomerService& customerService;
 
 public:
 
-    EnterCardController(RenderWindow& par, EnterCardMenu& enterCardMenu, EnterPinMenu& enterPinMenu, CardService& cardService) : enterCardMenu(enterCardMenu), enterPinMenu(enterPinMenu), cardService(cardService) {}
+    EnterCardController(RenderWindow& par, EnterCardMenu& enterCardMenu, EnterPinMenu& enterPinMenu, CardService& cardService, CustomerService& customerService) : enterCardMenu(enterCardMenu), enterPinMenu(enterPinMenu), cardService(cardService), customerService(customerService) {}
     ~EnterCardController() {}
 
     virtual void handleEvent(const Event& event) override
@@ -104,6 +106,7 @@ public:
             cardService.makeActiveCard(cardNum);
             if (!cardService.isActiveCardBlocked())
             {
+                customerService.makeActiveCustomer();
                 return true;
             }
             else

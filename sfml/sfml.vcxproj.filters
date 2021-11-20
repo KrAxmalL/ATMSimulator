@@ -183,6 +183,12 @@
     <ClInclude Include="ChangePinMenuController.h">
       <Filter>Файлы заголовков\Backend\Controllers</Filter>
     </ClInclude>
+    <ClInclude Include="CustomerRepository.h">
+      <Filter>Файлы заголовков\Backend\Repositories</Filter>
+    </ClInclude>
+    <ClInclude Include="CustomerService.h">
+      <Filter>Файлы заголовков\Backend\Services</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">

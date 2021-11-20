@@ -8,6 +8,9 @@
 #include "RemoveCardMenu.h"
 #include "ChangePinMenu.h"
 #include "BankCard.h"
+
+#include "CustomerService.h"
+
 #include <vector>
 
 class MainMenuController : public Controller
@@ -24,9 +27,11 @@ private:
     RemoveCardMenu& removeCardMenu;
     ChangePinMenu& changePinMenu;
 
+    CustomerService& customerService;
+
 public:
 
-    MainMenuController(RenderWindow& par, MainMenu& mainMenu, BalanceMenu& balanceMenu, PutCashMenu& putCashMenu, GetCashMenu& getCashMenu, TransferMenu& transferMenu, TransactionsMenu& transactionsMenu, RemoveCardMenu& removeCardMenu, ChangePinMenu& changePinMenu)
+    MainMenuController(RenderWindow& par, MainMenu& mainMenu, BalanceMenu& balanceMenu, PutCashMenu& putCashMenu, GetCashMenu& getCashMenu, TransferMenu& transferMenu, TransactionsMenu& transactionsMenu, RemoveCardMenu& removeCardMenu, ChangePinMenu& changePinMenu, CustomerService& customerService)
         : mainMenu(mainMenu) 
         , balanceMenu(balanceMenu)
         , putCashMenu(putCashMenu)
@@ -34,7 +39,8 @@ public:
         , transferMenu(transferMenu),
         transactionsMenu(transactionsMenu) 
         , removeCardMenu(removeCardMenu)
-        , changePinMenu(changePinMenu) {}
+        , changePinMenu(changePinMenu)
+        , customerService(customerService) {}
     ~MainMenuController() {}
 
     virtual void handleEvent(const Event& event) override
@@ -113,6 +119,10 @@ public:
 
     Menu& menu() override
     {
+        const Customer& activeCustomer = customerService.getActiveCustomer();
+        std::string fullName{ activeCustomer.getFName() + " " + activeCustomer.getSName() };
+        mainMenu.areaWelcome.setText("Welcome, " + fullName);
+
         return mainMenu;
     }
 };

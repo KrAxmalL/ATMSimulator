@@ -161,6 +161,8 @@
     <ClInclude Include="ChangePinMenuController.h" />
     <ClInclude Include="Controller.h" />
     <ClInclude Include="Customer.h" />
+    <ClInclude Include="CustomerRepository.h" />
+    <ClInclude Include="CustomerService.h" />
     <ClInclude Include="EnterCardController.h" />
     <ClInclude Include="EnterCardMenu.h" />
     <ClInclude Include="EnterPinController.h" />

@@ -56,6 +56,7 @@ private:
 
     CardService cardService;
     TransactionService transactionService;
+    CustomerService customerService;
 
     StartMenuController* startMenuController;
     EnterCardController* enterCardController;
@@ -100,10 +101,11 @@ public:
         changePinMenu(),
         cardService{},
         transactionService(cardService),
+        customerService(cardService),
         startMenuController(new StartMenuController(*window, startMenu, enterCardMenu)),
-        enterCardController(new EnterCardController(*window, enterCardMenu, enterPinMenu, cardService)),
+        enterCardController(new EnterCardController(*window, enterCardMenu, enterPinMenu, cardService, customerService)),
         enterPinController(new EnterPinController(*window, enterPinMenu, mainMenu, cardService)),
-        mainMenuController(new MainMenuController(*window, mainMenu, balanceMenu, putCashMenu, getCashMenu, transferMenu, transactionsMenu, removeCardMenu, changePinMenu)),
+        mainMenuController(new MainMenuController(*window, mainMenu, balanceMenu, putCashMenu, getCashMenu, transferMenu, transactionsMenu, removeCardMenu, changePinMenu, customerService)),
         balanceMenuController(new BalanceMenuController(*window, mainMenu, balanceMenu, cardService)),
         putCashMenuController(new PutCashMenuController(*window, mainMenu, putCashMenu, cardService)),
         getCashMenuController(new GetCashMenuController(*window, mainMenu, getCashMenu, cardService)),

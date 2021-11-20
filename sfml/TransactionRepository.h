@@ -18,7 +18,6 @@ private:
 
 	static const char* dir;
 
-
 	static void executeStatement(const string& sql, int(*callback)(void*, int, char**, char**), void* entity)
 	{
 		sqlite3* DB;

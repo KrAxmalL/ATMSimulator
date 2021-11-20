@@ -14,6 +14,7 @@ constexpr int NINE = 57;
 using namespace sf;
 
 //input bugs
+//sometimes secret text is replaced by real
 class Textbox: public Drawable {
 public:
 	Textbox() { }
@@ -139,7 +140,6 @@ public:
 	void clear() {
 		text.clear();
 		realText.clear();
-		textbox.setString(text);
 		if (isSelected)
 		{
 			text = "_";
@@ -150,6 +150,7 @@ public:
 			realText.clear();
 			textbox.setString(text);
 		}*/
+		textbox.setString(text);
 	}
 
 	std::string getText()
@@ -164,7 +165,7 @@ private:
 	sf::RectangleShape form;
 	std::string text;
 	std::string realText;
-	//todo add additional string if string is secret
+
 	bool isSelected = false;
 	bool hasLimit = false;
 	bool isSecret = false;
