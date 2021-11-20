@@ -13,6 +13,8 @@
 #include "EnterPinMenu.h"
 #include "TransferMenu.h"
 #include "TransactionsMenu.h"
+#include "RemoveCardMenu.h"
+#include "ChangePinMenu.h"
 
 #include "CardService.h"
 #include "TransactionService.h"
@@ -26,6 +28,8 @@
 #include "GetCashMenuController.h"
 #include "TransferController.h"
 #include "TransactionsMenuController.h"
+#include "RemoveCardMenuController.h"
+#include "ChangePinMenuController.h"
 #include "vector"
 
 using namespace sf;
@@ -46,6 +50,8 @@ private:
     GetCashMenu getCashMenu;
     TransferMenu transferMenu;
     TransactionsMenu transactionsMenu;
+    RemoveCardMenu removeCardMenu;
+    ChangePinMenu changePinMenu;
     std::vector<Menu*> menus;
 
     CardService cardService;
@@ -60,6 +66,8 @@ private:
     GetCashMenuController* getCashMenuController;
     TransferController* transferController;
     TransactionsMenuController* transactionsMenuController;
+    RemoveCardMenuController* removeCardMenuController;
+    ChangePinMenuController* changePinMenuController;
     std::vector<Controller*> controllers;
 
 	void init() {
@@ -78,35 +86,40 @@ private:
 	}
 
 public: 
-    AtmManager(): window(new RenderWindow(VideoMode(1000, 750), "SFML works!")), mainMenu(*window), 
-        startMenu(*window), 
-        balanceMenu(*window),
-        putCashMenu(*window),
-        getCashMenu(*window),
-        enterCardMenu(*window), 
-        enterPinMenu(*window),
-        transferMenu(*window),
-        transactionsMenu(*window),
+    AtmManager() : window(new RenderWindow(VideoMode(1000, 750), "SFML works!")), 
+        startMenu(),
+        enterCardMenu(),
+        enterPinMenu(),
+        mainMenu(),
+        balanceMenu(),
+        putCashMenu(),
+        getCashMenu(),
+        transferMenu(),
+        transactionsMenu(),
+        removeCardMenu(),
+        changePinMenu(),
         cardService{},
         transactionService(cardService),
         startMenuController(new StartMenuController(*window, startMenu, enterCardMenu)),
         enterCardController(new EnterCardController(*window, enterCardMenu, enterPinMenu, cardService)),
         enterPinController(new EnterPinController(*window, enterPinMenu, mainMenu, cardService)),
-        mainMenuController(new MainMenuController(*window, mainMenu, balanceMenu, putCashMenu, getCashMenu, transferMenu, transactionsMenu)),
+        mainMenuController(new MainMenuController(*window, mainMenu, balanceMenu, putCashMenu, getCashMenu, transferMenu, transactionsMenu, removeCardMenu, changePinMenu)),
         balanceMenuController(new BalanceMenuController(*window, mainMenu, balanceMenu, cardService)),
         putCashMenuController(new PutCashMenuController(*window, mainMenu, putCashMenu, cardService)),
         getCashMenuController(new GetCashMenuController(*window, mainMenu, getCashMenu, cardService)),
         transferController(new TransferController(*window, mainMenu, transferMenu, transactionService, cardService)),
         transactionsMenuController(new TransactionsMenuController(*window, mainMenu, transactionsMenu, transactionService, cardService)),
-        menus{&startMenu, &enterCardMenu, &enterPinMenu, &mainMenu, &balanceMenu, &putCashMenu, &getCashMenu, &transferMenu, &transactionsMenu },
+        removeCardMenuController(new RemoveCardMenuController(*window, mainMenu, removeCardMenu, startMenu)),
+        changePinMenuController(new ChangePinMenuController(*window, mainMenu, changePinMenu, cardService)),
+        menus{&startMenu, &enterCardMenu, &enterPinMenu, &mainMenu, &balanceMenu, &putCashMenu, &getCashMenu, &transferMenu, &transactionsMenu, &removeCardMenu, &changePinMenu },
         controllers{startMenuController, enterCardController, enterPinController, mainMenuController, 
-        balanceMenuController, putCashMenuController, getCashMenuController, transferController, transactionsMenuController }
+        balanceMenuController, putCashMenuController, getCashMenuController, transferController, transactionsMenuController, removeCardMenuController, changePinMenuController }
     {
         init();
     }
 
-	~AtmManager() { 
-
+	~AtmManager() 
+    { 
         delete startMenuController;
         delete enterCardController;
         delete enterPinController;
@@ -115,6 +128,8 @@ public:
         delete putCashMenuController;
         delete getCashMenuController;
         delete transferController;
+        delete removeCardMenuController;
+        delete changePinMenuController;
         delete window;
     }
 

@@ -171,6 +171,18 @@
     <ClInclude Include="TransactionsMenuController.h">
       <Filter>Файлы заголовков\Backend\Controllers</Filter>
     </ClInclude>
+    <ClInclude Include="RemoveCardMenu.h">
+      <Filter>Файлы заголовков\UI\Menus</Filter>
+    </ClInclude>
+    <ClInclude Include="RemoveCardMenuController.h">
+      <Filter>Файлы заголовков\Backend\Controllers</Filter>
+    </ClInclude>
+    <ClInclude Include="ChangePinMenu.h">
+      <Filter>Файлы заголовков\UI\Menus</Filter>
+    </ClInclude>
+    <ClInclude Include="ChangePinMenuController.h">
+      <Filter>Файлы заголовков\Backend\Controllers</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">

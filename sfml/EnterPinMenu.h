@@ -14,8 +14,6 @@ class EnterPinMenu : public Menu {
 
 private:
 
-	RenderWindow& window;
-
 	void init()
 	{
 		btnOkPin = Button("OK", { 80,50 }, 25, Color::White, Color::Black, Assets::Instance().textureBox);
@@ -23,35 +21,35 @@ private:
 		btnOkPin.setFont(Assets::Instance().arial);
 		btnOkPin.setVisible(false);
 
-		areaCard = TextArea("Input PIN", { 300,50 }, 20, Color::White, Color::Black, Assets::Instance().textureLabel);
-		areaCard.setFont(Assets::Instance().arial);
-		areaCard.setPosition({ 350,200 });
-		areaCard.setVisible(false);
+		areaPin = TextArea("Input PIN", { 300,50 }, 20, Color::White, Color::Black, Assets::Instance().textureLabel);
+		areaPin.setFont(Assets::Instance().arial);
+		areaPin.setPosition({ 350,200 });
+		areaPin.setVisible(false);
 
-		boxCardNum = Textbox(25, Color::Black, true, Assets::Instance().textureBox);
-		boxCardNum.setFont(Assets::Instance().arial);
-		boxCardNum.setPosition({ 450,300 });
-		boxCardNum.setVisible(false);
-		boxCardNum.clear();
-		boxCardNum.setSecret(true);
-		boxCardNum.setlimit(true, 4);
+		boxCardPin = Textbox(25, Color::Black, true, Assets::Instance().textureBox);
+		boxCardPin.setFont(Assets::Instance().arial);
+		boxCardPin.setPosition({ 450,300 });
+		boxCardPin.setVisible(false);
+		boxCardPin.clear();
+		boxCardPin.setSecret(true);
+		boxCardPin.setlimit(true, 4);
 	}
 
 public:
 
 	Button btnOkPin;
-	TextArea areaCard;
-	Textbox boxCardNum;
+	TextArea areaPin;
+	Textbox boxCardPin;
 
-	EnterPinMenu(RenderWindow& par) : window(par) { init(); }
+	explicit EnterPinMenu() { init(); }
 
 	~EnterPinMenu() {}
 
 	void draw(sf::RenderTarget& target, sf::RenderStates states) const override
 	{
 		target.draw(btnOkPin);
-		target.draw(areaCard);
-		target.draw(boxCardNum);
+		target.draw(areaPin);
+		target.draw(boxCardPin);
 		target.draw(errBox);
 	}
 
@@ -60,8 +58,8 @@ private:
 	void setVisibleAllMembers(bool isVisible) override
 	{
 		btnOkPin.setVisible(isVisible);
-		boxCardNum.setVisible(isVisible);
-		areaCard.setVisible(isVisible);
+		boxCardPin.setVisible(isVisible);
+		areaPin.setVisible(isVisible);
 	}
 
 };

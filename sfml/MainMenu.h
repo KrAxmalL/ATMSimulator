@@ -28,8 +28,6 @@ private:
 
     std::vector<Button> buttons;
 
-    RenderWindow& window;
-
     void init()
     {
         areaWelcome = TextArea("Welcome, _Cust_Name_!", { 400,50 }, 20, Color::White, Color::Black, Assets::Instance().textureLabel);
@@ -67,12 +65,12 @@ private:
         btnf6.setFont(Assets::Instance().arial);
         btnf6.setVisible(false);
 
-        btnf7 = Button("func7", { 240,50 }, 25, Color::White, Color::Black, Assets::Instance().textureBox);
+        btnf7 = Button("Remove card", { 240,50 }, 25, Color::White, Color::Black, Assets::Instance().textureBox);
         btnf7.setPosition({ 250, 510 });
         btnf7.setFont(Assets::Instance().arial);
         btnf7.setVisible(false);
 
-        btnf8 = Button("func8", { 240,50 }, 25, Color::White, Color::Black, Assets::Instance().textureBox);
+        btnf8 = Button("Change card pin", { 240,50 }, 25, Color::White, Color::Black, Assets::Instance().textureBox);
         btnf8.setPosition({ 510, 510 });
         btnf8.setFont(Assets::Instance().arial);
         btnf8.setVisible(false);
@@ -82,20 +80,9 @@ private:
 
 public:
 
-    explicit MainMenu(RenderWindow& par): window(par) { init(); }
+    explicit MainMenu() { init(); }
 
-    ~MainMenu()
-    {
-        /*delete areaWelcome;
-        delete btnf1;
-        delete btnf2;
-        delete btnf3;
-        delete btnf4;
-        delete btnf5;
-        delete btnf6;
-        delete btnf7;
-        delete btnf8;*/
-    }
+    ~MainMenu() {}
 
     void draw(sf::RenderTarget& target, sf::RenderStates states) const override
     {

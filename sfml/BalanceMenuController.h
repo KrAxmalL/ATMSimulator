@@ -7,7 +7,7 @@ class BalanceMenuController : public Controller
 {
 
 private:
-    
+
         MainMenu& mainMenu;
         BalanceMenu& balanceMenu;
 

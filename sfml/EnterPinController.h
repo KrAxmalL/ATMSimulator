@@ -25,13 +25,13 @@ public:
         case Event::KeyPressed:
             if (Keyboard::isKeyPressed(sf::Keyboard::Return))
             {
-                enterPinMenu.boxCardNum.setSelected(true);
+                enterPinMenu.boxCardPin.setSelected(true);
             }
             else if (Keyboard::isKeyPressed(sf::Keyboard::Escape))
             {
-                enterPinMenu.boxCardNum.setSelected(false);
+                enterPinMenu.boxCardPin.setSelected(false);
             } 
-            else if (Keyboard::isKeyPressed(sf::Keyboard::Enter) && !enterPinMenu.boxCardNum.isSelecte()) {
+            else if (Keyboard::isKeyPressed(sf::Keyboard::Enter) && !enterPinMenu.boxCardPin.isSelecte()) {
                 okButtonHandler();
             }
             break;
@@ -39,7 +39,7 @@ public:
             if (Keyboard::isKeyPressed(sf::Keyboard::Enter)) {
                 okButtonHandler();
             }
-            enterPinMenu.boxCardNum.typedOn(event);
+            enterPinMenu.boxCardPin.typedOn(event);
             break;
         case Event::MouseMoved:
             mouseMoved(event);
@@ -70,6 +70,7 @@ public:
     void okButtonHandler() {
         if (readPin())
         {
+            enterPinMenu.boxCardPin.clear();
             enterPinMenu.setActive(false);
             mainMenu.setActive(true);
         }
@@ -82,7 +83,7 @@ public:
 
     bool readPin()
     {
-        std::string pinStr = enterPinMenu.boxCardNum.getText();
+        std::string pinStr = enterPinMenu.boxCardPin.getText();
         if (pinStr.length() <= 0)
         {
             return false;

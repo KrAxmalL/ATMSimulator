@@ -5,6 +5,8 @@
 #include "PutCashMenu.h"
 #include "GetCashMenu.h"
 #include "TransferMenu.h"
+#include "RemoveCardMenu.h"
+#include "ChangePinMenu.h"
 #include "BankCard.h"
 #include <vector>
 
@@ -19,16 +21,20 @@ private:
     GetCashMenu& getCashMenu;
     TransferMenu& transferMenu;
     TransactionsMenu& transactionsMenu;
+    RemoveCardMenu& removeCardMenu;
+    ChangePinMenu& changePinMenu;
 
 public:
 
-    MainMenuController(RenderWindow& par, MainMenu& mainMenu, BalanceMenu& balanceMenu, PutCashMenu& putCashMenu, GetCashMenu& getCashMenu, TransferMenu& transferMenu, TransactionsMenu& transactionsMenu)
+    MainMenuController(RenderWindow& par, MainMenu& mainMenu, BalanceMenu& balanceMenu, PutCashMenu& putCashMenu, GetCashMenu& getCashMenu, TransferMenu& transferMenu, TransactionsMenu& transactionsMenu, RemoveCardMenu& removeCardMenu, ChangePinMenu& changePinMenu)
         : mainMenu(mainMenu) 
         , balanceMenu(balanceMenu)
         , putCashMenu(putCashMenu)
         , getCashMenu(getCashMenu)
         , transferMenu(transferMenu),
-        transactionsMenu(transactionsMenu) {}
+        transactionsMenu(transactionsMenu) 
+        , removeCardMenu(removeCardMenu)
+        , changePinMenu(changePinMenu) {}
     ~MainMenuController() {}
 
     virtual void handleEvent(const Event& event) override
@@ -82,6 +88,17 @@ public:
             mainMenu.setActive(false);
             transactionsMenu.setActive(true);
         }
+        if (mainMenu.getButtons()[5].isMouseOver(event)) {
+            //add function
+        }
+        if (mainMenu.getButtons()[6].isMouseOver(event)) {
+            mainMenu.setActive(false);
+            removeCardMenu.setActive(true);
+        }
+        if (mainMenu.getButtons()[7].isMouseOver(event)) {
+            mainMenu.setActive(false);
+            changePinMenu.setActive(true);
+        }
     }
 
     bool isActive() override
@@ -98,5 +115,4 @@ public:
     {
         return mainMenu;
     }
-
 };

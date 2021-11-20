@@ -62,6 +62,7 @@ public:
     void okButtonHandler() {
         if (readCard())
         {
+            enterCardMenu.boxCardNum.clear();
             enterCardMenu.setActive(false);
             enterPinMenu.setActive(true);
         }

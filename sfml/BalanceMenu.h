@@ -13,8 +13,6 @@ class BalanceMenu : public Menu {
 
 private:
 
-	RenderWindow& window;
-
 	void init()
 	{
 		btnOkBalance = Button("OK", { 100,50 }, 25, Color::White, Color::Black, Assets::Instance().textureBox);
@@ -33,7 +31,7 @@ public:
 	Button btnOkBalance;
 	TextArea areaBalance;
 
-	BalanceMenu(RenderWindow& par) : window(par) { init(); }
+	explicit BalanceMenu() { init(); }
 
 	~BalanceMenu() {}
 
@@ -49,7 +47,6 @@ private:
 	{
 		btnOkBalance.setVisible(isVisible);
 		areaBalance.setVisible(isVisible);
-		//areaBalance.setText();
 	}
 };
 

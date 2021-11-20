@@ -24,6 +24,8 @@ private:
 
 public:
 
+	Text errBox;
+
 	Menu() 
 	{
 		errBox.setFont(Assets::Instance().arial);
@@ -35,8 +37,6 @@ public:
 	{
 		errDisappearTime = 0;
 	}
-
-	Text errBox;
 
 	bool isActive() override
 	{
@@ -58,9 +58,6 @@ public:
 		_isVisible = isVisible;
 		setVisibleAllMembers(_isVisible);
 	}
-
-	//virtual std::string name() const = 0;
-
 
 	void displayErrMessage(const string& message)
 	{
@@ -85,10 +82,9 @@ public:
 protected:
 
 	virtual void setVisibleAllMembers(bool isVisible) = 0;
-};
 
-std::ostream& operator<<(std::ostream& os, const Menu& menu)
-{
-	//os << menu.name();
-	return os;
-}
+	void setErrMessagePosition(int x, int y)
+	{
+		errBox.setPosition(x, y);
+	}
+};

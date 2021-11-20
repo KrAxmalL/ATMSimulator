@@ -68,9 +68,11 @@ public:
 			//if transaction from current card - show negative money amount
 			//else - positive
 			double sumToShow = transactionIter->getSum();
+			int cardNumToShow = transactionIter->getCardFromId();
 			if (transactionIter->getCardFromId() == activeCardId)
 			{
 				sumToShow = -sumToShow;
+				cardNumToShow = transactionIter->getCardToId();
 			}
 
 			std::cout << "sum to show: " << sumToShow << std::endl;
@@ -81,7 +83,7 @@ public:
 			sumstream << std::fixed << std::showpos << std::setprecision(2) << sumToShow;
 
 			std::stringstream stream;
-			stream << std::left << std::setw(14) << transactionIter->getCardToId()
+			stream << std::left << std::setw(14) << cardNumToShow
 				<< std::setw(25) << sumstream.str()
 				<< std::setw(19) << Transaction::dateToStr(*transactionIter);
 

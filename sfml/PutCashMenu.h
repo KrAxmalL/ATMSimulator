@@ -14,8 +14,6 @@ class PutCashMenu : public Menu {
 
 private:
 
-	RenderWindow& window;
-
 	void init()
 	{
 		btn1000 = Button("1000", { 240,50 }, 25, Color::White, Color::Black, Assets::Instance().textureBox);
@@ -85,7 +83,7 @@ public:
 
 	double insertSum = 0.0;
 
-	PutCashMenu(RenderWindow& par) : window(par) { init(); }
+	explicit PutCashMenu() { init(); }
 
 	~PutCashMenu() {}
 

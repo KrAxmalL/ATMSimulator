@@ -41,6 +41,7 @@ public:
 
 	void makeActiveCard(int cardNum)
 	{
+		delete activeCard;
 		activeCard = new BankCard(cardRepository.getCard(cardNum));
 	}
 
@@ -150,6 +151,13 @@ public:
 			cardRepository.deleteCard(activeCard->getId());
 			cardRepository.addCard(*activeCard);
 		}
+	}
+
+	void changeActiveCardPin(int newPin)
+	{
+		activeCard->setPin(newPin);
+		cardRepository.deleteCard(activeCard->getId());
+		cardRepository.addCard(*activeCard);
 	}
 
 	void changeBalance(BankCard& card, double sum)

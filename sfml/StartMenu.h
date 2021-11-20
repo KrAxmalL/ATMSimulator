@@ -11,8 +11,6 @@ class StartMenu : public Menu {
 
 private:
 
-    RenderWindow& window;
-
     void init()
     {
         btnStart = Button("Start", { 200,50 }, 20, Color::White, Color::Black, Assets::Instance().textureBox);
@@ -25,7 +23,7 @@ public:
 
     Button btnStart;
 
-    StartMenu(RenderWindow& par): window(par) { init(); }
+    explicit StartMenu() { init(); }
 
     ~StartMenu() {}
 

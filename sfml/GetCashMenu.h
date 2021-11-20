@@ -14,8 +14,6 @@ class GetCashMenu : public Menu {
 
 private:
 
-	RenderWindow& window;
-
 	void init()
 	{
 		btn1000 = Button("1000", { 240,50 }, 25, Color::White, Color::Black, Assets::Instance().textureBox);
@@ -91,7 +89,7 @@ public:
 
 	double getSum = 0.0;
 
-	GetCashMenu(RenderWindow& par) : window(par) { init(); }
+	explicit GetCashMenu() { init(); }
 
 	~GetCashMenu() {}
 

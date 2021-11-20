@@ -137,12 +137,19 @@ public:
 	}
 
 	void clear() {
-		if (isSelected)
-			text = "_";
-		else
-			text.clear();
+		text.clear();
 		realText.clear();
 		textbox.setString(text);
+		if (isSelected)
+		{
+			text = "_";
+		}
+		/*else
+		{
+			text.clear();
+			realText.clear();
+			textbox.setString(text);
+		}*/
 	}
 
 	std::string getText()

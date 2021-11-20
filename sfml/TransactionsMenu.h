@@ -10,9 +10,8 @@ using namespace sf;
 
 class TransactionsMenu : public Menu
 {
-private:
 
-	RenderWindow& window;
+private:
 
 	void init()
 	{		
@@ -62,7 +61,7 @@ public:
 		target.draw(transactionsListView);
 	}
 
-	TransactionsMenu(RenderWindow& par) : window(par) { init(); }
+	explicit TransactionsMenu() { init(); }
 	~TransactionsMenu() {}
 
 };

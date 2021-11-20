@@ -157,6 +157,8 @@
     <ClInclude Include="Button.h" />
     <ClInclude Include="CardRepository.h" />
     <ClInclude Include="CardService.h" />
+    <ClInclude Include="ChangePinMenu.h" />
+    <ClInclude Include="ChangePinMenuController.h" />
     <ClInclude Include="Controller.h" />
     <ClInclude Include="Customer.h" />
     <ClInclude Include="EnterCardController.h" />
@@ -171,6 +173,8 @@
     <ClInclude Include="Processing.h" />
     <ClInclude Include="PutCashMenu.h" />
     <ClInclude Include="PutCashMenuController.h" />
+    <ClInclude Include="RemoveCardMenu.h" />
+    <ClInclude Include="RemoveCardMenuController.h" />
     <ClInclude Include="sqlite3.h" />
     <ClInclude Include="sqlite3ext.h" />
     <ClInclude Include="StartMenu.h" />

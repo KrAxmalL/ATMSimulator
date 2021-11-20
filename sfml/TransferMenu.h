@@ -14,8 +14,6 @@ class TransferMenu : public Menu {
 
 private:
 
-	RenderWindow& window;
-
 	void init()
 	{
 		btnSend = Button("Send", { 100,50 }, 25, Color::White, Color::Black, Assets::Instance().textureBox);
@@ -84,7 +82,7 @@ public:
 	Textbox boxAmount2;
 	Textbox boxCardNum;
 
-	TransferMenu(RenderWindow& par) : window(par) { init(); }
+	explicit TransferMenu() { init(); }
 
 	~TransferMenu() {}
 

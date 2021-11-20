@@ -14,8 +14,6 @@ class EnterCardMenu : public Menu {
 
 private:
 
-	RenderWindow& window;
-
 	void init() 
 	{
 		btnOkCard = Button ("OK", { 100,50 }, 25, Color::White, Color::Black, Assets::Instance().textureBox);
@@ -43,7 +41,8 @@ public:
 	Button btnOkCard;
 	TextArea areaCard;
 	Textbox boxCardNum;
-	EnterCardMenu(RenderWindow& par) : window(par) { init(); }
+
+	explicit EnterCardMenu() { init(); }
 
 	~EnterCardMenu() {}
 
