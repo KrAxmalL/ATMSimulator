@@ -58,7 +58,7 @@ private:
         btnf5.setFont(Assets::Instance().arial);
         btnf5.setVisible(false);
 
-        btnf6 = Button("func6", { 240,50 }, 25, Color::White, Color::Black, Assets::Instance().textureBox);
+        btnf6 = Button("Block card", { 240,50 }, 25, Color::White, Color::Black, Assets::Instance().textureBox);
         btnf6.setPosition({ 510, 440 });
         btnf6.setFont(Assets::Instance().arial);
         btnf6.setVisible(false);

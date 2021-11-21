@@ -70,7 +70,7 @@ public:
         }
         else
         {
-            enterCardMenu.displayErrMessage("Card number is invalid.");
+            // enterCardMenu.displayErrMessage("Card number is invalid.");
         }
     }
 
@@ -104,6 +104,7 @@ public:
         if (cardService.cardExists(cardNum))
         {
             cardService.makeActiveCard(cardNum);
+            cardService.checkActiveCardExpireDate();
             if (!cardService.isActiveCardBlocked())
             {
                 customerService.makeActiveCustomer();
@@ -113,12 +114,14 @@ public:
             {
                 //message box that card is blocked
                 //maybe also show block expire date
+                enterCardMenu.displayErrMessage("Your card is blocked");
                 return false;
             }
         }
         else
         {
             //message box that wrong card number
+            enterCardMenu.displayErrMessage("Card number is invalid.");
             return false;
         }
 

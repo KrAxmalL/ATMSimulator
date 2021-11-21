@@ -1,4 +1,7 @@
+#define _CRT_SECURE_NO_WARNINGS
+
 #pragma once
+
 #include "BankCard.h"
 #include "CardRepository.h"
 
@@ -20,18 +23,19 @@ public:
 
 	bool isCardBlocked(const BankCard& card)
 	{
-		if (card.isBlocked())
-		{
-			/*
-				if(card.getExpireDay())
-				if current date is bigger than expire block date - unblock card and return false;
-				else return true
-				*/
-		}
-		else
-		{
-			return false;
-		}
+		return card.isBlocked();
+		//if (card.isBlocked())
+		//{
+		//	/*
+		//		if(card.getExpireDay())
+		//		if current date is bigger than expire block date - unblock card and return false;
+		//		else return true
+		//		*/
+		//}
+		//else
+		//{
+		//	return false;
+		//}
 	}
 
 	bool cardExists(int cardNum)
@@ -47,7 +51,30 @@ public:
 
 	bool isActiveCardBlocked()
 	{
+		checkExpireDate(*activeCard);
 		return activeCard->isBlocked();
+	}
+
+	void checkActiveCardExpireDate()
+	{
+		checkExpireDate(*activeCard);
+	}
+
+	void checkExpireDate(BankCard& bc) {
+		if (bc.isBlocked()) {
+			std::time_t t = std::time(0);
+			std::tm* now = std::localtime(&t);// get time now
+			std::tm copy = bc.getExpireDay();
+			++copy.tm_hour;
+
+			if (difftime(mktime(now), mktime(&copy)) >= 0.0) {
+				activeCard->setExpireDay({ 0 });
+				activeCard->setBlocked(false);
+
+				cardRepository.deleteCard(bc.getId());
+				cardRepository.addCard(bc);
+			}
+		}
 	}
 
 	bool correctPinForActiveCard(int pin)
@@ -58,11 +85,32 @@ public:
 		if (!isCorrectPin)
 		{
 			++wrongPinCounter;
+
+			if (wrongPinCounter == pinAttempts)
+			{
+				std::time_t t = std::time(0);   // get time now
+				std::tm* now = std::localtime(&t);
+				std::tm expire = *now;
+				// note: change to fasten
+				expire.tm_sec += 20;
+				time_t expire_t = mktime(&expire);
+				expire = *std::localtime(&expire_t);
+
+				blockCard(*activeCard, expire);
+				cout << "somthientg" << endl;
+				throw - 1;
+				//show message that card is blocked
+			}
 		}
 		return isCorrectPin;
 	}
 
-	void blockCard(BankCard& card)
+	void blockActiveCard(tm& expire)
+	{
+		blockCard(*activeCard, expire);
+	}
+
+	void blockCard(BankCard& card, tm& expire)
 	{
 		if (!isCardBlocked(card))
 		{
@@ -70,11 +118,12 @@ public:
 
 			std::time_t t = std::time(0);   // get time now
 			std::tm* now = std::localtime(&t);
-			std::tm expire = *now;
-			expire.tm_mday += 20;
 
 			card.setBlockStartDate(*now);
 			card.setExpireDay(expire);
+
+			cardRepository.deleteCard(card.getId());
+			cardRepository.addCard(card);
 			//cardRepository.updateCard(card); replace with delete and add
 		}
 	}
@@ -108,7 +157,13 @@ public:
 					++wrongPinCounter;
 					if (wrongPinCounter == pinAttempts)
 					{
-						blockCard(dbCard);
+						std::time_t t = std::time(0);   // get time now
+						std::tm* now = std::localtime(&t);
+						std::tm expire = *now;
+						// note: change to fasten
+						expire.tm_sec += 20;
+
+						blockCard(dbCard, expire);
 						//show message that card is blocked
 					}
 				}
@@ -132,7 +187,7 @@ public:
 		}
 		else
 		{
-			//error message
+			throw - 1;
 		}
 	}
 
@@ -179,5 +234,10 @@ public:
 			cardRepository.addCard(card);
 			// cardRepository.updateCard(card);
 		}
+	}
+
+	void resetPin() 
+	{
+		wrongPinCounter = 0;
 	}
 };

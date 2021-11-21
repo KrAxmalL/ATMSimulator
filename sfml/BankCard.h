@@ -1,6 +1,9 @@
+#ifndef BANKCARD_H
+#define BANKCARD_H
 #pragma once
 #include <iostream>
 #include <ctime>
+#include <iomanip>
 using namespace std;
 
 class BankCard {
@@ -58,11 +61,11 @@ public:
 
 };
 
-ostream& operator<<(ostream& os, const BankCard& card)
+inline ostream& operator<<(ostream& os, const BankCard& card)
 {
 	std::stringstream stream;
 	stream << std::fixed << std::setprecision(2) << card.getBalance();
-
+		
 	os << "BankCard " << card.getId() << ":\n" << "pin: " << card.getPin() << "\n"
 	   << "balance: " << stream.str() << "\n" << "isBlocked: " << card.isBlocked() << "\n"
 	   << "start block date: " << card.getBlockStartDate().tm_year << "\n"
@@ -70,3 +73,4 @@ ostream& operator<<(ostream& os, const BankCard& card)
 	   << "bankId: " << card.getBId() << "\n" << "ownerId: " << card.getUId();
 	return os;
 }
+#endif

@@ -31,6 +31,7 @@
 #include "RemoveCardMenuController.h"
 #include "ChangePinMenuController.h"
 #include "vector"
+#include "BlockCardMenuController.h"
 
 using namespace sf;
 
@@ -52,6 +53,7 @@ private:
     TransactionsMenu transactionsMenu;
     RemoveCardMenu removeCardMenu;
     ChangePinMenu changePinMenu;
+    BlockCardMenu blockCardMenu;
     std::vector<Menu*> menus;
 
     CardService cardService;
@@ -69,6 +71,7 @@ private:
     TransactionsMenuController* transactionsMenuController;
     RemoveCardMenuController* removeCardMenuController;
     ChangePinMenuController* changePinMenuController;
+    BlockCardMenuController* blockCardMenuController;
     std::vector<Controller*> controllers;
 
 	void init() {
@@ -104,18 +107,19 @@ public:
         customerService(cardService),
         startMenuController(new StartMenuController(*window, startMenu, enterCardMenu)),
         enterCardController(new EnterCardController(*window, enterCardMenu, enterPinMenu, cardService, customerService)),
-        enterPinController(new EnterPinController(*window, enterPinMenu, mainMenu, cardService)),
-        mainMenuController(new MainMenuController(*window, mainMenu, balanceMenu, putCashMenu, getCashMenu, transferMenu, transactionsMenu, removeCardMenu, changePinMenu, customerService)),
+        enterPinController(new EnterPinController(*window, enterPinMenu, startMenu, mainMenu, cardService)),
+        mainMenuController(new MainMenuController(*window, mainMenu, balanceMenu, putCashMenu, getCashMenu, transferMenu, transactionsMenu, removeCardMenu, changePinMenu, blockCardMenu, customerService)),
         balanceMenuController(new BalanceMenuController(*window, mainMenu, balanceMenu, cardService)),
         putCashMenuController(new PutCashMenuController(*window, mainMenu, putCashMenu, cardService)),
         getCashMenuController(new GetCashMenuController(*window, mainMenu, getCashMenu, cardService)),
         transferController(new TransferController(*window, mainMenu, transferMenu, transactionService, cardService)),
         transactionsMenuController(new TransactionsMenuController(*window, mainMenu, transactionsMenu, transactionService, cardService)),
         removeCardMenuController(new RemoveCardMenuController(*window, mainMenu, removeCardMenu, startMenu)),
+        blockCardMenuController(new BlockCardMenuController(*window, mainMenu, blockCardMenu, startMenu, cardService)),
         changePinMenuController(new ChangePinMenuController(*window, mainMenu, changePinMenu, cardService)),
-        menus{&startMenu, &enterCardMenu, &enterPinMenu, &mainMenu, &balanceMenu, &putCashMenu, &getCashMenu, &transferMenu, &transactionsMenu, &removeCardMenu, &changePinMenu },
+        menus{&startMenu, &enterCardMenu, &enterPinMenu, &mainMenu, &balanceMenu, &putCashMenu, &getCashMenu, &transferMenu, &transactionsMenu, &removeCardMenu, &changePinMenu, &blockCardMenu },
         controllers{startMenuController, enterCardController, enterPinController, mainMenuController, 
-        balanceMenuController, putCashMenuController, getCashMenuController, transferController, transactionsMenuController, removeCardMenuController, changePinMenuController }
+        balanceMenuController, putCashMenuController, getCashMenuController, transferController, transactionsMenuController, removeCardMenuController, changePinMenuController, blockCardMenuController }
     {
         init();
     }

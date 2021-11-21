@@ -10,12 +10,14 @@ private:
 
     EnterPinMenu& enterPinMenu;
     MainMenu& mainMenu;
+    StartMenu& startMenu;
 
     CardService& cardService;
 
 public:
 
-    EnterPinController(RenderWindow& par, EnterPinMenu& enterPinMenu, MainMenu& mainMenu, CardService& cardService) : enterPinMenu(enterPinMenu), mainMenu(mainMenu), cardService(cardService) {}
+    EnterPinController(RenderWindow& par, EnterPinMenu& enterPinMenu, StartMenu& startMenu, MainMenu& mainMenu, CardService& cardService) : 
+        enterPinMenu(enterPinMenu), mainMenu(mainMenu), startMenu(startMenu), cardService(cardService) {}
     ~EnterPinController() {}
 
     virtual void handleEvent(const Event& event) override
@@ -68,17 +70,31 @@ public:
     }
 
     void okButtonHandler() {
-        if (readPin())
-        {
-            enterPinMenu.boxCardPin.clear();
+        if (cardService.isActiveCardBlocked()) {
+            enterPinMenu.displayErrMessage("Your card is blocked");
+        }
+
+        try {
+            if (readPin())
+            {
+                enterPinMenu.boxCardPin.clear();
+                enterPinMenu.setActive(false);
+                mainMenu.setActive(true);
+                cardService.resetPin();
+            }
+            else
+            {
+                enterPinMenu.displayErrMessage("Pin is incorrect");
+            }
+        }
+        catch (...) {
+            cardService.resetPin();
             enterPinMenu.setActive(false);
-            mainMenu.setActive(true);
+            enterPinMenu.boxCardPin.clear();
+            startMenu.setActive(true);
+            startMenu.displayErrMessage("Card has been blocked");
         }
-        else
-        {
-            enterPinMenu.displayErrMessage("Pin is incorrect");
-            //message box with error
-        }
+
     }
 
     bool readPin()
@@ -88,12 +104,13 @@ public:
         {
             return false;
         }
-
         int pin = std::stoi(pinStr);
+        bool isPinCorrect = cardService.correctPinForActiveCard(pin);
+        
         std::cout << "Entered pin: " << pin << std::endl;
-        std::cout << "Is correct pin: " << cardService.correctPinForActiveCard(pin) << std::endl;
+        std::cout << "Is correct pin: " << isPinCorrect << std::endl;
 
-        return cardService.correctPinForActiveCard(pin);
+        return isPinCorrect;
     }
 
     bool isActive() override

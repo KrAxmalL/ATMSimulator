@@ -142,6 +142,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="BlockCardMenuController.h" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="sqlite3.c" />
   </ItemGroup>
@@ -154,6 +155,7 @@
     <ClInclude Include="BalanceMenuController.h" />
     <ClInclude Include="BankCard.h" />
     <ClInclude Include="Bankr.h" />
+    <ClInclude Include="BlockCardMenu.h" />
     <ClInclude Include="Button.h" />
     <ClInclude Include="CardRepository.h" />
     <ClInclude Include="CardService.h" />

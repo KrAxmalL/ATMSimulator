@@ -41,6 +41,9 @@ int main()
     // todo: use appdata + create folder
     const char* dir = R"(C:\\UniversityBd\\ATM.db)";
 
+    // createBankCard(dir, 11111, "Shopping card", 1111, 0, "-", "-", 0.0, 1, 1);
+    // createBankCard(dir, 10000, "Second shopping card ", 1111, 0, "-", "-", 100.0, 1, 1); 
+
     /*createDB(dir);
     createCustomerTable(dir);
     createATMTable(dir);

@@ -12,6 +12,7 @@
 #include "CustomerService.h"
 
 #include <vector>
+#include "BlockCardMenu.h"
 
 class MainMenuController : public Controller
 {
@@ -26,12 +27,13 @@ private:
     TransactionsMenu& transactionsMenu;
     RemoveCardMenu& removeCardMenu;
     ChangePinMenu& changePinMenu;
+    BlockCardMenu& blockCardMenu;
 
     CustomerService& customerService;
 
 public:
 
-    MainMenuController(RenderWindow& par, MainMenu& mainMenu, BalanceMenu& balanceMenu, PutCashMenu& putCashMenu, GetCashMenu& getCashMenu, TransferMenu& transferMenu, TransactionsMenu& transactionsMenu, RemoveCardMenu& removeCardMenu, ChangePinMenu& changePinMenu, CustomerService& customerService)
+    MainMenuController(RenderWindow& par, MainMenu& mainMenu, BalanceMenu& balanceMenu, PutCashMenu& putCashMenu, GetCashMenu& getCashMenu, TransferMenu& transferMenu, TransactionsMenu& transactionsMenu, RemoveCardMenu& removeCardMenu, ChangePinMenu& changePinMenu, BlockCardMenu& blockCardMenu, CustomerService& customerService)
         : mainMenu(mainMenu) 
         , balanceMenu(balanceMenu)
         , putCashMenu(putCashMenu)
@@ -40,6 +42,7 @@ public:
         transactionsMenu(transactionsMenu) 
         , removeCardMenu(removeCardMenu)
         , changePinMenu(changePinMenu)
+        , blockCardMenu(blockCardMenu)
         , customerService(customerService) {}
     ~MainMenuController() {}
 
@@ -95,7 +98,8 @@ public:
             transactionsMenu.setActive(true);
         }
         if (mainMenu.getButtons()[5].isMouseOver(event)) {
-            //add function
+            mainMenu.setActive(false);
+            blockCardMenu.setActive(true);
         }
         if (mainMenu.getButtons()[6].isMouseOver(event)) {
             mainMenu.setActive(false);

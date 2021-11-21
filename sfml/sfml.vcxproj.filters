@@ -189,6 +189,9 @@
     <ClInclude Include="CustomerService.h">
       <Filter>Файлы заголовков\Backend\Services</Filter>
     </ClInclude>
+    <ClInclude Include="BlockCardMenu.h">
+      <Filter>Файлы заголовков\UI\Menus</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -196,6 +199,9 @@
     </ClCompile>
     <ClCompile Include="sqlite3.c">
       <Filter>Файлы заголовков\Backend\sqlite</Filter>
+    </ClCompile>
+    <ClCompile Include="BlockCardMenuController.h">
+      <Filter>Файлы заголовков\Backend\Controllers</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

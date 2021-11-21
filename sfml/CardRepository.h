@@ -1,3 +1,5 @@
+#ifndef CARDREPO_H
+#define CARDREPO_H
 #pragma once
 #include <cstdlib>
 #include <time.h>
@@ -11,7 +13,7 @@ class CardRepository
 {
 private:
 
-	static const char* dir;
+	// static const char* dir;
 
 	static void executeStatement(const string& sql, int(*callback)(void*, int, char**, char**), void* entity)
 	{
@@ -21,7 +23,7 @@ private:
 		try
 		{
 			int exit = 0;
-			exit = sqlite3_open(dir, &DB);
+			exit = sqlite3_open(R"(c:\\UniversityBd\\ATM.db)", &DB);
 			/* An open database, SQL to be evaluated, Callback function, 1st argument to callback, Error msg written here */
 			exit = sqlite3_exec(DB, sql.c_str(), callback, entity, &messageError);
 			if (exit != SQLITE_OK) {
@@ -102,16 +104,19 @@ public:
 	{
 		tm startBlockDate = card.getBlockStartDate();
 		string startBlock("-");
+		char buffer[20];
 		if (startBlockDate.tm_year != 0)
 		{
-			startBlock = "" + to_string(startBlockDate.tm_year) + "-" + to_string(startBlockDate.tm_mon) + "-" + to_string(startBlockDate.tm_mday);
+			strftime(buffer, 20, "%F %T", &startBlockDate);;
+			startBlock = buffer;
 		}
 
 		tm expireDay = card.getExpireDay();
 		string expire("-");
 		if (expireDay.tm_year != 0)
 		{
-			 expire = "" + to_string(expireDay.tm_year) + "-" + to_string(expireDay.tm_mon) + "-" + to_string(expireDay.tm_mday);
+			strftime(buffer, 20, "%F %T", &expireDay);;
+			expire = buffer;
 		}
 
 		std::string sql =
@@ -184,5 +189,6 @@ public:
 	}
 };
 
-const char* CardRepository::dir = R"(c:\\UniversityBd\\ATM.db)";
+// const char* CardRepository::dir = R"(c:\\UniversityBd\\ATM.db)";
 
+#endif
