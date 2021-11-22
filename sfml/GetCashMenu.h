@@ -10,9 +10,29 @@
 
 using namespace sf;
 
+class GetCashMenuController;
+
 class GetCashMenu : public Menu {
 
 private:
+
+	friend class GetCashMenuController;
+
+	Button btn1000;
+	Button btn500;
+	Button btn200;
+	Button btn100;
+	Button btn50;
+	Button btn20;
+
+	std::vector<Button> buttons;
+
+	Button btnRemoveCash;
+	Button btnOkCash;
+	Button btnCancel;
+	TextArea areaCash;
+
+	double getSum = 0.0;
 
 	void init()
 	{
@@ -71,39 +91,17 @@ private:
 		buttons = { btn1000, btn500, btn200, btn100, btn50, btn20 };
 	}
 
-public:
-
-	Button btn1000;
-	Button btn500;
-	Button btn200;
-	Button btn100;
-	Button btn50;
-	Button btn20;
-
-	std::vector<Button> buttons;
-
-	Button btnRemoveCash;
-	Button btnOkCash;
-	Button btnCancel;
-	TextArea areaCash;
-
-	double getSum = 0.0;
-
-	explicit GetCashMenu() { init(); }
-
-	~GetCashMenu() {}
-
-	void draw(sf::RenderTarget& target, sf::RenderStates states) const override
+	void setVisibleAllMembers(bool isVisible) override
 	{
-		target.draw(btnRemoveCash);
-		target.draw(btnOkCash);
-		target.draw(btnCancel);
-		target.draw(areaCash);
-		for (auto const& button : buttons)
+		btnRemoveCash.setVisible(isVisible);
+		btnOkCash.setVisible(isVisible);
+		btnCancel.setVisible(isVisible);
+		areaCash.setVisible(isVisible);
+
+		for (auto& button : buttons)
 		{
-			target.draw(button);
+			button.setVisible(isVisible);
 		}
-		target.draw(errBox);
 	}
 
 	void addMoney(sf::String money) {
@@ -126,19 +124,23 @@ public:
 		return buttons;
 	}
 
-private:
+public:
 
-	void setVisibleAllMembers(bool isVisible) override
+	explicit GetCashMenu() { init(); }
+
+	~GetCashMenu() {}
+
+	void draw(sf::RenderTarget& target, sf::RenderStates states) const override
 	{
-		btnRemoveCash.setVisible(isVisible);
-		btnOkCash.setVisible(isVisible);
-		btnCancel.setVisible(isVisible);
-		areaCash.setVisible(isVisible);
-		
-		for (auto& button : buttons)
+		target.draw(btnRemoveCash);
+		target.draw(btnOkCash);
+		target.draw(btnCancel);
+		target.draw(areaCash);
+		for (auto const& button : buttons)
 		{
-			button.setVisible(isVisible);
+			target.draw(button);
 		}
+		target.draw(errBox);
 	}
 };
 

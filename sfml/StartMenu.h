@@ -7,9 +7,15 @@
 
 using namespace sf;
 
+class StartMenuController;
+
 class StartMenu : public Menu {
 
 private:
+
+    friend class StartMenuController;
+
+    Button btnStart;
 
     void init()
     {
@@ -19,9 +25,12 @@ private:
         btnStart.setVisible(false);
     }
 
-public:
+    void setVisibleAllMembers(bool isVisible) override
+    {
+        btnStart.setVisible(isVisible);
+    }
 
-    Button btnStart;
+public:
 
     explicit StartMenu() { init(); }
 
@@ -30,12 +39,5 @@ public:
     void draw(sf::RenderTarget& target, sf::RenderStates states) const override
     {
         target.draw(btnStart);
-    }
-
-private:
-
-    void setVisibleAllMembers(bool isVisible) override
-    {
-        btnStart.setVisible(isVisible);
     }
 };

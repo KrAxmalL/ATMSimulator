@@ -1,9 +1,25 @@
 #pragma once
 #include "Menu.h"
 
+class ChangePinMenuController;
+
 class ChangePinMenu : public Menu
 {
 private:
+
+	friend class ChangePinMenuController;
+
+	Button btnOk;
+	Button btnCancel;
+
+	TextArea areaOldPin;
+	Textbox boxOldCardPin;
+
+	TextArea areaNewPin;
+	Textbox boxNewCardPin;
+
+	TextArea areaNewPinRepeat;
+	Textbox boxNewCardPinRepeat;
 
 	void init()
 	{
@@ -75,17 +91,6 @@ private:
 	}
 
 public:
-	Button btnOk;
-	Button btnCancel;
-
-	TextArea areaOldPin;
-	Textbox boxOldCardPin;
-
-	TextArea areaNewPin;
-	Textbox boxNewCardPin;
-
-	TextArea areaNewPinRepeat;
-	Textbox boxNewCardPinRepeat;
 
 	void draw(sf::RenderTarget& target, sf::RenderStates states) const override
 	{

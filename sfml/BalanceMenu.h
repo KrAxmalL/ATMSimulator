@@ -9,9 +9,16 @@
 
 using namespace sf;
 
+class BalanceMenuController;
+
 class BalanceMenu : public Menu {
 
 private:
+
+	friend class BalanceMenuController;
+
+	Button btnOkBalance;
+	TextArea areaBalance;
 
 	void init()
 	{
@@ -26,10 +33,13 @@ private:
 		areaBalance.setVisible(false);
 	}
 
-public:
+	void setVisibleAllMembers(bool isVisible) override
+	{
+		btnOkBalance.setVisible(isVisible);
+		areaBalance.setVisible(isVisible);
+	}
 
-	Button btnOkBalance;
-	TextArea areaBalance;
+public:
 
 	explicit BalanceMenu() { init(); }
 
@@ -39,14 +49,6 @@ public:
 	{
 		target.draw(btnOkBalance);
 		target.draw(areaBalance);
-	}
-
-private:
-
-	void setVisibleAllMembers(bool isVisible) override
-	{
-		btnOkBalance.setVisible(isVisible);
-		areaBalance.setVisible(isVisible);
 	}
 };
 

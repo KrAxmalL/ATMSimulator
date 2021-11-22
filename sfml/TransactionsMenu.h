@@ -1,5 +1,4 @@
 #pragma once
-
 #include <SFML/Graphics.hpp>
 #include "Button.h"
 
@@ -8,10 +7,20 @@
 #include "TransactionsListView.h"
 using namespace sf;
 
+class TransactionsMenuController;
+
 class TransactionsMenu : public Menu
 {
 
 private:
+
+	friend class TransactionsMenuController;
+
+	Button btnOk;
+	Button btnNextPage;
+	Button btnPrevPage;
+	TextArea pageNum;
+	TransactionsListView transactionsListView;
 
 	void init()
 	{		
@@ -46,12 +55,7 @@ private:
 	}
 
 public:
-	Button btnOk;
-	Button btnNextPage;
-	Button btnPrevPage;
-	TextArea pageNum;
-	TransactionsListView transactionsListView;
-
+	
 	void draw(sf::RenderTarget& target, sf::RenderStates states) const override
 	{
 		target.draw(btnOk);
@@ -62,6 +66,6 @@ public:
 	}
 
 	explicit TransactionsMenu() { init(); }
-	~TransactionsMenu() {}
 
+	~TransactionsMenu() {}
 };

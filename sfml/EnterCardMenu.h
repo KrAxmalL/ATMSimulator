@@ -10,9 +10,17 @@
 
 using namespace sf;
 
+class EnterCardController;
+
 class EnterCardMenu : public Menu {
 
 private:
+
+	friend class EnterCardController;
+
+	Button btnOkCard;
+	TextArea areaCard;
+	Textbox boxCardNum;
 
 	void init() 
 	{
@@ -33,14 +41,16 @@ private:
 		boxCardNum.clear();
 		boxCardNum.setSecret(false);
 		boxCardNum.setlimit(true, 5);
+	}
 
+	void setVisibleAllMembers(bool isVisible) override
+	{
+		btnOkCard.setVisible(isVisible);
+		areaCard.setVisible(isVisible);
+		boxCardNum.setVisible(isVisible);
 	}
 
 public:
-
-	Button btnOkCard;
-	TextArea areaCard;
-	Textbox boxCardNum;
 
 	explicit EnterCardMenu() { init(); }
 
@@ -53,15 +63,6 @@ public:
 		target.draw(areaCard);
 		target.draw(boxCardNum);
 		target.draw(errBox);
-	}
-
-private:
-
-	void setVisibleAllMembers(bool isVisible) override
-	{
-		btnOkCard.setVisible(isVisible);
-		areaCard.setVisible(isVisible);
-		boxCardNum.setVisible(isVisible);
 	}
 };
 

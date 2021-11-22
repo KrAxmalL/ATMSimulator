@@ -10,9 +10,22 @@
 
 using namespace sf;
 
+class TransferController;
+
 class TransferMenu : public Menu {
 
 private:
+
+	friend class TransferController;
+
+	Button btnSend;
+	Button btnCancel;
+	TextArea areaSend;
+	TextArea areaAmount;
+	TextArea areaCardNum;
+	Textbox boxAmount1;
+	Textbox boxAmount2;
+	Textbox boxCardNum;
 
 	void init()
 	{
@@ -71,16 +84,20 @@ private:
 		boxAmount2.setlimit(true, 2);
 	}
 
-public:
+	void setVisibleAllMembers(bool isVisible) override
+	{
+		btnSend.setVisible(isVisible);
+		btnCancel.setVisible(isVisible);
+		boxAmount1.setVisible(isVisible);
+		boxAmount2.setVisible(isVisible);
+		areaSend.setVisible(isVisible);
+		areaCardNum.setVisible(isVisible);
+		areaAmount.setVisible(isVisible);
+		boxCardNum.setVisible(isVisible);
+		//areaBalance.setText();
+	}
 
-	Button btnSend;
-	Button btnCancel;
-	TextArea areaSend;
-	TextArea areaAmount;
-	TextArea areaCardNum;
-	Textbox boxAmount1;
-	Textbox boxAmount2;
-	Textbox boxCardNum;
+public:
 
 	explicit TransferMenu() { init(); }
 
@@ -97,21 +114,6 @@ public:
 		target.draw(boxAmount2);
 		target.draw(boxCardNum);
 		target.draw(errBox);
-	}
-
-private:
-
-	void setVisibleAllMembers(bool isVisible) override
-	{
-		btnSend.setVisible(isVisible);
-		btnCancel.setVisible(isVisible);
-		boxAmount1.setVisible(isVisible);
-		boxAmount2.setVisible(isVisible);
-		areaSend.setVisible(isVisible);
-		areaCardNum.setVisible(isVisible);
-		areaAmount.setVisible(isVisible);
-		boxCardNum.setVisible(isVisible);
-		//areaBalance.setText();
 	}
 };
 

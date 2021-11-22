@@ -10,9 +10,28 @@
 
 using namespace sf;
 
+class PutCashMenuController;
+
 class PutCashMenu : public Menu {
 
 private:
+
+	friend class PutCashMenuController;
+
+	Button btn1000;
+	Button btn500;
+	Button btn200;
+	Button btn100;
+	Button btn50;
+	Button btn20;
+
+	std::vector<Button> buttons;
+
+	Button btnOkCash;
+	Button btnCancel;
+	TextArea areaCash;
+
+	double insertSum = 0.0;
 
 	void init()
 	{
@@ -66,22 +85,38 @@ private:
 		buttons = { btn1000, btn500, btn200, btn100, btn50, btn20 };
 	}
 
+	void addMoney(sf::String money) {
+		insertSum += stod(std::string(money));
+		std::string line(std::to_string(insertSum));
+		line.pop_back();
+		line.pop_back();
+		line.pop_back();
+		line.pop_back();
+		areaCash.setText("Your insert:\n\n" + line + " hrn");
+	}
+
+	void clearSum() {
+		insertSum = 0;
+		areaCash.setText("Your insert:\n\n0.00 hrn");
+	}
+
+	std::vector<Button>& getButtons()
+	{
+		return buttons;
+	}
+
+	void setVisibleAllMembers(bool isVisible) override
+	{
+		btnOkCash.setVisible(isVisible);
+		btnCancel.setVisible(isVisible);
+		areaCash.setVisible(isVisible);
+		for (auto& button : buttons)
+		{
+			button.setVisible(isVisible);
+		}
+	}
+
 public:
-
-	Button btn1000;
-	Button btn500;
-	Button btn200;
-	Button btn100;
-	Button btn50;
-	Button btn20;
-
-	std::vector<Button> buttons;
-
-	Button btnOkCash;
-	Button btnCancel;
-	TextArea areaCash;
-
-	double insertSum = 0.0;
 
 	explicit PutCashMenu() { init(); }
 
@@ -97,39 +132,6 @@ public:
 		for (auto const& button : buttons)
 		{
 			target.draw(button);
-		}
-	}
-
-	void addMoney(sf::String money) {
-		insertSum += stod(std::string(money));
-		std::string line(std::to_string(insertSum));
-		line.pop_back();
-		line.pop_back();
-		line.pop_back();
-		line.pop_back();
-		areaCash.setText("Your insert:\n\n" + line +" hrn");
-	}
-
-	void clearSum() {
-		insertSum = 0;
-		areaCash.setText("Your insert:\n\n0.00 hrn");
-	}
-
-	std::vector<Button>& getButtons()
-	{
-		return buttons;
-	}
-
-private:
-
-	void setVisibleAllMembers(bool isVisible) override
-	{
-		btnOkCash.setVisible(isVisible);
-		btnCancel.setVisible(isVisible);
-		areaCash.setVisible(isVisible);
-		for (auto& button : buttons)
-		{
-			button.setVisible(isVisible);
 		}
 	}
 };

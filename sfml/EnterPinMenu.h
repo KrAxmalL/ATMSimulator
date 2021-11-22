@@ -10,9 +10,17 @@
 
 using namespace sf;
 
+class EnterPinController;
+
 class EnterPinMenu : public Menu {
 
 private:
+
+	friend class EnterPinController;
+
+	Button btnOkPin;
+	TextArea areaPin;
+	Textbox boxCardPin;
 
 	void init()
 	{
@@ -35,11 +43,14 @@ private:
 		boxCardPin.setlimit(true, 4);
 	}
 
-public:
+	void setVisibleAllMembers(bool isVisible) override
+	{
+		btnOkPin.setVisible(isVisible);
+		boxCardPin.setVisible(isVisible);
+		areaPin.setVisible(isVisible);
+	}
 
-	Button btnOkPin;
-	TextArea areaPin;
-	Textbox boxCardPin;
+public:
 
 	explicit EnterPinMenu() { init(); }
 
@@ -52,14 +63,4 @@ public:
 		target.draw(boxCardPin);
 		target.draw(errBox);
 	}
-
-private:
-
-	void setVisibleAllMembers(bool isVisible) override
-	{
-		btnOkPin.setVisible(isVisible);
-		boxCardPin.setVisible(isVisible);
-		areaPin.setVisible(isVisible);
-	}
-
 };

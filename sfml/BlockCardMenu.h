@@ -1,10 +1,18 @@
 #pragma once
 #include "Menu.h"
 
+class BlockCardMenuController;
+
 class BlockCardMenu : public Menu
 {
 
 private:
+
+	friend class BlockCardMenuController;
+
+	Button btnOk;
+	Button btnCancel;
+	TextArea acceptText;
 
 	void init()
 	{
@@ -32,10 +40,6 @@ private:
 	}
 
 public:
-
-	Button btnOk;
-	Button btnCancel;
-	TextArea acceptText;
 
 	void draw(sf::RenderTarget& target, sf::RenderStates states) const override
 	{

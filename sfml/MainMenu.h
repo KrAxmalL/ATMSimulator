@@ -11,9 +11,15 @@
 
 using namespace sf;
 
+class MainMenuController;
+
 class MainMenu : public Menu {
 
 private:
+
+    friend class MainMenuController;
+
+    TextArea areaWelcome;
 
     Button btnf1;
     Button btnf2;
@@ -76,9 +82,21 @@ private:
         buttons = { btnf1, btnf2, btnf3, btnf4, btnf5, btnf6, btnf7, btnf8 };
     }
 
-public:
+    void setVisibleAllMembers(bool isVisible) override
+    {
+        for (auto& button : buttons)
+        {
+            button.setVisible(isVisible);
+        }
+        areaWelcome.setVisible(isVisible);
+    }
 
-    TextArea areaWelcome;
+    std::vector<Button>& getButtons()
+    {
+        return buttons;
+    }
+
+public:
 
     explicit MainMenu() { init(); }
 
@@ -91,21 +109,5 @@ public:
             target.draw(button);
         }
         target.draw(areaWelcome);
-    }
-
-    std::vector<Button>& getButtons()
-    {
-        return buttons;
-    }
-
-private:
-
-    void setVisibleAllMembers(bool isVisible) override
-    {
-        for (auto& button : buttons)
-        {
-            button.setVisible(isVisible);
-        }
-        areaWelcome.setVisible(isVisible);
     }
 };
