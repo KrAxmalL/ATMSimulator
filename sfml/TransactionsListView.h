@@ -1,7 +1,6 @@
 #ifndef TRANSACTIONSLISTVIEW_H
 #define TRANSACTIONSLISTVIEW_H
 
-
 #include <iostream> 
 #include <SFML/Graphics.hpp>
 #include <utility>
@@ -16,7 +15,6 @@ using std::vector;
 using std::string;
 
 using transactionIter = typename vector<Transaction>::const_iterator;
-
 
 class TransactionsListView : public Drawable 
 {
